@@ -50,11 +50,11 @@ def test_checkpoint_requires_explicit_fan_identity(tmp_path):
     save_checkpoint(path, {"version": 8, "solver_protocol": {"backend":"FAN","protocol_version":"fan_verilog_v2"}})
     with pytest.raises(ValueError, match="unsupported"):
         load_checkpoint(path)
-    save_checkpoint(path, {"version": 9})
+    save_checkpoint(path, {"version": 10})
     with pytest.raises(ValueError, match="not a FAN"):
         load_checkpoint(path)
-    save_checkpoint(path, {"version": 9, "solver_protocol": PROTOCOL_CONFIG})
-    assert load_checkpoint(path)["version"] == 9
+    save_checkpoint(path, {"version": 10, "solver_protocol": PROTOCOL_CONFIG})
+    assert load_checkpoint(path)["version"] == 10
 
 
 def _manifest_entry():

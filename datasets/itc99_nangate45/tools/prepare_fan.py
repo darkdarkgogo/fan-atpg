@@ -96,5 +96,8 @@ body += ['  assign ' + a + ' = ' + b + ';' for a, b in aliases]
 out = '// Nangate45 fullscan capture view; async RN/SN tied inactive. Raw functional netlist retained.\n'
 out += 'module ' + circuit + '(' + ', '.join(inputs + outputs) + ');\n'
 out += '\n'.join(declarations + body) + '\nendmodule\n'
-(root / 'FAN_ATPG/netlist' / (circuit + '_nangate45.v')).write_text(out)
+directory=root/'FAN_ATPG/netlist'
+if (directory/'test'/(circuit+'_nangate45.v')).exists():
+    directory=directory/'test'
+(directory / (circuit + '_nangate45.v')).write_text(out)
 print(circuit, len(cells), 'cells', len(ffs), 'scan FFs', flush=True)

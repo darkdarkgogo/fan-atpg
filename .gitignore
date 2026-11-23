@@ -13,3 +13,9 @@ dist/
 datasets/fan_features/
 datasets/verilog_features/
 third_party/**/.git/
+FAN_ATPG/**/bin/
+FAN_ATPG/**/lib/
+*.o
+*.a
+*.d
+*.log

@@ -1,0 +1,80 @@
+{
+  "version": 2,
+  "backend": "FAN",
+  "input_format": "verilog",
+  "cpp_fan_dir": "../FAN_ATPG",
+  "circuits": [
+    {
+      "name": "b12_nangate45",
+      "netlist": "../FAN_ATPG/netlist/test/b12_nangate45.v",
+      "library": "../FAN_ATPG/techlib/mod_nangate45.mdt",
+      "graph": "../datasets/verilog_features/test/a365d938794f3404/b12_nangate45/9fc4d4e4226a4297/b12_nangate45.graph.json",
+      "embeddings": "../datasets/verilog_features/test/a365d938794f3404/b12_nangate45/9fc4d4e4226a4297/b12_nangate45.fault_embeddings.npz",
+      "metadata": "../datasets/verilog_features/test/a365d938794f3404/b12_nangate45/9fc4d4e4226a4297/b12_nangate45.faults.json"
+    },
+    {
+      "name": "b14_nangate45",
+      "netlist": "../FAN_ATPG/netlist/test/b14_nangate45.v",
+      "library": "../FAN_ATPG/techlib/mod_nangate45.mdt",
+      "graph": "../datasets/verilog_features/test/a365d938794f3404/b14_nangate45/88743cb5cd335fcc/b14_nangate45.graph.json",
+      "embeddings": "../datasets/verilog_features/test/a365d938794f3404/b14_nangate45/88743cb5cd335fcc/b14_nangate45.fault_embeddings.npz",
+      "metadata": "../datasets/verilog_features/test/a365d938794f3404/b14_nangate45/88743cb5cd335fcc/b14_nangate45.faults.json"
+    },
+    {
+      "name": "b15_nangate45",
+      "netlist": "../FAN_ATPG/netlist/test/b15_nangate45.v",
+      "library": "../FAN_ATPG/techlib/mod_nangate45.mdt",
+      "graph": "../datasets/verilog_features/test/a365d938794f3404/b15_nangate45/1bf2e01d4eb8b9f3/b15_nangate45.graph.json",
+      "embeddings": "../datasets/verilog_features/test/a365d938794f3404/b15_nangate45/1bf2e01d4eb8b9f3/b15_nangate45.fault_embeddings.npz",
+      "metadata": "../datasets/verilog_features/test/a365d938794f3404/b15_nangate45/1bf2e01d4eb8b9f3/b15_nangate45.faults.json"
+    },
+    {
+      "name": "b17_nangate45",
+      "netlist": "../FAN_ATPG/netlist/test/b17_nangate45.v",
+      "library": "../FAN_ATPG/techlib/mod_nangate45.mdt",
+      "graph": "../datasets/verilog_features/test/a365d938794f3404/b17_nangate45/453968dce066cf62/b17_nangate45.graph.json",
+      "embeddings": "../datasets/verilog_features/test/a365d938794f3404/b17_nangate45/453968dce066cf62/b17_nangate45.fault_embeddings.npz",
+      "metadata": "../datasets/verilog_features/test/a365d938794f3404/b17_nangate45/453968dce066cf62/b17_nangate45.faults.json"
+    },
+    {
+      "name": "b18_nangate45",
+      "netlist": "../FAN_ATPG/netlist/test/b18_nangate45.v",
+      "library": "../FAN_ATPG/techlib/mod_nangate45.mdt",
+      "graph": "../datasets/verilog_features/test/a365d938794f3404/b18_nangate45/a432da3b9bfb4870/b18_nangate45.graph.json",
+      "embeddings": "../datasets/verilog_features/test/a365d938794f3404/b18_nangate45/a432da3b9bfb4870/b18_nangate45.fault_embeddings.npz",
+      "metadata": "../datasets/verilog_features/test/a365d938794f3404/b18_nangate45/a432da3b9bfb4870/b18_nangate45.faults.json"
+    },
+    {
+      "name": "b19_nangate45",
+      "netlist": "../FAN_ATPG/netlist/test/b19_nangate45.v",
+      "library": "../FAN_ATPG/techlib/mod_nangate45.mdt",
+      "graph": "../datasets/verilog_features/test/a365d938794f3404/b19_nangate45/ef2acc8930c79e09/b19_nangate45.graph.json",
+      "embeddings": "../datasets/verilog_features/test/a365d938794f3404/b19_nangate45/ef2acc8930c79e09/b19_nangate45.fault_embeddings.npz",
+      "metadata": "../datasets/verilog_features/test/a365d938794f3404/b19_nangate45/ef2acc8930c79e09/b19_nangate45.faults.json"
+    },
+    {
+      "name": "b20_nangate45",
+      "netlist": "../FAN_ATPG/netlist/test/b20_nangate45.v",
+      "library": "../FAN_ATPG/techlib/mod_nangate45.mdt",
+      "graph": "../datasets/verilog_features/test/a365d938794f3404/b20_nangate45/ac29b9d7e3810003/b20_nangate45.graph.json",
+      "embeddings": "../datasets/verilog_features/test/a365d938794f3404/b20_nangate45/ac29b9d7e3810003/b20_nangate45.fault_embeddings.npz",
+      "metadata": "../datasets/verilog_features/test/a365d938794f3404/b20_nangate45/ac29b9d7e3810003/b20_nangate45.faults.json"
+    },
+    {
+      "name": "b21_nangate45",
+      "netlist": "../FAN_ATPG/netlist/test/b21_nangate45.v",
+      "library": "../FAN_ATPG/techlib/mod_nangate45.mdt",
+      "graph": "../datasets/verilog_features/test/a365d938794f3404/b21_nangate45/470f84dbc35556a8/b21_nangate45.graph.json",
+      "embeddings": "../datasets/verilog_features/test/a365d938794f3404/b21_nangate45/470f84dbc35556a8/b21_nangate45.fault_embeddings.npz",
+      "metadata": "../datasets/verilog_features/test/a365d938794f3404/b21_nangate45/470f84dbc35556a8/b21_nangate45.faults.json"
+    },
+    {
+      "name": "b22_nangate45",
+      "netlist": "../FAN_ATPG/netlist/test/b22_nangate45.v",
+      "library": "../FAN_ATPG/techlib/mod_nangate45.mdt",
+      "graph": "../datasets/verilog_features/test/a365d938794f3404/b22_nangate45/29a293a1779ced38/b22_nangate45.graph.json",
+      "embeddings": "../datasets/verilog_features/test/a365d938794f3404/b22_nangate45/29a293a1779ced38/b22_nangate45.fault_embeddings.npz",
+      "metadata": "../datasets/verilog_features/test/a365d938794f3404/b22_nangate45/29a293a1779ced38/b22_nangate45.faults.json"
+    }
+  ]
+}

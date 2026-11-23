@@ -1,0 +1,7 @@
+include setup.py
+recursive-include python *.cpp *.hpp
+recursive-include pkg/core/src *.cpp *.h
+recursive-include pkg/interface/src *.cpp *.h *.l *.y
+recursive-include include *.h
+recursive-include python/vendor *.h
+include python/vendor/pybind11/LICENSE

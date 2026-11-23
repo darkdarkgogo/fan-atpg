@@ -1,3 +1,17 @@
+# 当前流程（2026-11-23）
+
+训练只运行训练集的一轮 PPO，不加载测试集、不评估模型、不选择 best。下方2026-11-20的验证集说明属于历史记录。
+
+当前测试目录为 `FAN_ATPG/netlist/test/`，已放入 b12、b14、b15、b17、b18、b19、b20、b21、b22。原有五张文件已经移入此目录；新加入的 b14/b17/b18/b19 也由同一固定 RTL 来源和 Nangate45 库综合。
+
+目录开放，任意兼容 `.v/.sv` 文件均可加入。`python -m fault_order_rl test --checkpoint <final.pt> --test-dir <目录> --library <MDT库> --output <输出>` 会重新发现网表、准备各自特征，再进行独立测试；没有电路名字或数量白名单。`configs/fan_test.json` 是可重新生成的快照，不与训练checkpoint绑定。
+
+当前规模与原生读入/建图/功能故障目录检查记录见 `validation/reports/test_inputs.json`；原生 Linux CLI 读入/建图见 `validation_cli_load.json`。最大 b19 为185648个原语门、11491个扫描FF、1084448个未折叠功能故障。新加入四张的大规模 DeepGate2 特征及完整模型测试尚未执行，首次测试命令会准备特征。
+
+当前训练checkpoint schema10；最新用法见项目根目录 README 和 LINUX.md。旧的验证/best选择流程已移除。
+
+---
+
 # ITC99 / Nangate45 网表
 
 2026-11-20 导入。由公开 ITC99 Verilog RTL 在本机用 Yosys 0.52 + ABC 综合，

@@ -1,0 +1,6 @@
+read_lib techlib/mod_nangate45.mdt
+read_netlist /mnt/e/桌面/fan-atpg/FAN_ATPG/netlist/test/b14_nangate45.v
+report_netlist
+build_circuit --frame 1
+report_circuit
+exit

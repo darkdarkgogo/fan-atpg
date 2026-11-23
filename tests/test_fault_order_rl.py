@@ -188,7 +188,7 @@ def test_fixed_protocol_and_training_defaults():
         with pytest.raises(ValueError, match="positive integer"):
             TrainConfig(**changes).validate()
     assert TRAINING_PROTOCOL == (
-        "normalized_entropy_shuffled_multi_circuit_ppo_batch_v2")
+        "train_only_normalized_entropy_ppo_v3")
 
 
 def test_round_circuit_order_is_deterministic_distinct_and_rng_isolated():
@@ -655,8 +655,7 @@ def test_rollout_batch_collects_four_circuits_before_optimizer_update(
     monkeypatch.setattr(
         trainer_module, "save_checkpoint", recording_save_checkpoint)
     trainer = Trainer.create(
-        train_manifest, TrainConfig(), tmp_path / "run", train_env,
-        validation_manifest, validation_env)
+        train_manifest, TrainConfig(), tmp_path / "run", train_env)
     operations.clear()
     shuffled_names = [
         train_circuits[index].name
@@ -688,19 +687,11 @@ def test_rollout_batch_collects_four_circuits_before_optimizer_update(
     ppo_calls = [call for call in writer.calls if call[0].startswith("PPO/")]
     assert sorted({step for _, _, step in ppo_calls}) == [1, 2, 3, 4]
     assert ("Rollout/transition_count", 12.0, 1) in writer.calls
-    assert all(step == 1 for tag, _, step in writer.calls
-               if tag.startswith("Validation/"))
-    first_ppo_event = next(
-        index for index, item in enumerate(operations)
-        if item.startswith("event:PPO/"))
-    first_validation_event = next(
-        index for index, item in enumerate(operations)
-        if item.startswith("event:Validation/"))
-    latest_checkpoints = [
-        index for index, item in enumerate(operations)
-        if item == "checkpoint:latest.pt"]
-    assert first_ppo_event > latest_checkpoints[0]
-    assert first_validation_event > latest_checkpoints[1]
+    assert not any(tag.startswith("Validation/") for tag,_,_ in writer.calls)
+    first_ppo_event = next(i for i,item in enumerate(operations) if item.startswith("event:PPO/"))
+    first_checkpoint = operations.index("checkpoint:latest.pt")
+    assert first_ppo_event > first_checkpoint
+    assert not validation_env.starts
 
 
 def test_checkpoint_failure_writes_no_tensorboard_events(tmp_path, monkeypatch):
@@ -722,8 +713,7 @@ def test_checkpoint_failure_writes_no_tensorboard_events(tmp_path, monkeypatch):
         trainer_module, "_create_summary_writer", lambda path: writer)
     output = tmp_path / "run"
     trainer = Trainer.create(
-        train_manifest, TrainConfig(), output, train_env,
-        validation_manifest, validation_env)
+        train_manifest, TrainConfig(), output, train_env)
 
     def fail_checkpoint(path, state):
         raise OSError("injected checkpoint failure")
@@ -738,31 +728,6 @@ def test_checkpoint_failure_writes_no_tensorboard_events(tmp_path, monkeypatch):
     committed = load_checkpoint(output / "latest.pt")
     assert committed["global_optimizer_step"] == 0
     assert committed["global_rollout_batch_step"] == 0
-
-
-def test_validation_tensorboard_reduction_uses_ratio_of_totals():
-    trainer = Trainer.__new__(Trainer)
-    trainer.writer = _RecordingWriter()
-    trainer.validation_native_metrics = {
-        "small": {"pattern_count": 10},
-        "large": {"pattern_count": 30},
-    }
-    report = {
-        "totals": {
-            "pattern_count": 20,
-            "fault_coverage": 0.975,
-            "covered_equivalent_faults": 390,
-        },
-        "coverage_shortfall": 2,
-        "eligible": False,
-    }
-
-    trainer._write_validation_events(report, 3)
-
-    assert ("Validation/pattern_reduction_pct_total", 50.0, 3) in (
-        trainer.writer.calls)
-    assert ("Validation/coverage_shortfall", 2.0, 3) in trainer.writer.calls
-    assert ("Validation/coverage_eligible", 0.0, 3) in trainer.writer.calls
 
 
 def test_train_closes_tensorboard_writer_when_step_raises():
@@ -854,10 +819,9 @@ def test_rollout_batch_checkpoint_resume_validation_best_and_final(
         trainer_module, "_create_summary_writer", create_writer)
     output = tmp_path / "run"
     trainer = Trainer.create(
-        train_manifest, TrainConfig(), output, train_env,
-        validation_manifest, validation_env)
+        train_manifest, TrainConfig(), output, train_env)
     initial = load_checkpoint(output / "latest.pt")
-    assert initial["version"] == 9
+    assert initial["version"] == 10
     assert initial["global_optimizer_step"] == 0
     assert initial["global_rollout_batch_step"] == 0
     assert initial["training_protocol"] == TRAINING_PROTOCOL
@@ -871,8 +835,7 @@ def test_rollout_batch_checkpoint_resume_validation_best_and_final(
     save_checkpoint(output / "legacy-latest.pt", legacy)
     with pytest.raises(ValueError, match="PODEM checkpoints"):
         Trainer.resume(
-            output / "legacy-latest.pt", environment=train_env,
-            validation_environment=validation_env)
+            output / "legacy-latest.pt", environment=train_env)
     with pytest.raises(ValueError, match="PODEM checkpoints"):
         evaluate_checkpoint(output / "legacy-latest.pt", tmp_path / "legacy-evaluation",
                             environment=validation_env)
@@ -888,8 +851,7 @@ def test_rollout_batch_checkpoint_resume_validation_best_and_final(
     initial_parameters = copy.deepcopy(committed["model"])
 
     resumed = Trainer.resume(
-        output / "latest.pt", environment=train_env,
-        validation_environment=validation_env)
+        output / "latest.pt", environment=train_env)
     assert resumed.next_circuit_index == 0
     assert resumed._round_circuit_indices(1) == round_order
     assert all(torch.equal(initial_parameters[key], resumed.model.state_dict()[key])
@@ -911,8 +873,7 @@ def test_rollout_batch_checkpoint_resume_validation_best_and_final(
     ).exists()
 
     resumed = Trainer.resume(
-        output / "latest.pt", environment=train_env,
-        validation_environment=validation_env)
+        output / "latest.pt", environment=train_env)
     assert resumed.next_circuit_index == 4
     assert resumed.global_optimizer_step == 4
     assert resumed.global_rollout_batch_step == 1
@@ -929,47 +890,32 @@ def test_rollout_batch_checkpoint_resume_validation_best_and_final(
     committed_round = load_checkpoint(output / "latest.pt")
     assert committed_round["global_optimizer_step"] == 8
     assert committed_round["global_rollout_batch_step"] == 2
-    assert (output / "best.pt").is_file()
-    best = load_checkpoint(output / "best.pt")
-    assert best["kind"] == "best"
-    assert best["policy"] == POLICY_IDENTITY
-    assert "optimizer" not in best and "rng" not in best
-    assert all(name.startswith("validation")
-               for name in best["evaluation"]["circuits"])
-
-    validation_starts_before_train = len(validation_env.starts)
-    report = resumed.train()
-    assert len(validation_env.starts) == validation_starts_before_train
-    assert validation_starts_before_train == 2  # native baseline and one model validation
-    assert writers[-1].closed
-    assert resumed.writer is None
-    final = load_checkpoint(output / "final.pt")
-    assert resumed.round == 1
-    assert final["kind"] == "final"
-    assert final["round"] == 1
+    assert not (output / "best.pt").exists()
+    def forbidden_evaluation(*args, **kwargs):
+        raise AssertionError("training must not evaluate a model")
+    monkeypatch.setattr(resumed,"evaluate_model",forbidden_evaluation)
+    report=resumed.train()
+    assert not validation_env.starts
+    assert writers[-1].closed and resumed.writer is None
+    final=load_checkpoint(output/"final.pt")
+    assert final["kind"]=="final" and final["round"]==1
     assert "optimizer" not in final and "rng" not in final
-    assert report["checkpoint_kind"] == "best"
-    best_report = evaluate_checkpoint(
-        output / "best.pt", tmp_path / "evaluate-best",
-        environment=validation_env)
-    final_report = evaluate_checkpoint(
-        output / "final.pt", tmp_path / "evaluate-final",
-        environment=validation_env)
-    assert best_report["checkpoint_kind"] == "best"
-    assert final_report["checkpoint_kind"] == "final"
+    assert "best" not in final and "validation_manifest_path" not in final
+    assert report["checkpoint_kind"]=="final" and report["model_evaluation_executed"] is False
+    # A separate test manifest can use arbitrary names and can change after training.
+    test_report=evaluate_checkpoint(output/"final.pt",tmp_path/"test-one",environment=validation_env,manifest=validation_manifest)
+    assert test_report["checkpoint_kind"]=="final"
+    assert len(validation_env.starts)==2
+    added=_circuit(tmp_path,"arbitrary_added_circuit","new-test-digest")
+    validation_env.circuits.append(added)
+    _manifest(validation_manifest,["validation_a","arbitrary_added_circuit"])
+    test_report=evaluate_checkpoint(output/"final.pt",tmp_path/"test-two",environment=validation_env,manifest=validation_manifest)
+    assert set(test_report["circuits"])=={"validation_a","arbitrary_added_circuit"}
+    resumed_again=Trainer.resume(output/"latest.pt",environment=train_env)
+    assert resumed_again.round==1
 
 
-def test_training_validation_overlap_is_rejected(tmp_path, monkeypatch):
-    circuit = _circuit(tmp_path, "same", "same-digest")
-    train_env = _FakeEnvironment([circuit])
-    validation_env = _FakeEnvironment([circuit])
-    train_manifest = _manifest(tmp_path / "train.json", ["same"])
-    validation_manifest = _manifest(tmp_path / "validation.json", ["same"])
-    from fault_order_rl import trainer as trainer_module
-    monkeypatch.setattr(
-        trainer_module, "load_all_circuits",
-        lambda manifest, environment: environment.circuits)
-    with pytest.raises(ValueError, match="independent"):
-        Trainer(
-            train_manifest, TrainConfig(), tmp_path / "run", train_env,
-            validation_manifest, validation_env)
+def test_trainer_does_not_accept_test_configuration(tmp_path):
+    import inspect
+    assert "validation_manifest" not in inspect.signature(Trainer.create).parameters
+    assert "validation_environment" not in inspect.signature(Trainer.resume).parameters

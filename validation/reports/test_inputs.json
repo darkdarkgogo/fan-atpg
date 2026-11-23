@@ -1,0 +1,86 @@
+{
+  "circuits": [
+    {
+      "name": "b12_nangate45",
+      "netlist": "FAN_ATPG/netlist/test/b12_nangate45.v",
+      "sha256": "83df395a8b5ed2dea6c29c76ae88fe1b7e18b3dffd93f5c1d1c64d22769d5c97",
+      "native_gates": 1624,
+      "scan_ffs": 193,
+      "catalog_rows": 8696,
+      "functional_faults": 8696
+    },
+    {
+      "name": "b14_nangate45",
+      "netlist": "FAN_ATPG/netlist/test/b14_nangate45.v",
+      "sha256": "9b718c91178374d18dcb99e3a220eb94958633ae475999c424e4c69486b371de",
+      "native_gates": 4230,
+      "scan_ffs": 314,
+      "catalog_rows": 23642,
+      "functional_faults": 23642
+    },
+    {
+      "name": "b15_nangate45",
+      "netlist": "FAN_ATPG/netlist/test/b15_nangate45.v",
+      "sha256": "7c61349583d52ed9d5b0439ff92e399130fbd568061fa2de1c20528662df2583",
+      "native_gates": 13078,
+      "scan_ffs": 839,
+      "catalog_rows": 76230,
+      "functional_faults": 76230
+    },
+    {
+      "name": "b17_nangate45",
+      "netlist": "FAN_ATPG/netlist/test/b17_nangate45.v",
+      "sha256": "e96425972dea0c7e4dd2d3cd3563c48fd7c567b67f9705016fed5664db23bfa8",
+      "native_gates": 39848,
+      "scan_ffs": 2581,
+      "catalog_rows": 233044,
+      "functional_faults": 233044
+    },
+    {
+      "name": "b18_nangate45",
+      "netlist": "FAN_ATPG/netlist/test/b18_nangate45.v",
+      "sha256": "362a4a47e3556c6edc4e95921b6d902e2d8dc7c3211711a5a449fe72b759a1a8",
+      "native_gates": 96709,
+      "scan_ffs": 5745,
+      "catalog_rows": 564930,
+      "functional_faults": 564930
+    },
+    {
+      "name": "b19_nangate45",
+      "netlist": "FAN_ATPG/netlist/test/b19_nangate45.v",
+      "sha256": "47fdfb820be712ef4d552ebe00f5af96a844677138e52fc03a7126999bf158b2",
+      "native_gates": 185648,
+      "scan_ffs": 11491,
+      "catalog_rows": 1084448,
+      "functional_faults": 1084448
+    },
+    {
+      "name": "b20_nangate45",
+      "netlist": "FAN_ATPG/netlist/test/b20_nangate45.v",
+      "sha256": "5b8b908a1412e1d499b151f1b97a3525559084832cdcee9eea3335c936dcf7b0",
+      "native_gates": 9362,
+      "scan_ffs": 628,
+      "catalog_rows": 52904,
+      "functional_faults": 52904
+    },
+    {
+      "name": "b21_nangate45",
+      "netlist": "FAN_ATPG/netlist/test/b21_nangate45.v",
+      "sha256": "09ad2fbe43400d6f02f3ec6b3cebe8a764f82664e147cfaed1d4247dffbfa590",
+      "native_gates": 9103,
+      "scan_ffs": 628,
+      "catalog_rows": 51542,
+      "functional_faults": 51542
+    },
+    {
+      "name": "b22_nangate45",
+      "netlist": "FAN_ATPG/netlist/test/b22_nangate45.v",
+      "sha256": "022c286a81bcbfe76231aad9fff59603d5d1ee578933d0edd13707d4300d2d7b",
+      "native_gates": 13887,
+      "scan_ffs": 910,
+      "catalog_rows": 78818,
+      "functional_faults": 78818
+    }
+  ],
+  "training_executed": false
+}

@@ -68,7 +68,7 @@ def load_checkpoint(path):
         raise ValueError("PODEM checkpoints cannot be reused with FAN; retraining is required")
     if isinstance(state, dict) and state.get("version") == 7:
         raise ValueError("BENCH schema 7 checkpoints cannot be reused with Verilog; retraining is required")
-    if not isinstance(state, dict) or state.get("version") != 9:
+    if not isinstance(state, dict) or state.get("version") != 10:
         raise ValueError("unsupported fault-order checkpoint")
     protocol = state.get("solver_protocol", {})
     if protocol.get("backend") != "FAN" or protocol.get("protocol_version") != "fan_verilog_fullscan_v3":

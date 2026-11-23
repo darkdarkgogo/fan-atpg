@@ -46,8 +46,24 @@
       "sha256": "1c6080c7d671a39609b1b86a8d08f5c6dd15e726afa4e1739526994d6a0b443e"
     },
     {
+      "file": "datasets/itc99_nangate45/rtl/b14.v",
+      "sha256": "a5cc888296862cdfb9286f3f433df2872f71ba447004a5b84657faf7d230d2a6"
+    },
+    {
       "file": "datasets/itc99_nangate45/rtl/b15.v",
       "sha256": "c03092728efceb5006ca2af1cb7ec82fa16da4dc00bcd1a685556d3614bc930b"
+    },
+    {
+      "file": "datasets/itc99_nangate45/rtl/b17.v",
+      "sha256": "daab6786b17473e0e12d56b8dd34091ed491844f1e773ef80a452a0ccd1a22b9"
+    },
+    {
+      "file": "datasets/itc99_nangate45/rtl/b18.v",
+      "sha256": "67cd63508ca431fa22c7e5126410be1b57a1092118dc8fbc536775484d00bf70"
+    },
+    {
+      "file": "datasets/itc99_nangate45/rtl/b19.v",
+      "sha256": "41d93fb5d8af8fd4b07c9d18911029ff4d75a46f2fe8688e7b7aee09492fc9a8"
     },
     {
       "file": "datasets/itc99_nangate45/rtl/b20.v",
@@ -79,8 +95,49 @@
     },
     {
       "file": "datasets/itc99_nangate45/tools/prepare_fan.py",
-      "sha256": "991807c71736acc9cb798f79bc0e4f59d7334538720ee5b14a584b1ad213ad29"
+      "sha256": "0661e9699ec131b2d311524ea6b3a2ce59f089c7c94edb4006b0a78600cc216d"
     }
   ],
-  "capture_view": "RN/SN tied to LOGIC1_X1; QN consumers use explicit INV on Q; unreachable unknown aliases removed only when unused"
+  "capture_view": "RN/SN tied to LOGIC1_X1; QN consumers use explicit INV on Q; unreachable unknown aliases removed only when unused",
+  "test_directory": "FAN_ATPG/netlist/test",
+  "test_discovery": "All .v/.sv files; no circuit-name or count whitelist",
+  "training": "One pass by default; no test evaluation or best-model selection",
+  "test_netlists": [
+    {
+      "path": "FAN_ATPG/netlist/test/b12_nangate45.v",
+      "sha256": "83df395a8b5ed2dea6c29c76ae88fe1b7e18b3dffd93f5c1d1c64d22769d5c97"
+    },
+    {
+      "path": "FAN_ATPG/netlist/test/b14_nangate45.v",
+      "sha256": "9b718c91178374d18dcb99e3a220eb94958633ae475999c424e4c69486b371de"
+    },
+    {
+      "path": "FAN_ATPG/netlist/test/b15_nangate45.v",
+      "sha256": "7c61349583d52ed9d5b0439ff92e399130fbd568061fa2de1c20528662df2583"
+    },
+    {
+      "path": "FAN_ATPG/netlist/test/b17_nangate45.v",
+      "sha256": "e96425972dea0c7e4dd2d3cd3563c48fd7c567b67f9705016fed5664db23bfa8"
+    },
+    {
+      "path": "FAN_ATPG/netlist/test/b18_nangate45.v",
+      "sha256": "362a4a47e3556c6edc4e95921b6d902e2d8dc7c3211711a5a449fe72b759a1a8"
+    },
+    {
+      "path": "FAN_ATPG/netlist/test/b19_nangate45.v",
+      "sha256": "47fdfb820be712ef4d552ebe00f5af96a844677138e52fc03a7126999bf158b2"
+    },
+    {
+      "path": "FAN_ATPG/netlist/test/b20_nangate45.v",
+      "sha256": "5b8b908a1412e1d499b151f1b97a3525559084832cdcee9eea3335c936dcf7b0"
+    },
+    {
+      "path": "FAN_ATPG/netlist/test/b21_nangate45.v",
+      "sha256": "09ad2fbe43400d6f02f3ec6b3cebe8a764f82664e147cfaed1d4247dffbfa590"
+    },
+    {
+      "path": "FAN_ATPG/netlist/test/b22_nangate45.v",
+      "sha256": "022c286a81bcbfe76231aad9fff59603d5d1ee578933d0edd13707d4300d2d7b"
+    }
+  ]
 }

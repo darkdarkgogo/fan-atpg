@@ -1,26 +1,46 @@
 [
   {
-    "circuit": "b12",
+    "circuit": "b12_nangate45",
     "passed": true,
     "returncode": 0
   },
   {
-    "circuit": "b15",
+    "circuit": "b14_nangate45",
     "passed": true,
     "returncode": 0
   },
   {
-    "circuit": "b20",
+    "circuit": "b15_nangate45",
     "passed": true,
     "returncode": 0
   },
   {
-    "circuit": "b21",
+    "circuit": "b17_nangate45",
     "passed": true,
     "returncode": 0
   },
   {
-    "circuit": "b22",
+    "circuit": "b18_nangate45",
+    "passed": true,
+    "returncode": 0
+  },
+  {
+    "circuit": "b19_nangate45",
+    "passed": true,
+    "returncode": 0
+  },
+  {
+    "circuit": "b20_nangate45",
+    "passed": true,
+    "returncode": 0
+  },
+  {
+    "circuit": "b21_nangate45",
+    "passed": true,
+    "returncode": 0
+  },
+  {
+    "circuit": "b22_nangate45",
     "passed": true,
     "returncode": 0
   }

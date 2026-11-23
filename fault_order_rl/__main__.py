@@ -1,4 +1,4 @@
-"""Command line entry point: validate, train, evaluate."""
+"""Command line entry point: validate inputs, train once, test independently."""
 
 import argparse
 import json
@@ -7,8 +7,10 @@ import sys
 
 from .data import load_all_circuits, load_manifest
 from .environment import FanEnvironment
-from .trainer import (DEFAULT_VALIDATION_MANIFEST, TrainConfig, Trainer,
+from .trainer import (TrainConfig, Trainer,
                       evaluate_checkpoint)
+from .testing import (DEFAULT_TEST_DIR, DEFAULT_LIBRARY, discover_test_manifest,
+                      prepare_test_features)
 
 
 def _print_evaluation_by_circuit(report):
@@ -47,7 +49,7 @@ def main(argv=None):
             "Dynamic BFS-filtered ranked-DTC actor-critic PPO with FAN: configurable rounds, "
             "4-circuit rollout batches, 128-transition PPO minibatches, "
             "normalized entropy, TensorBoard monitoring, Primary backtrack=100, "
-            "DTC secondary backtrack=50, schema=9"
+            "DTC secondary backtrack=50, schema=10; training has no test evaluation"
         ))
     commands = parser.add_subparsers(dest="command", required=True)
     validate = commands.add_parser("validate", help="Validate all artifacts without ATPG episodes")
@@ -58,16 +60,14 @@ def main(argv=None):
     source.add_argument("--resume", type=Path)
     train.add_argument("--output", type=Path)
     train.add_argument("--rounds", type=int, default=None, help="Positive training rounds (default: 1)")
-    train.add_argument(
-        "--validation-manifest", type=Path,
-        default=DEFAULT_VALIDATION_MANIFEST,
-        help="Independent validation split used only for best selection")
     evaluate = commands.add_parser(
-        "evaluate", help="Fresh deterministic best/latest evaluation and rank export")
+        "test", aliases=["evaluate"], help="Independent testing of final/latest on arbitrary netlists")
     evaluate.add_argument("--checkpoint", type=Path, required=True)
     evaluate.add_argument("--manifest", type=Path,
                           help="Evaluate the checkpoint on a separate manifest")
     evaluate.add_argument("--output", type=Path)
+    evaluate.add_argument("--test-dir",type=Path,default=DEFAULT_TEST_DIR)
+    evaluate.add_argument("--library",type=Path,default=DEFAULT_LIBRARY)
     args = parser.parse_args(argv)
     try:
         if args.command == "validate":
@@ -83,15 +83,12 @@ def main(argv=None):
                 if args.output is None:
                     raise ValueError("new training requires --output")
                 trainer = Trainer.create(
-                    args.manifest, TrainConfig(rounds=1 if args.rounds is None else args.rounds), args.output,
-                    validation_manifest=args.validation_manifest)
+                    args.manifest, TrainConfig(rounds=1 if args.rounds is None else args.rounds), args.output)
             report = trainer.train()
-            print(json.dumps({"checkpoint_kind": report.get("checkpoint_kind", "best"),
+            print(json.dumps({"checkpoint_kind": report["checkpoint_kind"],
                               "round": report["round"],
-                              "coverage_eligible": report.get("coverage_eligible", report.get("eligible")),
-                              "coverage_shortfall": report.get("coverage_shortfall", 0),
-                              "patterns": report["totals"]["pattern_count"],
-                              "pattern_reduction": report["pattern_reduction"]}, indent=2))
+                              "model_evaluation_executed": False,
+                              "training_patterns": report["totals"]["pattern_count"]}, indent=2))
         else:
             if args.output is not None:
                 output = args.output
@@ -100,7 +97,11 @@ def main(argv=None):
                           / ("evaluation-" + args.manifest.stem))
             else:
                 output = args.checkpoint.resolve().parent / "evaluation"
-            report = evaluate_checkpoint(args.checkpoint, output, manifest=args.manifest)
+            manifest=args.manifest
+            if manifest is None:
+                manifest=discover_test_manifest(args.test_dir,args.library,Path(output)/"test_manifest.json")
+            prepare_test_features(manifest)
+            report = evaluate_checkpoint(args.checkpoint, output, manifest=manifest)
             _print_evaluation_by_circuit(report)
     except KeyboardInterrupt:
         print("Interrupted; resume from the last committed latest.pt.", file=sys.stderr)

@@ -1,7 +1,6 @@
 param(
     [string]$Python = 'C:\Users\acer\.conda\envs\d2l\python.exe',
-    [string]$TrainManifest = 'configs/fan_train.json',
-    [string]$ValidationManifest = 'configs/fan_validation_full.json',
+    [string]$TrainManifest = 'configs/fan_train_full.json',
     [string]$Output = 'runs/fan_one_round',
     [int]$Rounds = 1,
     [switch]$SkipBuild
@@ -13,11 +12,9 @@ if (-not $SkipBuild) {
     & $Python FAN_ATPG/setup.py build_ext --inplace
     if ($LASTEXITCODE -ne 0) { throw 'FAN extension build failed.' }
 }
-foreach ($manifest in @($TrainManifest, $ValidationManifest)) {
+foreach ($manifest in @($TrainManifest)) {
     & $Python scripts/prepare_fan_data.py --manifest $manifest
     if ($LASTEXITCODE -ne 0) { throw "Feature export failed: $manifest" }
 }
-& $Python -m fault_order_rl train --manifest $TrainManifest --validation-manifest $ValidationManifest --rounds $Rounds --output $Output
-if ($LASTEXITCODE -ne 0) { throw 'FAN training or validation failed.' }
-& $Python validation/verify_run.py --run $Output --train-manifest $TrainManifest --validation-manifest $ValidationManifest
-if ($LASTEXITCODE -ne 0) { throw 'Independent pattern verification failed.' }
+& $Python -m fault_order_rl train --manifest $TrainManifest --rounds $Rounds --output $Output
+if ($LASTEXITCODE -ne 0) { throw 'FAN training failed.' }

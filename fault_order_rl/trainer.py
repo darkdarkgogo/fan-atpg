@@ -27,14 +27,11 @@ from .reward import (compute_gae, normalize_advantages, ppo_objective,
 
 
 POLICY_IDENTITY = "fan_verilog_dynamic_bfs_ranked_dtc_actor_critic_ppo_v2"
-TRAINING_PROTOCOL = "normalized_entropy_shuffled_multi_circuit_ppo_batch_v2"
+TRAINING_PROTOCOL = "train_only_normalized_entropy_ppo_v3"
 SOLVER_PROTOCOL = {
     **PROTOCOL_CONFIG,
     "compression_algorithm_version": "stuck_at_fan_bfs_ranked_dtc_monotonic_v1",
 }
-DEFAULT_VALIDATION_MANIFEST = (
-    Path(__file__).resolve().parents[1] / "configs" / "fan_validation_full.json"
-)
 
 
 def _create_summary_writer(log_dir):
@@ -93,7 +90,7 @@ def eligible(report, states):
 
 
 def evaluation_key(report):
-    """Coverage-first best-model key required by the strict design."""
+    """Legacy report comparison utility; never used to select training models."""
     return (report["coverage_shortfall"], report["totals"]["pattern_count"])
 
 
@@ -193,8 +190,7 @@ def _check_split_independence(training, validation):
 
 
 class Trainer:
-    def __init__(self, manifest, config, output, environment=None,
-                 validation_manifest=None, validation_environment=None):
+    def __init__(self, manifest, config, output, environment=None):
         config.validate()
         self.config = config
         self.manifest = load_manifest(manifest)
@@ -204,29 +200,8 @@ class Trainer:
         self.output = Path(output).resolve()
         self.provenance = {c.name: c.artifact_digest for c in self.circuits}
 
-        self.validation_manifest = None
-        self.validation_environment = None
-        self.validation_circuits = []
-        self.validation_provenance = {}
-        if validation_manifest is not None:
-            self.validation_manifest = load_manifest(validation_manifest)
-            if self.validation_manifest.path == self.manifest.path:
-                raise ValueError("training and validation manifests must be different")
-            self.validation_environment = validation_environment or environment or FanEnvironment(
-                self.validation_manifest.module_dir, config.backtrack_limit, 14)
-            self.validation_circuits = load_all_circuits(
-                self.validation_manifest, self.validation_environment)
-            self.validation_provenance = {
-                c.name: c.artifact_digest for c in self.validation_circuits
-            }
-            _check_split_independence(self.circuits, self.validation_circuits)
-
         module_path = getattr(getattr(self.environment, "module", None), "__file__", None)
         self.solver_digest = _sha256(module_path) if module_path else None
-        validation_module_path = getattr(
-            getattr(self.validation_environment, "module", None), "__file__", None)
-        self.validation_solver_digest = (
-            _sha256(validation_module_path) if validation_module_path else None)
         torch.set_num_threads(config.threads)
         torch.use_deterministic_algorithms(True)
         self.model = FaultActorCritic()
@@ -234,11 +209,8 @@ class Trainer:
         self.round = 0
         self.next_circuit_index = 0
         self.states = {}
-        self.validation_states = {}
         self.native_metrics = {}
-        self.validation_native_metrics = {}
-        self.best = None
-        self.last_validation_report = None
+        self.last_training_report = None
         self.run_id = uuid.uuid4().hex
         self.global_optimizer_step = 0
         self.global_rollout_batch_step = 0
@@ -258,19 +230,14 @@ class Trainer:
         return tuple(indices)
 
     @classmethod
-    def create(cls, manifest, config, output, environment=None,
-               validation_manifest=None, validation_environment=None):
+    def create(cls, manifest, config, output, environment=None):
         output = Path(output).resolve()
         if output.exists() and any(output.iterdir()):
             raise ValueError("output directory is not empty; use --resume or a new directory")
         random.seed(config.seed)
         np.random.seed(config.seed)
         torch.manual_seed(config.seed)
-        validation_manifest = (
-            DEFAULT_VALIDATION_MANIFEST if validation_manifest is None
-            else validation_manifest)
-        self = cls(manifest, config, output, environment, validation_manifest,
-                   validation_environment)
+        self = cls(manifest, config, output, environment)
         for circuit in self.circuits:
             progress("BASELINE", "start", split="train", circuit=circuit.name)
             metrics, elapsed = self._run_native(
@@ -284,58 +251,38 @@ class Trainer:
                 "native_covered_equivalent_faults": metrics[
                     "covered_equivalent_faults"]
             }
-        for circuit in self.validation_circuits:
-            progress("BASELINE", "start", split="validation", circuit=circuit.name)
-            metrics, elapsed = self._run_native(
-                circuit, self.validation_environment, "baseline-validation")
-            progress(
-                "BASELINE", "done", split="validation", circuit=circuit.name,
-                elapsed_s="{:.3f}".format(elapsed),
-            )
-            self.validation_native_metrics[circuit.name] = metrics
-            self.validation_states[circuit.name] = {
-                "native_covered_equivalent_faults": metrics[
-                    "covered_equivalent_faults"]
-            }
         save_checkpoint(self.output / "latest.pt", self._payload())
         self.writer = _create_summary_writer(self.output / "tensorboard")
         return self
 
     @classmethod
-    def resume(cls, checkpoint, rounds=None, environment=None,
-               validation_environment=None):
+    def resume(cls, checkpoint, rounds=None, environment=None):
         checkpoint = Path(checkpoint).resolve()
         saved = load_checkpoint(checkpoint)
         if saved.get("kind") != "latest":
             raise ValueError("resume requires a latest training checkpoint")
-        if saved.get("version") != 9:
+        if saved.get("version") != 10:
             raise ValueError(
-                "resume requires schema 9 FAN training; "
+                "resume requires schema 10 train-only FAN training; "
                 "older checkpoints remain evaluation-only")
         config = TrainConfig(**saved["config"])
         if rounds is not None:
             if rounds != config.rounds:
                 raise ValueError("resume cannot change the saved round target")
         self = cls(
-            saved["manifest_path"], config, checkpoint.parent, environment,
-            saved["validation_manifest_path"], validation_environment)
+            saved["manifest_path"], config, checkpoint.parent, environment)
         self._check_compatibility(saved)
         self.model.load_state_dict(saved["model"])
         self.optimizer.load_state_dict(saved["optimizer"])
         self.round = saved["round"]
         self.next_circuit_index = saved["next_circuit_index"]
         self.states = saved["states"]
-        self.validation_states = saved["validation_states"]
         self.native_metrics = saved["native_metrics"]
-        self.validation_native_metrics = saved["validation_native_metrics"]
-        self.best = saved["best"]
-        self.last_validation_report = saved["last_validation_report"]
+        self.last_training_report = saved["last_training_report"]
         self.run_id = saved["run_id"]
         self.global_optimizer_step = saved["global_optimizer_step"]
         self.global_rollout_batch_step = saved["global_rollout_batch_step"]
         restore_rng(saved["rng"])
-        if self.best is not None:
-            self._publish_best()
         if self.round == self.config.rounds and self.next_circuit_index == 0:
             self._publish_final()
         self.writer = _create_summary_writer(self.output / "tensorboard")
@@ -350,14 +297,8 @@ class Trainer:
             (saved["training_circuit_order"],
              [circuit.name for circuit in self.circuits],
              "checkpoint training circuit order changed"),
-            (saved["validation_manifest_digest"], self.validation_manifest.digest,
-             "checkpoint validation manifest changed"),
-            (saved["validation_artifacts"], self.validation_provenance,
-             "checkpoint validation artifacts changed"),
             (saved["solver_digest"], self.solver_digest,
              "checkpoint FAN binary changed"),
-            (saved["validation_solver_digest"], self.validation_solver_digest,
-             "checkpoint validation FAN binary changed"),
             (saved["torch_version"], str(torch.__version__),
              "checkpoint PyTorch version changed"),
             (saved.get("policy"), POLICY_IDENTITY,
@@ -691,9 +632,9 @@ class Trainer:
 
     def evaluate_model(self, model, round_number, circuits=None,
                        environment=None, states=None):
-        circuits = self.validation_circuits if circuits is None else circuits
-        environment = self.validation_environment if environment is None else environment
-        states = self.validation_states if states is None else states
+        circuits = self.circuits if circuits is None else circuits
+        environment = self.environment if environment is None else environment
+        states = self.states if states is None else states
         results, exports = {}, {}
         model.eval()
         with torch.no_grad():
@@ -716,16 +657,6 @@ class Trainer:
             "totals": _evaluation_totals(results),
         }
         return _coverage_summary(report, states), exports
-
-    @staticmethod
-    def _choose_best(best, model, report):
-        if best is None or evaluation_key(report) < evaluation_key(best["report"]):
-            return {
-                "model": copy.deepcopy(model.state_dict()),
-                "report": copy.deepcopy(report),
-                "key": evaluation_key(report),
-            }
-        return best
 
     def _record(self, circuit, circuit_index, round_number, metrics, elapsed,
                 trajectory, decisions, reward_summary, ppo_summary,
@@ -792,28 +723,6 @@ class Trainer:
             "Rollout/episode_steps_mean",
             float(np.mean([len(rollout["decisions"]) for rollout in rollouts])),
             rollout_step)
-        self.writer.flush()
-
-    def _write_validation_events(self, report, round_number):
-        if self.writer is None:
-            return
-        native_patterns = sum(
-            metrics["pattern_count"]
-            for metrics in self.validation_native_metrics.values())
-        model_patterns = report["totals"]["pattern_count"]
-        reduction_pct = (
-            100.0 * (native_patterns - model_patterns) / native_patterns
-            if native_patterns else 0.0)
-        metrics = {
-            "Validation/pattern_reduction_pct_total": reduction_pct,
-            "Validation/fault_coverage": report["totals"]["fault_coverage"],
-            "Validation/covered_equivalent_faults": report["totals"][
-                "covered_equivalent_faults"],
-            "Validation/coverage_shortfall": report["coverage_shortfall"],
-            "Validation/coverage_eligible": float(report["eligible"]),
-        }
-        for tag, value in metrics.items():
-            self.writer.add_scalar(tag, value, round_number)
         self.writer.flush()
 
     def step(self):
@@ -905,29 +814,30 @@ class Trainer:
                 critic_loss="{:.6g}".format(ppo_summary["critic_loss"]),
             )
 
-        report, exports = self.evaluate_model(self.model, number)
-        best = self._choose_best(self.best, self.model, report)
-        payload = self._payload(
-            round_number=number, next_circuit_index=0, best=best)
-        payload["last_validation_report"] = copy.deepcopy(report)
-        self._write_validation(number, report, exports)
+        # Reuse persisted rollout metrics; never rerun the model for selection.
+        directory = self.output / "rounds" / "round-{:06d}".format(number)
+        episodes = [json.loads(path.read_text(encoding="utf-8"))
+                    for path in sorted(directory.glob("circuit-*.json"))]
+        results = {record["circuit"]: record for record in episodes}
+        report = {"round": number, "circuits": results,
+                  "totals": _evaluation_totals(results), "kind": "training",
+                  "model_evaluation_executed": False}
+        payload = self._payload(round_number=number, next_circuit_index=0)
+        payload["last_training_report"] = report
         save_checkpoint(self.output / "latest.pt", payload)
         self.round = number
         self.next_circuit_index = 0
-        self.best = best
-        self.last_validation_report = copy.deepcopy(report)
-        self._write_validation_events(report, number)
-        self._publish_best()
-        return records + [{"kind": "validation", "report": report}]
+        self.last_training_report = report
+        return records
 
     def _payload(self, model=None, optimizer=None, round_number=None,
-                  next_circuit_index=None, best=None,
+                  next_circuit_index=None,
                   global_optimizer_step=None,
                   global_rollout_batch_step=None):
         model = self.model if model is None else model
         optimizer = self.optimizer if optimizer is None else optimizer
         return {
-            "version": 9,
+            "version": 10,
             "kind": "latest",
             "run_id": self.run_id,
             "policy": POLICY_IDENTITY,
@@ -937,11 +847,7 @@ class Trainer:
             "manifest_path": str(self.manifest.path),
             "manifest_digest": self.manifest.digest,
             "artifacts": self.provenance,
-            "validation_manifest_path": str(self.validation_manifest.path),
-            "validation_manifest_digest": self.validation_manifest.digest,
-            "validation_artifacts": self.validation_provenance,
             "solver_digest": self.solver_digest,
-            "validation_solver_digest": self.validation_solver_digest,
             "torch_version": str(torch.__version__),
             "config": asdict(self.config),
             "round": self.round if round_number is None else round_number,
@@ -961,18 +867,12 @@ class Trainer:
                 else global_rollout_batch_step),
             "training_circuit_order": [
                 circuit.name for circuit in self.circuits],
-            "validation_circuit_order": [
-                circuit.name for circuit in self.validation_circuits],
             "model": copy.deepcopy(model.state_dict()),
             "optimizer": copy.deepcopy(optimizer.state_dict()),
             "states": copy.deepcopy(self.states),
-            "validation_states": copy.deepcopy(self.validation_states),
             "native_metrics": copy.deepcopy(self.native_metrics),
-            "validation_native_metrics": copy.deepcopy(
-                self.validation_native_metrics),
             "rng": capture_rng(),
-            "last_validation_report": copy.deepcopy(self.last_validation_report),
-            "best": copy.deepcopy(self.best if best is None else best),
+            "last_training_report": copy.deepcopy(self.last_training_report),
         }
 
     def _write_circuit(self, number, index, record, decisions):
@@ -1025,67 +925,26 @@ class Trainer:
         write_npz(stem.with_suffix(".npz"), **arrays)
         write_json(stem.with_suffix(".json"), record)
 
-    def _write_validation(self, number, report, exports):
-        output = self.output / "validation" / "round-{:06d}".format(number)
-        validation_report = _add_native_comparison(
-            report, self.validation_native_metrics,
-            self.validation_states, "validation")
-        validation_report["validation_manifest"] = str(
-            self.validation_manifest.path)
-        validation_report["validation_manifest_digest"] = (
-            self.validation_manifest.digest)
-        _write_evaluation(output, validation_report, exports)
-
-    def _derived_payload(self, kind, model_state, round_number, evaluation):
+    def _publish_final(self):
         payload = self._payload()
         payload.pop("optimizer")
         payload.pop("rng")
-        payload.pop("best")
-        payload["kind"] = kind
-        payload["model"] = copy.deepcopy(model_state)
-        payload["round"] = round_number
-        payload["next_circuit_index"] = 0
-        payload["evaluation"] = copy.deepcopy(evaluation)
-        payload["validation_key"] = evaluation_key(evaluation)
-        return payload
-
-    def _publish_best(self):
-        if self.best is None:
-            return
-        payload = self._derived_payload(
-            "best", self.best["model"], self.best["report"]["round"],
-            self.best["report"])
-        save_checkpoint(self.output / "best.pt", payload)
-
-    def _publish_final(self, report=None):
-        if report is None:
-            report = self.last_validation_report
-            if report is None:
-                raise ValueError("final checkpoint requires a completed validation")
-        payload = self._derived_payload(
-            "final", self.model.state_dict(), self.round, report)
+        payload["kind"] = "final"
         save_checkpoint(self.output / "final.pt", payload)
 
     def train(self):
         try:
             while self.round < self.config.rounds:
-                records = self.step()
-                episodes = [record for record in records
-                            if record["kind"] == "episode"]
-                validation = records[-1]["report"]
-                print(
-                    "round {}/{}: train_patterns={}, validation_shortfall={}, "
-                    "validation_patterns={}".format(
-                        self.round, self.config.rounds,
-                        sum(record["pattern_count"] for record in episodes),
-                        validation["coverage_shortfall"],
-                        validation["totals"]["pattern_count"]),
-                    flush=True)
+                self.step()
+                print("round {}/{}: train_patterns={}".format(
+                    self.round, self.config.rounds,
+                    self.last_training_report["totals"]["pattern_count"]), flush=True)
             self._publish_final()
-            best_report = copy.deepcopy(self.best["report"])
-            return _complete_report(
-                best_report, self.output / "best.pt",
-                self.validation_native_metrics, self.validation_states, "best")
+            report = copy.deepcopy(self.last_training_report)
+            report["checkpoint_kind"] = "final"
+            report["checkpoint"] = str(self.output / "final.pt")
+            write_json(self.output / "training_summary.json", report)
+            return report
         finally:
             if self.writer is not None:
                 self.writer.flush()
@@ -1184,7 +1043,7 @@ def _standalone_evaluator(saved, output, manifest, environment):
     config_values = dict(saved["config"])
     trainer = Trainer(
         manifest, TrainConfig(**config_values), output, environment,
-        validation_manifest=None)
+        )
     if saved["solver_digest"] != trainer.solver_digest:
         raise ValueError("checkpoint FAN binary changed")
     if saved["torch_version"] != str(torch.__version__):
@@ -1198,40 +1057,22 @@ def _standalone_evaluator(saved, output, manifest, environment):
 
 
 def evaluate_checkpoint(checkpoint, output, environment=None, manifest=None):
+    """Independent testing, with no saved test identity or model selection."""
     checkpoint = Path(checkpoint).resolve()
     saved = load_checkpoint(checkpoint)
     checkpoint_kind = saved.get("kind")
-    if checkpoint_kind not in ("best", "latest", "final"):
-        raise ValueError("evaluation requires best.pt, latest.pt, or final.pt")
-    latest_path = checkpoint.parent / "latest.pt"
-    if checkpoint_kind == "best" and latest_path.is_file():
-        latest = load_checkpoint(latest_path)
-        if latest.get("run_id") == saved.get("run_id"):
-            expected = latest.get("best")
-            current = (
-                expected is not None
-                and saved.get("round") == expected["report"]["round"]
-                and saved.get("evaluation") == expected["report"]
-                and saved.get("validation_key") == expected["key"]
-                and state_dict_equal(saved["model"], expected["model"])
-            )
-            if not current:
-                raise ValueError(
-                    "best.pt is stale relative to latest.pt; resume latest.pt to repair it")
-    saved_validation = manifest is None
-    evaluation_manifest = (
-        Path(manifest).resolve() if manifest is not None
-        else Path(saved["validation_manifest_path"]).resolve())
+    if checkpoint_kind not in ("latest", "final"):
+        raise ValueError("testing requires latest.pt or final.pt")
+    if manifest is None:
+        from .testing import discover_test_manifest, prepare_test_features
+        evaluation_manifest = discover_test_manifest(output=Path(output)/"test_manifest.json")
+        prepare_test_features(evaluation_manifest)
+    else:
+        evaluation_manifest = Path(manifest).resolve()
     rng = capture_rng()
     try:
         trainer = _standalone_evaluator(
             saved, output, evaluation_manifest, environment)
-        if saved_validation and (
-                trainer.manifest.digest != saved["validation_manifest_digest"]
-                or trainer.provenance != saved["validation_artifacts"]
-                or trainer.solver_digest != saved["validation_solver_digest"]):
-            raise ValueError(
-                "checkpoint validation manifest, artifacts, or solver changed")
         native_metrics = {}
         states = {}
         for circuit in trainer.circuits:
@@ -1244,18 +1085,6 @@ def evaluate_checkpoint(checkpoint, output, environment=None, manifest=None):
         report, exports = trainer.evaluate_model(
             trainer.model, saved["round"], trainer.circuits,
             trainer.environment, states)
-        expected_report = saved.get("evaluation")
-        if saved_validation and checkpoint_kind in ("best", "final"):
-            if expected_report is None:
-                raise ValueError("checkpoint is missing its validation report")
-            for name, metrics in report["circuits"].items():
-                expected_metrics = expected_report["circuits"].get(name)
-                if expected_metrics is None or any(
-                        metrics[key] != value
-                        for key, value in expected_metrics.items()
-                        if key != "seconds"):
-                    raise RuntimeError(
-                        "fresh validation differs from the saved checkpoint report")
         report["training_manifest"] = saved["manifest_path"]
         report["training_manifest_digest"] = saved["manifest_digest"]
         report["evaluation_manifest"] = str(trainer.manifest.path)
