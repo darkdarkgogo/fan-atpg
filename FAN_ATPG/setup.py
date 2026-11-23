@@ -39,4 +39,7 @@ sources += ["pkg/interface/src/" + stem + ".cpp" for stem in ("cell", "primitive
 sources += ["python/generated/" + stem + suffix for stem in PARSERS for suffix in (".tab.cpp", ".yy.cpp")]
 setup(name="cpp-fan", version="0.2.0", ext_modules=[Extension("cpp_fan", sources,
     include_dirs=[str(ROOT/"pkg/core/src"), str(INTERFACE), str(GENERATED), str(ROOT/"include"), str(ROOT/"python/vendor/pybind11/include")],
-    define_macros=[("YY_NO_UNISTD_H", "1"), ("YY_NEVER_INTERACTIVE", "1")], language="c++")], cmdclass={"build_ext": BuildExt})
+    # Windows scanners use <io.h>; POSIX scanners need <unistd.h> for isatty.
+    # These generated snapshots do not use YY_NEVER_INTERACTIVE to guard it.
+    define_macros=[("YY_NO_UNISTD_H", "1")] if os.name == "nt" else [],
+    language="c++")], cmdclass={"build_ext": BuildExt})
