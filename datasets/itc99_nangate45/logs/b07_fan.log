@@ -1,0 +1,170 @@
+#  ==========================================================================
+#
+#                                   FAN ATPG
+#
+#                Copyright(c) Laboratory of Dependable Systems,
+#                Graduate Institute of Electronics Engineering,
+#                          National Taiwan University
+#                             All Rights Reserved.
+#
+#  ==========================================================================
+#
+#  Kernel:   Linux
+#  Platform: unknown
+#  Memory:   7864.76 MB
+#
+/b07.script 1> read_lib techlib/mod_nangate45.mdt
+#  Reading technology library ...
+#  Finished reading library `techlib/mod_nangate45.mdt'    0.008797 s    10.125 MB
+/b07.script 2> read_netlist -v netlist/b07_nangate45.v
+#  Reading netlist ...
+#  Finished reading netlist `netlist/b07_nangate45.v'    0.008451 s    11.543 MB
+/b07.script 3> report_netlist
+#  netlist information
+#    number of modules: 1
+#    modules:           b07
+#    current module:    b07
+#    number of ports:   14
+#    number of cells:   361
+#    number of nets:    367
+/b07.script 4> build_circuit --frame 1
+#  Building circuit ...
+#  Finished building circuit    0.002355 s    11.6719 MB
+/b07.script 5> report_circuit
+#  circuit information
+#    netlist:         b07
+#    number of PIs:   2
+#    number of PPIs:  45
+#    number of POs:   8
+#    number of combs: 330
+#    number of gates: 430
+#    number of nets:  856
+/b07.script 6> set_fault_type saf
+#  fault type set to stuck-at fault
+/b07.script 7> add_fault --all
+#  Building fault list ...
+#  Finished building fault list    0.000101 s    11.8945 MB
+/b07.script 8> set_static_compression on
+#  static compression set to on
+/b07.script 9> set_dynamic_compression on
+#  dynamic compression set to on
+/b07.script 10> set_X-Fill on
+#  X-Fill set to on
+/b07.script 11> run_atpg
+#  Performing pattern generation ...
+#  Finished pattern generation    0.012478 s    12.3164 MB
+/b07.script 12> report_statistics
+#                 Statistics Report
+#  Circuit name                                  b07
+#  Fault model                                   SAF
+#  Pattern type                                BASIC
+#  -------------------------------------------------
+#  Fault classes                             #faults
+#  ----------------------------  -------------------
+#    FU (full)                                  2286
+#    FU (collapsed)                             1719
+#    --------------------------  -------------------
+#    UD (undetected)                              90
+#    PT (possibly testable)                        0
+#    AU (atpg untestable)                         10
+#    RE (redundant)                                0
+#    AB (atpg abort)                               0
+#    TI (tied)                                     0
+#    --------------------------  -------------------
+#    DT (detected)                              2186
+#  -------------------------------------------------
+#  Coverage                               percentage
+#    --------------------------  -------------------
+#    test coverage                            96.05%
+#    fault coverage                           95.63%
+#    atpg effectiveness                       96.06%
+#  -------------------------------------------------
+#  #Patterns                                      38
+#  -------------------------------------------------
+#  ATPG runtime                            0.01248 s
+#  -------------------------------------------------
+/b07.script 13> exit
+#  Goodbye
+#  Runtime        real 0.04824 s        user 0.01218 s        sys 0.01163 s
+#  Memory         peak 12.32 MB
+**WARN VlogNlBuilder::addCell(): net `b07/_const0_' set as wire
+**WARN VlogNlBuilder::addCell(): net `b07/_const1_' set as wire
+**WARN Techlib::check(): port `b07/_657_/QN' unconnected
+**WARN Techlib::check(): port `b07/_658_/QN' unconnected
+**WARN Techlib::check(): port `b07/_659_/QN' unconnected
+**WARN Techlib::check(): port `b07/_660_/QN' unconnected
+**WARN Techlib::check(): port `b07/_661_/QN' unconnected
+**WARN Techlib::check(): port `b07/_662_/QN' unconnected
+**WARN Techlib::check(): port `b07/_663_/QN' unconnected
+**WARN Techlib::check(): port `b07/_664_/QN' unconnected
+**WARN Techlib::check(): port `b07/_665_/QN' unconnected
+**WARN Techlib::check(): port `b07/_666_/QN' unconnected
+**WARN Techlib::check(): port `b07/_667_/QN' unconnected
+**WARN Techlib::check(): port `b07/_668_/QN' unconnected
+**WARN Techlib::check(): port `b07/_669_/QN' unconnected
+**WARN Techlib::check(): port `b07/_670_/QN' unconnected
+**WARN Techlib::check(): port `b07/_671_/QN' unconnected
+**WARN Techlib::check(): port `b07/_672_/QN' unconnected
+**WARN Techlib::check(): port `b07/_673_/QN' unconnected
+**WARN Techlib::check(): port `b07/_674_/QN' unconnected
+**WARN Techlib::check(): port `b07/_675_/QN' unconnected
+**WARN Techlib::check(): port `b07/_676_/QN' unconnected
+**WARN Techlib::check(): port `b07/_677_/QN' unconnected
+**WARN Techlib::check(): port `b07/_678_/QN' unconnected
+**WARN Techlib::check(): port `b07/_679_/QN' unconnected
+**WARN Techlib::check(): port `b07/_680_/QN' unconnected
+**WARN Techlib::check(): port `b07/_681_/QN' unconnected
+**WARN Techlib::check(): port `b07/_682_/QN' unconnected
+**WARN Techlib::check(): port `b07/_683_/QN' unconnected
+**WARN Techlib::check(): port `b07/_684_/QN' unconnected
+**WARN Techlib::check(): port `b07/_685_/QN' unconnected
+**WARN Techlib::check(): port `b07/_686_/QN' unconnected
+**WARN Techlib::check(): port `b07/_687_/QN' unconnected
+**WARN Techlib::check(): port `b07/_688_/QN' unconnected
+**WARN Techlib::check(): port `b07/_689_/QN' unconnected
+**WARN Techlib::check(): port `b07/_690_/QN' unconnected
+**WARN Techlib::check(): port `b07/_691_/QN' unconnected
+**WARN Techlib::check(): port `b07/_692_/QN' unconnected
+**WARN Techlib::check(): port `b07/_693_/QN' unconnected
+**WARN Techlib::check(): port `b07/_694_/QN' unconnected
+**WARN Techlib::check(): port `b07/_695_/QN' unconnected
+**WARN Techlib::check(): port `b07/_696_/QN' unconnected
+**WARN Techlib::check(): port `b07/_697_/QN' unconnected
+**WARN Techlib::check(): port `b07/_698_/QN' unconnected
+**WARN Techlib::check(): port `b07/_699_/QN' unconnected
+**WARN Techlib::check(): port `b07/_700_/QN' unconnected
+**WARN Techlib::check(): port `b07/_701_/QN' unconnected
+**WARN Netlist::check(): cell `b07/_tie__const0_' contains tie cell primitives
+**WARN Netlist::check(): cell `b07/_tie__const1_' contains tie cell primitives
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0

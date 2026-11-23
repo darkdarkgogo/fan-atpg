@@ -1,0 +1,11 @@
+# FAN fault reorder migration design
+
+Approved scope: full migration from E:/桌面/fault-reorder/reorderATPG to this workspace, with one training round and one validation round (user 2026-11-20).
+
+Keep the official pinned DeepGate2 encoder, 257-dimensional fault features, 515-dimensional state, actor-critic PPO, executed DTC prefix probability, coverage-first reward, validation, TensorBoard, and atomic checkpoints. Introduce a real FAN native backend, not a renamed PODEM binary. FAN reads original binary combinational BENCH (scan-cut circuits supported as combinational boundaries), exports its own collapsed catalog and equivalent counts, exposes stateful primary steps and BFS-filtered ranked DTC, then coverage-preserving STC. Unsupported circuits fail clearly.
+
+Native Python module cpp_fan mirrors the existing catalog/session/phase/result structural contract. Compatibility result fields containing podem are documented aliases for FAN calls. Protocol identifies FAN and prevents old PODEM checkpoint reuse. Catalog faults contain fault_id, node_name, input_wire_name, io (integer GO=1/GI=0), input_index, input_occurrence, fault_type, eqv_fault_num. Native IDs use original BENCH gate and pin names with deterministic ordering. Catalog must drive newly generated FAN feature metadata.
+
+Native entry points: catalog_stuck_at(circuit_path, fault_map_path=''); run_stuck_at_ordered(circuit_path,fault_map_path,ordered_fault_ids,backtrack_limit=100,seed=14,dtc_enabled=True,stc_enabled=True); StuckAtSession with same construction, catalog/config/remaining_fault_ids/begin_step/rank_dtc_candidates/step/result. Session returns phases and counts compatible with fault_order_rl/environment.py, with protocol changes explicit. Accepted PI cube may only refine X; rollback and fault simulation must preserve previous accepted detections.
+
+Validate native behavior and independent fault simulation, feature/catalog alignment, train/validation separation, one actual PPO training round and exactly one model validation pass. Baselines are needed for both splits and are not additional training rounds. Store runnable commands, logs, checkpoint, and JSON summary. No claims that a single round proves a benefit.

@@ -1,0 +1,143 @@
+#  ==========================================================================
+#
+#                                   FAN ATPG
+#
+#                Copyright(c) Laboratory of Dependable Systems,
+#                Graduate Institute of Electronics Engineering,
+#                          National Taiwan University
+#                             All Rights Reserved.
+#
+#  ==========================================================================
+#
+#  Kernel:   Linux
+#  Platform: unknown
+#  Memory:   7864.76 MB
+#
+/b11.script 1> read_lib techlib/mod_nangate45.mdt
+#  Reading technology library ...
+#  Finished reading library `techlib/mod_nangate45.mdt'    0.008294 s    10.125 MB
+/b11.script 2> read_netlist -v netlist/b11_nangate45.v
+#  Reading netlist ...
+#  Finished reading netlist `netlist/b11_nangate45.v'    0.019112 s    17.6016 MB
+/b11.script 3> report_netlist
+#  netlist information
+#    number of modules: 1
+#    modules:           b11
+#    current module:    b11
+#    number of ports:   18
+#    number of cells:   2008
+#    number of nets:    2020
+/b11.script 4> build_circuit --frame 1
+#  Building circuit ...
+#  Finished building circuit    0.00871 s    18.0586 MB
+/b11.script 5> report_circuit
+#  circuit information
+#    netlist:         b11
+#    number of PIs:   8
+#    number of PPIs:  85
+#    number of POs:   6
+#    number of combs: 1989
+#    number of gates: 2173
+#    number of nets:  4640
+/b11.script 6> set_fault_type saf
+#  fault type set to stuck-at fault
+/b11.script 7> add_fault --all
+#  Building fault list ...
+#  Finished building fault list    0.000267 s    19.3164 MB
+/b11.script 8> set_static_compression on
+#  static compression set to on
+/b11.script 9> set_dynamic_compression on
+#  dynamic compression set to on
+/b11.script 10> set_X-Fill on
+#  X-Fill set to on
+/b11.script 11> run_atpg
+#  Performing pattern generation ...
+**WARN VlogNlBuilder::addCell(): net `b11/_const0_' set as wire
+**WARN VlogNlBuilder::addCell(): net `b11/_const1_' set as wire
+**WARN Techlib::check(): port `b11/_3783_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3784_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3785_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3786_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3787_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3788_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3789_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3790_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3791_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3792_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3793_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3794_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3795_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3796_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3797_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3798_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3799_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3800_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3801_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3802_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3803_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3804_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3805_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3806_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3807_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3808_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3809_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3810_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3811_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3812_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3813_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3814_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3815_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3816_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3817_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3818_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3819_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3820_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3821_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3822_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3823_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3824_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3825_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3826_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3827_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3828_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3829_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3830_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3831_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3832_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3833_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3834_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3835_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3836_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3837_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3838_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3839_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3840_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3841_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3842_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3843_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3844_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3845_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3846_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3847_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3848_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3849_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3850_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3851_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3852_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3853_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3854_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3855_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3856_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3857_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3858_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3859_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3860_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3861_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3862_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3863_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3864_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3865_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3866_/QN' unconnected
+**WARN Techlib::check(): port `b11/_3867_/QN' unconnected
+**WARN Netlist::check(): cell `b11/_tie__const0_' contains tie cell primitives
+**WARN Netlist::check(): cell `b11/_tie__const1_' contains tie cell primitives

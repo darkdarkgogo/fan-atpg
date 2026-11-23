@@ -1,0 +1,149 @@
+#  ==========================================================================
+#
+#                                   FAN ATPG
+#
+#                Copyright(c) Laboratory of Dependable Systems,
+#                Graduate Institute of Electronics Engineering,
+#                          National Taiwan University
+#                             All Rights Reserved.
+#
+#  ==========================================================================
+#
+#  Kernel:   Linux
+#  Platform: unknown
+#  Memory:   7864.76 MB
+#
+/b09.script 1> read_lib techlib/mod_nangate45.mdt
+#  Reading technology library ...
+#  Finished reading library `techlib/mod_nangate45.mdt'    0.009242 s    10.125 MB
+/b09.script 2> read_netlist -v netlist/b09_nangate45.v
+#  Reading netlist ...
+#  Finished reading netlist `netlist/b09_nangate45.v'    0.004934 s    10.8984 MB
+/b09.script 3> report_netlist
+#  netlist information
+#    number of modules: 1
+#    modules:           b09
+#    current module:    b09
+#    number of ports:   7
+#    number of cells:   200
+#    number of nets:    206
+/b09.script 4> build_circuit --frame 1
+#  Building circuit ...
+#  Finished building circuit    0.001756 s    11.0469 MB
+/b09.script 5> report_circuit
+#  circuit information
+#    netlist:         b09
+#    number of PIs:   2
+#    number of PPIs:  30
+#    number of POs:   1
+#    number of combs: 180
+#    number of gates: 243
+#    number of nets:  491
+/b09.script 6> set_fault_type saf
+#  fault type set to stuck-at fault
+/b09.script 7> add_fault --all
+#  Building fault list ...
+#  Finished building fault list    5.3e-05 s    11.1758 MB
+/b09.script 8> set_static_compression on
+#  static compression set to on
+/b09.script 9> set_dynamic_compression on
+#  dynamic compression set to on
+/b09.script 10> set_X-Fill on
+#  X-Fill set to on
+/b09.script 11> run_atpg
+#  Performing pattern generation ...
+#  Finished pattern generation    0.005397 s    11.4688 MB
+/b09.script 12> report_statistics
+#                 Statistics Report
+#  Circuit name                                  b09
+#  Fault model                                   SAF
+#  Pattern type                                BASIC
+#  -------------------------------------------------
+#  Fault classes                             #faults
+#  ----------------------------  -------------------
+#    FU (full)                                  1286
+#    FU (collapsed)                              978
+#    --------------------------  -------------------
+#    UD (undetected)                              60
+#    PT (possibly testable)                        0
+#    AU (atpg untestable)                          8
+#    RE (redundant)                                0
+#    AB (atpg abort)                               0
+#    TI (tied)                                     0
+#    --------------------------  -------------------
+#    DT (detected)                              1218
+#  -------------------------------------------------
+#  Coverage                               percentage
+#    --------------------------  -------------------
+#    test coverage                            95.31%
+#    fault coverage                           94.71%
+#    atpg effectiveness                       95.33%
+#  -------------------------------------------------
+#  #Patterns                                      27
+#  -------------------------------------------------
+#  ATPG runtime                           0.005397 s
+#  -------------------------------------------------
+/b09.script 13> exit
+#  Goodbye
+#  Runtime        real 0.03731 s        user 0.01108 s        sys 0.002008 s
+#  Memory         peak 11.47 MB
+**WARN VlogNlBuilder::addCell(): net `b09/_const0_' set as wire
+**WARN VlogNlBuilder::addCell(): net `b09/_const1_' set as wire
+**WARN Techlib::check(): port `b09/_358_/QN' unconnected
+**WARN Techlib::check(): port `b09/_359_/QN' unconnected
+**WARN Techlib::check(): port `b09/_360_/QN' unconnected
+**WARN Techlib::check(): port `b09/_361_/QN' unconnected
+**WARN Techlib::check(): port `b09/_362_/QN' unconnected
+**WARN Techlib::check(): port `b09/_363_/QN' unconnected
+**WARN Techlib::check(): port `b09/_364_/QN' unconnected
+**WARN Techlib::check(): port `b09/_365_/QN' unconnected
+**WARN Techlib::check(): port `b09/_366_/QN' unconnected
+**WARN Techlib::check(): port `b09/_367_/QN' unconnected
+**WARN Techlib::check(): port `b09/_368_/QN' unconnected
+**WARN Techlib::check(): port `b09/_369_/QN' unconnected
+**WARN Techlib::check(): port `b09/_370_/QN' unconnected
+**WARN Techlib::check(): port `b09/_371_/QN' unconnected
+**WARN Techlib::check(): port `b09/_372_/QN' unconnected
+**WARN Techlib::check(): port `b09/_373_/QN' unconnected
+**WARN Techlib::check(): port `b09/_374_/QN' unconnected
+**WARN Techlib::check(): port `b09/_375_/QN' unconnected
+**WARN Techlib::check(): port `b09/_376_/QN' unconnected
+**WARN Techlib::check(): port `b09/_377_/QN' unconnected
+**WARN Techlib::check(): port `b09/_378_/QN' unconnected
+**WARN Techlib::check(): port `b09/_379_/QN' unconnected
+**WARN Techlib::check(): port `b09/_380_/QN' unconnected
+**WARN Techlib::check(): port `b09/_381_/QN' unconnected
+**WARN Techlib::check(): port `b09/_382_/QN' unconnected
+**WARN Techlib::check(): port `b09/_383_/QN' unconnected
+**WARN Techlib::check(): port `b09/_384_/QN' unconnected
+**WARN Techlib::check(): port `b09/_385_/QN' unconnected
+**WARN Techlib::check(): port `b09/_386_/QN' unconnected
+**WARN Techlib::check(): port `b09/_387_/QN' unconnected
+**WARN Netlist::check(): cell `b09/_tie__const0_' contains tie cell primitives
+**WARN Netlist::check(): cell `b09/_tie__const1_' contains tie cell primitives
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0

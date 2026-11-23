@@ -1,0 +1,18 @@
+{
+  "FAN_ATPG": {
+    "wall_seconds": 0.06755710000004456,
+    "atpg_seconds": 0.055789,
+    "patterns": 78,
+    "reported_coverage_percent": 96.93,
+    "atpg_min_seconds": 0.055075,
+    "atpg_max_seconds": 0.058349
+  },
+  "PODEM": {
+    "wall_seconds": 0.058267099999966376,
+    "atpg_seconds": 0.0554311,
+    "patterns": 87,
+    "reported_coverage_percent": 96.06,
+    "atpg_min_seconds": 0.053275901,
+    "atpg_max_seconds": 0.0577381
+  }
+}

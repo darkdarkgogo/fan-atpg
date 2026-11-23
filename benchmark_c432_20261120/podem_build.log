@@ -1,0 +1,55 @@
+/home/darkdarkgogo/fan-podem-c432-20261120/podem/atpg.cpp: In member function ‘void ATPG::test()’:
+/home/darkdarkgogo/fan-podem-c432-20261120/podem/atpg.cpp:435:48: warning: unknown conversion type character ‘\x0a’ in format [-Wformat=]
+  435 |                 printf("# fault coverage: %lf %\n", (double)total_detect_num / (double)num_of_tdf_fault * 100);
+      |                                                ^~
+/home/darkdarkgogo/fan-podem-c432-20261120/podem/atpg.cpp:623:24: warning: format not a string literal and no format arguments [-Wformat-security]
+  623 |                 fprintf(stdout, vectors[i].substr(0, vectors[i].size() - 1).c_str());
+      |                 ~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/darkdarkgogo/fan-podem-c432-20261120/podem/atpg.cpp:625:24: warning: format not a string literal and no format arguments [-Wformat-security]
+  625 |                 fprintf(stdout, &vectors[i].back());
+      |                 ~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/darkdarkgogo/fan-podem-c432-20261120/podem/init_flist.cpp: In member function ‘char ATPG::itoc(const int&)’:
+/home/darkdarkgogo/fan-podem-c432-20261120/podem/init_flist.cpp:586:1: warning: control reaches end of non-void function [-Wreturn-type]
+  586 | }
+      | ^
+/home/darkdarkgogo/fan-podem-c432-20261120/podem/init_flist.cpp: In member function ‘void ATPG::create_dummy_gate()’:
+/home/darkdarkgogo/fan-podem-c432-20261120/podem/init_flist.cpp:567:31: warning: ‘%s’ directive writing up to 24 bytes into a region of size 15 [-Wformat-overflow=]
+  567 |     sprintf(sgate, "dummy_gate%s", intstring);
+      |                               ^~   ~~~~~~~~~
+In file included from /usr/include/stdio.h:974,
+                 from /usr/include/c++/15/cstdio:47,
+                 from /usr/include/c++/15/ext/string_conversions.h:47,
+                 from /usr/include/c++/15/bits/basic_string.h:4442,
+                 from /usr/include/c++/15/string:56,
+                 from /home/darkdarkgogo/fan-podem-c432-20261120/podem/atpg.h:10,
+                 from /home/darkdarkgogo/fan-podem-c432-20261120/podem/init_flist.cpp:12:
+In function ‘int sprintf(char*, const char*, ...)’,
+    inlined from ‘void ATPG::create_dummy_gate()’ at /home/darkdarkgogo/fan-podem-c432-20261120/podem/init_flist.cpp:567:12:
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:30:34: note: ‘__builtin___sprintf_chk’ output between 11 and 35 bytes into a destination of size 25
+   30 |   return __builtin___sprintf_chk (__s, __USE_FORTIFY_LEVEL - 1,
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   31 |                                   __glibc_objsize (__s), __fmt,
+      |                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   32 |                                   __va_arg_pack ());
+      |                                   ~~~~~~~~~~~~~~~~~
+/home/darkdarkgogo/fan-podem-c432-20261120/podem/init_flist.cpp: In member function ‘void ATPG::create_dummy_gate()’:
+/home/darkdarkgogo/fan-podem-c432-20261120/podem/init_flist.cpp:552:31: warning: ‘%s’ directive writing up to 24 bytes into a region of size 15 [-Wformat-overflow=]
+  552 |     sprintf(sgate, "dummy_gate%s", intstring);
+      |                               ^~   ~~~~~~~~~
+In function ‘int sprintf(char*, const char*, ...)’,
+    inlined from ‘void ATPG::create_dummy_gate()’ at /home/darkdarkgogo/fan-podem-c432-20261120/podem/init_flist.cpp:552:12:
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:30:34: note: ‘__builtin___sprintf_chk’ output between 11 and 35 bytes into a destination of size 25
+   30 |   return __builtin___sprintf_chk (__s, __USE_FORTIFY_LEVEL - 1,
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   31 |                                   __glibc_objsize (__s), __fmt,
+      |                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   32 |                                   __va_arg_pack ());
+      |                                   ~~~~~~~~~~~~~~~~~
+/home/darkdarkgogo/fan-podem-c432-20261120/podem/input.cpp: In member function ‘int ATPG::FindType(const std::string&)’:
+/home/darkdarkgogo/fan-podem-c432-20261120/podem/input.cpp:415:9: warning: control reaches end of non-void function [-Wreturn-type]
+  415 |   error("unreconizable gate type");
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~
+/home/darkdarkgogo/fan-podem-c432-20261120/podem/sim.cpp: In member function ‘int ATPG::ctoi(const char&)’:
+/home/darkdarkgogo/fan-podem-c432-20261120/podem/sim.cpp:131:1: warning: control reaches end of non-void function [-Wreturn-type]
+  131 | }
+      | ^

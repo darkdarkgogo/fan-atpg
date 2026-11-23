@@ -1,0 +1,16 @@
+{
+  "random_equivalence_vectors": 1024,
+  "common_uncollapsed_faults": 1662,
+  "FAN_ATPG": {
+    "patterns": 78,
+    "detected": 1611,
+    "total": 1662,
+    "coverage_percent": 96.93140794223827
+  },
+  "PODEM": {
+    "patterns": 87,
+    "detected": 1611,
+    "total": 1662,
+    "coverage_percent": 96.93140794223827
+  }
+}

@@ -1,0 +1,857 @@
+
+-- Running command `read_liberty -lib datasets/itc99_nangate45/tools/NangateOpenCellLibrary_base.lib; read_verilog -sv datasets/itc99_nangate45/rtl/b04.v; hierarchy -check -top b04; synth -top b04 -flatten -noabc; dfflibmap -liberty datasets/itc99_nangate45/tools/NangateOpenCellLibrary_base.lib; abc -liberty datasets/itc99_nangate45/tools/NangateOpenCellLibrary_base.lib -dont_use MUX2_X1; splitnets -ports; opt_clean; check -assert; write_verilog -noattr -noexpr datasets/itc99_nangate45/raw/b04.v' --
+
+1. Executing Liberty frontend: datasets/itc99_nangate45/tools/NangateOpenCellLibrary_base.lib
+Imported 20 cell types from liberty file.
+
+2. Executing Verilog-2005 frontend: datasets/itc99_nangate45/rtl/b04.v
+Parsing SystemVerilog input from `datasets/itc99_nangate45/rtl/b04.v' to AST representation.
+Generating RTLIL representation for module `\b04'.
+Successfully finished Verilog frontend.
+
+3. Executing HIERARCHY pass (managing design hierarchy).
+
+3.1. Analyzing design hierarchy..
+Top module:  \b04
+
+3.2. Analyzing design hierarchy..
+Top module:  \b04
+Removed 0 unused modules.
+
+4. Executing SYNTH pass.
+
+4.1. Executing HIERARCHY pass (managing design hierarchy).
+
+4.1.1. Analyzing design hierarchy..
+Top module:  \b04
+
+4.1.2. Analyzing design hierarchy..
+Top module:  \b04
+Removed 0 unused modules.
+
+4.2. Executing PROC pass (convert processes to netlists).
+
+4.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+4.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 9 switch rules as full_case in process $proc$datasets/itc99_nangate45/rtl/b04.v:24$1 in module b04.
+Removed a total of 0 dead cases.
+
+4.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 0 redundant assignments.
+Promoted 14 assignments to connections.
+
+4.2.4. Executing PROC_INIT pass (extract init attributes).
+
+4.2.5. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \RESET in `\b04.$proc$datasets/itc99_nangate45/rtl/b04.v:24$1'.
+
+4.2.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~9 debug messages>
+
+4.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\b04.$proc$datasets/itc99_nangate45/rtl/b04.v:24$1'.
+     1/34: $5\temp[31:0]
+     2/34: $5\test[31:0]
+     3/34: $5\REGD[31:0]
+     4/34: $4\temp[31:0]
+     5/34: $4\test[31:0]
+     6/34: $4\REGD[31:0]
+     7/34: $3\temp[31:0]
+     8/34: $3\REGD[31:0]
+     9/34: $3\test[31:0]
+    10/34: $3\RLAST[31:0]
+    11/34: $2\stato[1:0]
+    12/34: $2\temp[31:0]
+    13/34: $2\test[31:0]
+    14/34: $2\REGD[31:0]
+    15/34: $2\REG4[31:0]
+    16/34: $2\REG3[31:0]
+    17/34: $2\REG2[31:0]
+    18/34: $2\REG1[31:0]
+    19/34: $2\RLAST[31:0]
+    20/34: $1\temp[31:0]
+    21/34: $1\test[31:0]
+    22/34: $1\REGD[31:0]
+    23/34: $1\REG4[31:0]
+    24/34: $1\REG3[31:0]
+    25/34: $1\REG2[31:0]
+    26/34: $1\REG1[31:0]
+    27/34: $1\RLAST[31:0]
+    28/34: $1\stato[1:0]
+    29/34: $1\AVE[0:0]
+    30/34: $1\ENA[0:0]
+    31/34: $1\RES[0:0]
+    32/34: $1\RMIN[31:0]
+    33/34: $1\RMAX[31:0]
+    34/34: $0\DATA_OUT[7:0]
+
+4.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+
+4.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\b04.\DATA_OUT' using process `\b04.$proc$datasets/itc99_nangate45/rtl/b04.v:24$1'.
+  created $adff cell `$procdff$181' with positive edge clock and positive level reset.
+Creating register for signal `\b04.\stato' using process `\b04.$proc$datasets/itc99_nangate45/rtl/b04.v:24$1'.
+  created $adff cell `$procdff$184' with positive edge clock and positive level reset.
+Creating register for signal `\b04.\RMAX' using process `\b04.$proc$datasets/itc99_nangate45/rtl/b04.v:24$1'.
+  created $adff cell `$procdff$187' with positive edge clock and positive level reset.
+Creating register for signal `\b04.\RMIN' using process `\b04.$proc$datasets/itc99_nangate45/rtl/b04.v:24$1'.
+  created $adff cell `$procdff$190' with positive edge clock and positive level reset.
+Creating register for signal `\b04.\RLAST' using process `\b04.$proc$datasets/itc99_nangate45/rtl/b04.v:24$1'.
+  created $adff cell `$procdff$193' with positive edge clock and positive level reset.
+Creating register for signal `\b04.\REG1' using process `\b04.$proc$datasets/itc99_nangate45/rtl/b04.v:24$1'.
+  created $adff cell `$procdff$196' with positive edge clock and positive level reset.
+Creating register for signal `\b04.\REG2' using process `\b04.$proc$datasets/itc99_nangate45/rtl/b04.v:24$1'.
+  created $adff cell `$procdff$199' with positive edge clock and positive level reset.
+Creating register for signal `\b04.\REG3' using process `\b04.$proc$datasets/itc99_nangate45/rtl/b04.v:24$1'.
+  created $adff cell `$procdff$202' with positive edge clock and positive level reset.
+Creating register for signal `\b04.\REG4' using process `\b04.$proc$datasets/itc99_nangate45/rtl/b04.v:24$1'.
+  created $adff cell `$procdff$205' with positive edge clock and positive level reset.
+Creating register for signal `\b04.\REGD' using process `\b04.$proc$datasets/itc99_nangate45/rtl/b04.v:24$1'.
+  created $adff cell `$procdff$208' with positive edge clock and positive level reset.
+Creating register for signal `\b04.\test' using process `\b04.$proc$datasets/itc99_nangate45/rtl/b04.v:24$1'.
+  created $dff cell `$procdff$213' with positive edge clock.
+Creating register for signal `\b04.\temp' using process `\b04.$proc$datasets/itc99_nangate45/rtl/b04.v:24$1'.
+  created $adff cell `$procdff$216' with positive edge clock and positive level reset.
+Creating register for signal `\b04.\RES' using process `\b04.$proc$datasets/itc99_nangate45/rtl/b04.v:24$1'.
+  created $adff cell `$procdff$219' with positive edge clock and positive level reset.
+Creating register for signal `\b04.\AVE' using process `\b04.$proc$datasets/itc99_nangate45/rtl/b04.v:24$1'.
+  created $adff cell `$procdff$222' with positive edge clock and positive level reset.
+Creating register for signal `\b04.\ENA' using process `\b04.$proc$datasets/itc99_nangate45/rtl/b04.v:24$1'.
+  created $adff cell `$procdff$225' with positive edge clock and positive level reset.
+
+4.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+4.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 9 empty switches in `\b04.$proc$datasets/itc99_nangate45/rtl/b04.v:24$1'.
+Removing empty process `b04.$proc$datasets/itc99_nangate45/rtl/b04.v:24$1'.
+Cleaned up 9 empty switches.
+
+4.2.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module b04.
+<suppressed ~21 debug messages>
+
+4.3. Executing FLATTEN pass (flatten design).
+
+4.4. Executing OPT_EXPR pass (perform const folding).
+Optimizing module b04.
+<suppressed ~16 debug messages>
+
+4.5. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b04..
+Removed 49 unused cells and 154 unused wires.
+<suppressed ~58 debug messages>
+
+4.6. Executing CHECK pass (checking for obvious problems).
+Checking module b04...
+Found and reported 0 problems.
+
+4.7. Executing OPT pass (performing simple optimizations).
+
+4.7.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module b04.
+
+4.7.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\b04'.
+<suppressed ~57 debug messages>
+Removed a total of 19 cells.
+
+4.7.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \b04..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+    dead port 2/2 on $mux $procmux$108.
+Removed 1 multiplexer ports.
+<suppressed ~10 debug messages>
+
+4.7.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \b04.
+    New ctrl vector for $pmux cell $procmux$111: { $procmux$114_CMP $auto$opt_reduce.cc:137:opt_pmux$251 }
+  Optimizing cells in module \b04.
+Performed a total of 1 changes.
+
+4.7.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\b04'.
+Removed a total of 0 cells.
+
+4.7.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.7.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b04..
+Removed 0 unused cells and 20 unused wires.
+<suppressed ~1 debug messages>
+
+4.7.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module b04.
+
+4.7.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.7.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \b04..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~10 debug messages>
+
+4.7.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \b04.
+Performed a total of 0 changes.
+
+4.7.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\b04'.
+Removed a total of 0 cells.
+
+4.7.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.7.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b04..
+
+4.7.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module b04.
+
+4.7.16. Finished OPT passes. (There is nothing left to do.)
+
+4.8. Executing FSM pass (extract and optimize FSM).
+
+4.8.1. Executing FSM_DETECT pass (finding FSMs in design).
+Found FSM state register b04.stato.
+
+4.8.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+Extracting FSM `\stato' from module `\b04'.
+  found $adff cell for state register: $procdff$184
+  root of input selection tree: $0\stato[1:0]
+  found reset state: 2'00 (from async reset)
+  found ctrl input: $auto$opt_reduce.cc:137:opt_pmux$251
+  found ctrl input: $procmux$114_CMP
+  found state code: 2'10
+  found state code: 2'01
+  found ctrl output: $procmux$109_CMP
+  found ctrl output: $procmux$113_CMP
+  found ctrl output: $procmux$114_CMP
+  ctrl inputs: $auto$opt_reduce.cc:137:opt_pmux$251
+  ctrl outputs: { $procmux$114_CMP $procmux$113_CMP $procmux$109_CMP $0\stato[1:0] }
+  transition:       2'00 1'- ->       2'01 5'10001
+  transition:       2'10 1'- ->       2'10 5'00110
+  transition:       2'01 1'- ->       2'10 5'01010
+
+4.8.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+Optimizing FSM `$fsm$\stato$252' from module `\b04'.
+  Removing unused input signal $auto$opt_reduce.cc:137:opt_pmux$251.
+
+4.8.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b04..
+Removed 6 unused cells and 6 unused wires.
+<suppressed ~7 debug messages>
+
+4.8.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+Optimizing FSM `$fsm$\stato$252' from module `\b04'.
+  Removing unused output signal $0\stato[1:0] [0].
+  Removing unused output signal $0\stato[1:0] [1].
+  Removing unused output signal $procmux$114_CMP.
+
+4.8.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+Recoding FSM `$fsm$\stato$252' from module `\b04' using `auto' encoding:
+  mapping auto encoding to `one-hot` for this FSM.
+  00 -> --1
+  10 -> -1-
+  01 -> 1--
+
+4.8.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+
+FSM `$fsm$\stato$252' from module `b04':
+-------------------------------------
+
+  Information on FSM $fsm$\stato$252 (\stato):
+
+  Number of input signals:    0
+  Number of output signals:   2
+  Number of state bits:       3
+
+  Input signals:
+
+  Output signals:
+    0: $procmux$109_CMP
+    1: $procmux$113_CMP
+
+  State encoding:
+    0:      3'--1  <RESET STATE>
+    1:      3'-1-
+    2:      3'1--
+
+  Transition Table (state_in, ctrl_in, state_out, ctrl_out):
+      0:     0 { }   ->     2 2'00
+      1:     1 { }   ->     1 2'01
+      2:     2 { }   ->     1 2'10
+
+-------------------------------------
+
+4.8.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+Mapping FSM `$fsm$\stato$252' from module `\b04'.
+
+4.9. Executing OPT pass (performing simple optimizations).
+
+4.9.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module b04.
+
+4.9.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\b04'.
+Removed a total of 0 cells.
+
+4.9.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \b04..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~9 debug messages>
+
+4.9.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \b04.
+Performed a total of 0 changes.
+
+4.9.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\b04'.
+Removed a total of 0 cells.
+
+4.9.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $procdff$205 ($adff) from module b04 (D = $0\REG4[31:0], Q = \REG4).
+Adding EN signal on $procdff$202 ($adff) from module b04 (D = $0\REG3[31:0], Q = \REG3).
+Adding EN signal on $procdff$199 ($adff) from module b04 (D = $0\REG2[31:0], Q = \REG2).
+Adding EN signal on $procdff$196 ($adff) from module b04 (D = $0\REG1[31:0], Q = \REG1).
+Adding EN signal on $procdff$193 ($adff) from module b04 (D = $0\RLAST[31:0] [31:8], Q = \RLAST [31:8]).
+Adding EN signal on $procdff$193 ($adff) from module b04 (D = $0\RLAST[31:0] [7:0], Q = \RLAST [7:0]).
+Adding EN signal on $procdff$190 ($adff) from module b04 (D = $0\RMIN[31:0], Q = \RMIN).
+Adding EN signal on $procdff$187 ($adff) from module b04 (D = $0\RMAX[31:0], Q = \RMAX).
+Adding EN signal on $procdff$181 ($adff) from module b04 (D = $0\DATA_OUT[7:0], Q = \DATA_OUT).
+
+4.9.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b04..
+Removed 4 unused cells and 9 unused wires.
+<suppressed ~5 debug messages>
+
+4.9.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module b04.
+<suppressed ~8 debug messages>
+
+4.9.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.9.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \b04..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~9 debug messages>
+
+4.9.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \b04.
+Performed a total of 0 changes.
+
+4.9.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\b04'.
+<suppressed ~21 debug messages>
+Removed a total of 7 cells.
+
+4.9.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.9.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b04..
+Removed 0 unused cells and 7 unused wires.
+<suppressed ~1 debug messages>
+
+4.9.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module b04.
+
+4.9.16. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.9.17. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \b04..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~9 debug messages>
+
+4.9.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \b04.
+Performed a total of 0 changes.
+
+4.9.19. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\b04'.
+Removed a total of 0 cells.
+
+4.9.20. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.9.21. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b04..
+
+4.9.22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module b04.
+
+4.9.23. Finished OPT passes. (There is nothing left to do.)
+
+4.10. Executing WREDUCE pass (reducing word size of cells).
+Removed top 31 bits (of 32) from port B of cell b04.$ge$datasets/itc99_nangate45/rtl/b04.v:69$7 ($ge).
+Removed top 24 bits (of 32) from port A of cell b04.$neg$datasets/itc99_nangate45/rtl/b04.v:73$9 ($neg).
+Converting cell b04.$neg$datasets/itc99_nangate45/rtl/b04.v:73$9 ($neg) from signed to unsigned.
+Removed top 1 bits (of 8) from port A of cell b04.$neg$datasets/itc99_nangate45/rtl/b04.v:73$9 ($neg).
+Removed top 24 bits (of 32) from port Y of cell b04.$neg$datasets/itc99_nangate45/rtl/b04.v:73$11 ($neg).
+Removed top 24 bits (of 32) from port A of cell b04.$neg$datasets/itc99_nangate45/rtl/b04.v:73$11 ($neg).
+Removed top 31 bits (of 32) from port B of cell b04.$ge$datasets/itc99_nangate45/rtl/b04.v:84$16 ($ge).
+Removed top 24 bits (of 32) from port A of cell b04.$neg$datasets/itc99_nangate45/rtl/b04.v:88$18 ($neg).
+Converting cell b04.$neg$datasets/itc99_nangate45/rtl/b04.v:88$18 ($neg) from signed to unsigned.
+Removed top 1 bits (of 8) from port A of cell b04.$neg$datasets/itc99_nangate45/rtl/b04.v:88$18 ($neg).
+Removed top 24 bits (of 32) from port Y of cell b04.$neg$datasets/itc99_nangate45/rtl/b04.v:88$20 ($neg).
+Removed top 24 bits (of 32) from port A of cell b04.$neg$datasets/itc99_nangate45/rtl/b04.v:88$20 ($neg).
+Removed top 24 bits (of 32) from mux cell b04.$procmux$141 ($pmux).
+Removed top 24 bits (of 32) from port Y of cell b04.$auto$opt_expr.cc:1892:replace_const_cells$237 ($add).
+Removed top 24 bits (of 32) from port A of cell b04.$auto$opt_expr.cc:1892:replace_const_cells$237 ($add).
+Removed top 24 bits (of 32) from port Y of cell b04.$auto$opt_expr.cc:1892:replace_const_cells$249 ($add).
+Removed top 24 bits (of 32) from port A of cell b04.$auto$opt_expr.cc:1892:replace_const_cells$249 ($add).
+Removed top 24 bits (of 32) from mux cell b04.$procmux$106 ($mux).
+Removed top 24 bits (of 32) from wire b04.$0\RLAST[31:0].
+Removed top 24 bits (of 32) from wire b04.$3\RLAST[31:0].
+Removed top 24 bits (of 32) from wire b04.$div$datasets/itc99_nangate45/rtl/b04.v:73$10_Y.
+Removed top 24 bits (of 32) from wire b04.$div$datasets/itc99_nangate45/rtl/b04.v:88$19_Y.
+Removed top 24 bits (of 32) from wire b04.RLAST.
+
+4.11. Executing PEEPOPT pass (run peephole optimizers).
+
+4.12. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b04..
+Removed 0 unused cells and 5 unused wires.
+<suppressed ~1 debug messages>
+
+4.13. Executing ALUMACC pass (create $alu and $macc cells).
+Extracting $alu and $macc cells in module b04:
+  creating $macc model for $add$datasets/itc99_nangate45/rtl/b04.v:66$5 ($add).
+  creating $macc model for $add$datasets/itc99_nangate45/rtl/b04.v:81$14 ($add).
+  creating $macc model for $auto$opt_expr.cc:1892:replace_const_cells$237 ($add).
+  creating $macc model for $auto$opt_expr.cc:1892:replace_const_cells$249 ($add).
+  creating $macc model for $neg$datasets/itc99_nangate45/rtl/b04.v:73$11 ($neg).
+  creating $macc model for $neg$datasets/itc99_nangate45/rtl/b04.v:73$9 ($neg).
+  creating $macc model for $neg$datasets/itc99_nangate45/rtl/b04.v:88$18 ($neg).
+  creating $macc model for $neg$datasets/itc99_nangate45/rtl/b04.v:88$20 ($neg).
+  merging $macc model for $auto$opt_expr.cc:1892:replace_const_cells$249 into $neg$datasets/itc99_nangate45/rtl/b04.v:88$20.
+  merging $macc model for $auto$opt_expr.cc:1892:replace_const_cells$237 into $neg$datasets/itc99_nangate45/rtl/b04.v:73$11.
+  creating $alu model for $macc $neg$datasets/itc99_nangate45/rtl/b04.v:73$9.
+  creating $alu model for $macc $neg$datasets/itc99_nangate45/rtl/b04.v:88$18.
+  creating $alu model for $macc $add$datasets/itc99_nangate45/rtl/b04.v:81$14.
+  creating $alu model for $macc $add$datasets/itc99_nangate45/rtl/b04.v:66$5.
+  creating $macc cell for $neg$datasets/itc99_nangate45/rtl/b04.v:73$11: $auto$alumacc.cc:365:replace_macc$308
+  creating $macc cell for $neg$datasets/itc99_nangate45/rtl/b04.v:88$20: $auto$alumacc.cc:365:replace_macc$309
+  creating $alu model for $ge$datasets/itc99_nangate45/rtl/b04.v:69$7 ($ge): new $alu
+  creating $alu model for $ge$datasets/itc99_nangate45/rtl/b04.v:84$16 ($ge): new $alu
+  creating $alu model for $gt$datasets/itc99_nangate45/rtl/b04.v:95$21 ($gt): new $alu
+  creating $alu model for $lt$datasets/itc99_nangate45/rtl/b04.v:98$22 ($lt): new $alu
+  creating $alu cell for $lt$datasets/itc99_nangate45/rtl/b04.v:98$22: $auto$alumacc.cc:495:replace_alu$314
+  creating $alu cell for $gt$datasets/itc99_nangate45/rtl/b04.v:95$21: $auto$alumacc.cc:495:replace_alu$321
+  creating $alu cell for $ge$datasets/itc99_nangate45/rtl/b04.v:84$16: $auto$alumacc.cc:495:replace_alu$334
+  creating $alu cell for $ge$datasets/itc99_nangate45/rtl/b04.v:69$7: $auto$alumacc.cc:495:replace_alu$349
+  creating $alu cell for $add$datasets/itc99_nangate45/rtl/b04.v:66$5: $auto$alumacc.cc:495:replace_alu$364
+  creating $alu cell for $add$datasets/itc99_nangate45/rtl/b04.v:81$14: $auto$alumacc.cc:495:replace_alu$367
+  creating $alu cell for $neg$datasets/itc99_nangate45/rtl/b04.v:88$18: $auto$alumacc.cc:495:replace_alu$370
+  creating $alu cell for $neg$datasets/itc99_nangate45/rtl/b04.v:73$9: $auto$alumacc.cc:495:replace_alu$373
+  created 8 $alu and 2 $macc cells.
+
+4.14. Executing SHARE pass (SAT-based resource sharing).
+
+4.15. Executing OPT pass (performing simple optimizations).
+
+4.15.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module b04.
+<suppressed ~8 debug messages>
+
+4.15.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\b04'.
+Removed a total of 0 cells.
+
+4.15.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \b04..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~9 debug messages>
+
+4.15.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \b04.
+Performed a total of 0 changes.
+
+4.15.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\b04'.
+Removed a total of 0 cells.
+
+4.15.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.15.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b04..
+Removed 2 unused cells and 16 unused wires.
+<suppressed ~5 debug messages>
+
+4.15.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module b04.
+
+4.15.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.15.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \b04..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~9 debug messages>
+
+4.15.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \b04.
+Performed a total of 0 changes.
+
+4.15.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\b04'.
+Removed a total of 0 cells.
+
+4.15.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.15.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b04..
+
+4.15.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module b04.
+
+4.15.16. Finished OPT passes. (There is nothing left to do.)
+
+4.16. Executing MEMORY pass.
+
+4.16.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+4.16.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+4.16.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+
+4.16.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+4.16.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+
+4.16.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b04..
+
+4.16.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+4.16.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+4.16.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b04..
+
+4.16.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+4.17. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b04..
+
+4.18. Executing OPT pass (performing simple optimizations).
+
+4.18.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module b04.
+<suppressed ~13 debug messages>
+
+4.18.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\b04'.
+Removed a total of 0 cells.
+
+4.18.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.18.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b04..
+Removed 0 unused cells and 5 unused wires.
+<suppressed ~1 debug messages>
+
+4.18.5. Finished fast OPT passes.
+
+4.19. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+
+4.20. Executing OPT pass (performing simple optimizations).
+
+4.20.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module b04.
+
+4.20.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\b04'.
+Removed a total of 0 cells.
+
+4.20.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \b04..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~7 debug messages>
+
+4.20.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \b04.
+    Consolidated identical input bits for $mux cell $procmux$137:
+      Old ports: A=0, B={ \DATA_IN [7] \DATA_IN [7] \DATA_IN [7] \DATA_IN [7] \DATA_IN [7] \DATA_IN [7] \DATA_IN [7] \DATA_IN [7] \DATA_IN [7] \DATA_IN [7] \DATA_IN [7] \DATA_IN [7] \DATA_IN [7] \DATA_IN [7] \DATA_IN [7] \DATA_IN [7] \DATA_IN [7] \DATA_IN [7] \DATA_IN [7] \DATA_IN [7] \DATA_IN [7] \DATA_IN [7] \DATA_IN [7] \DATA_IN [7] \DATA_IN }, Y=$0\REG1[31:0]
+      New ports: A=8'00000000, B=\DATA_IN, Y=$0\REG1[31:0] [7:0]
+      New connections: $0\REG1[31:0] [31:8] = { $0\REG1[31:0] [7] $0\REG1[31:0] [7] $0\REG1[31:0] [7] $0\REG1[31:0] [7] $0\REG1[31:0] [7] $0\REG1[31:0] [7] $0\REG1[31:0] [7] $0\REG1[31:0] [7] $0\REG1[31:0] [7] $0\REG1[31:0] [7] $0\REG1[31:0] [7] $0\REG1[31:0] [7] $0\REG1[31:0] [7] $0\REG1[31:0] [7] $0\REG1[31:0] [7] $0\REG1[31:0] [7] $0\REG1[31:0] [7] $0\REG1[31:0] [7] $0\REG1[31:0] [7] $0\REG1[31:0] [7] $0\REG1[31:0] [7] $0\REG1[31:0] [7] $0\REG1[31:0] [7] $0\REG1[31:0] [7] }
+  Optimizing cells in module \b04.
+Performed a total of 1 changes.
+
+4.20.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\b04'.
+Removed a total of 0 cells.
+
+4.20.6. Executing OPT_SHARE pass.
+
+4.20.7. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.20.8. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b04..
+
+4.20.9. Executing OPT_EXPR pass (perform const folding).
+Optimizing module b04.
+
+4.20.10. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.20.11. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \b04..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~7 debug messages>
+
+4.20.12. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \b04.
+Performed a total of 0 changes.
+
+4.20.13. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\b04'.
+Removed a total of 0 cells.
+
+4.20.14. Executing OPT_SHARE pass.
+
+4.20.15. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.20.16. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b04..
+
+4.20.17. Executing OPT_EXPR pass (perform const folding).
+Optimizing module b04.
+
+4.20.18. Finished OPT passes. (There is nothing left to do.)
+
+4.21. Executing TECHMAP pass (map to technology primitives).
+
+4.21.1. Executing Verilog-2005 frontend: /mnt/e/桌面/fan-atpg/tmp/itc99-tools/usr/bin/../share/yosys/techmap.v
+Parsing Verilog input from `/mnt/e/桌面/fan-atpg/tmp/itc99-tools/usr/bin/../share/yosys/techmap.v' to AST representation.
+Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
+Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
+Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
+Generating RTLIL representation for module `\_90_simplemap_compare_ops'.
+Generating RTLIL representation for module `\_90_simplemap_various'.
+Generating RTLIL representation for module `\_90_simplemap_registers'.
+Generating RTLIL representation for module `\_90_shift_ops_shr_shl_sshl_sshr'.
+Generating RTLIL representation for module `\_90_shift_shiftx'.
+Generating RTLIL representation for module `\_90_fa'.
+Generating RTLIL representation for module `\_90_lcu_brent_kung'.
+Generating RTLIL representation for module `\_90_alu'.
+Generating RTLIL representation for module `\_90_macc'.
+Generating RTLIL representation for module `\_90_alumacc'.
+Generating RTLIL representation for module `\$__div_mod_u'.
+Generating RTLIL representation for module `\$__div_mod_trunc'.
+Generating RTLIL representation for module `\_90_div'.
+Generating RTLIL representation for module `\_90_mod'.
+Generating RTLIL representation for module `\$__div_mod_floor'.
+Generating RTLIL representation for module `\_90_divfloor'.
+Generating RTLIL representation for module `\_90_modfloor'.
+Generating RTLIL representation for module `\_90_pow'.
+Generating RTLIL representation for module `\_90_pmux'.
+Generating RTLIL representation for module `\_90_demux'.
+Generating RTLIL representation for module `\_90_lut'.
+Successfully finished Verilog frontend.
+
+4.21.2. Continuing TECHMAP pass.
+Using extmapper simplemap for cells of type $or.
+Using template $paramod$8fdcfe020be5e507ba05385ffd706e02b549d39d\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $not.
+Using extmapper simplemap for cells of type $adffe.
+Using template $paramod$2653f68ddb8eab7b1907b4a20767b72a824a7a36\_90_alu for cells of type $alu.
+Using extmapper maccmap for cells of type $macc_v2.
+  sub $auto$opt_expr.cc:1886:replace_const_cells$244 [7:0] (8 bits, unsigned)
+  sub $auto$rtlil.cc:2826:And$248 (1 bits, unsigned)
+Using template $paramod$2367de27bb2b1d2c6cb39f0298c46e69f86b744b\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $reduce_and.
+Using extmapper simplemap for cells of type $adff.
+Using extmapper simplemap for cells of type $mux.
+Using extmapper simplemap for cells of type $xor.
+Using extmapper simplemap for cells of type $reduce_bool.
+Using extmapper simplemap for cells of type $ne.
+  sub $auto$opt_expr.cc:1886:replace_const_cells$232 [7:0] (8 bits, unsigned)
+  sub $auto$rtlil.cc:2826:And$236 (1 bits, unsigned)
+Using extmapper simplemap for cells of type $reduce_or.
+Using extmapper simplemap for cells of type $and.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000100000 for cells of type $lcu.
+Using extmapper simplemap for cells of type $pos.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000001000 for cells of type $fa.
+Using template $paramod$a1bc51c02ce12ac21eb18988e83292af48ed7d72\_90_alu for cells of type $alu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000001000 for cells of type $lcu.
+No more expansions possible.
+<suppressed ~1457 debug messages>
+
+4.22. Executing OPT pass (performing simple optimizations).
+
+4.22.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module b04.
+<suppressed ~868 debug messages>
+
+4.22.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\b04'.
+<suppressed ~2499 debug messages>
+Removed a total of 833 cells.
+
+4.22.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.22.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b04..
+Removed 188 unused cells and 829 unused wires.
+<suppressed ~189 debug messages>
+
+4.22.5. Finished fast OPT passes.
+
+4.23. Executing HIERARCHY pass (managing design hierarchy).
+Attribute `top' found on module `b04'. Setting top module to b04.
+
+4.23.1. Analyzing design hierarchy..
+Top module:  \b04
+
+4.23.2. Analyzing design hierarchy..
+Top module:  \b04
+Removed 0 unused modules.
+
+4.24. Printing statistics.
+
+=== b04 ===
+
+   Number of wires:                291
+   Number of wire bits:           1678
+   Number of public wires:          15
+   Number of public wire bits:     224
+   Number of ports:                  7
+   Number of port bits:             21
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                821
+     $_AND_                        284
+     $_DFFE_PP0P_                   64
+     $_DFF_PP0_                      2
+     $_DFF_PP1_                      1
+     $_MUX_                         96
+     $_NOT_                        102
+     $_OR_                         134
+     $_XOR_                        138
+
+4.25. Executing CHECK pass (checking for obvious problems).
+Checking module b04...
+Found and reported 0 problems.
+
+5. Executing DFFLIBMAP pass (mapping DFF cells to sequential cells from liberty file).
+  cell DFFR_X1 (noninv, pins=5, area=5.32) is a direct match for cell type $_DFF_PN0_.
+  cell DFFRS_X1 (noninv, pins=6, area=6.38) is a direct match for cell type $_DFFSR_PNN_.
+  final dff cell mappings:
+    unmapped dff cell: $_DFF_N_
+    unmapped dff cell: $_DFF_P_
+    unmapped dff cell: $_DFF_NN0_
+    unmapped dff cell: $_DFF_NN1_
+    unmapped dff cell: $_DFF_NP0_
+    unmapped dff cell: $_DFF_NP1_
+    \DFFR_X1 _DFF_PN0_ (.CK( C), .D( D), .Q( Q), .QN(~Q), .RN( R));
+    unmapped dff cell: $_DFF_PN1_
+    unmapped dff cell: $_DFF_PP0_
+    unmapped dff cell: $_DFF_PP1_
+    unmapped dff cell: $_DFFE_NN_
+    unmapped dff cell: $_DFFE_NP_
+    unmapped dff cell: $_DFFE_PN_
+    unmapped dff cell: $_DFFE_PP_
+    unmapped dff cell: $_DFFSR_NNN_
+    unmapped dff cell: $_DFFSR_NNP_
+    unmapped dff cell: $_DFFSR_NPN_
+    unmapped dff cell: $_DFFSR_NPP_
+    \DFFRS_X1 _DFFSR_PNN_ (.CK( C), .D( D), .Q( Q), .QN(~Q), .RN( R), .SN( S));
+    unmapped dff cell: $_DFFSR_PNP_
+    unmapped dff cell: $_DFFSR_PPN_
+    unmapped dff cell: $_DFFSR_PPP_
+
+5.1. Executing DFFLEGALIZE pass (convert FFs to types supported by the target).
+Mapping DFF cells in module `\b04':
+  mapped 1 $_DFFSR_PNN_ cells to \DFFRS_X1 cells.
+  mapped 66 $_DFF_PN0_ cells to \DFFR_X1 cells.
+
+6. Executing ABC pass (technology mapping using ABC).
+
+6.1. Extracting gate netlist of module `\b04' to `<abc-temp-dir>/input.blif'..
+Extracted 885 gates and 981 wires to a netlist network with 95 inputs and 132 outputs.
+
+6.1.1. Executing ABC.
+Running ABC command: "<yosys-exe-dir>/yosys-abc" -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC: 
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_lib -X MUX2_X1 -w /mnt/e/桌面/fan-atpg/datasets/itc99_nangate45/tools/NangateOpenCellLibrary_base.lib 
+ABC: Parsing finished successfully.  Parsing time =     0.01 sec
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFR_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFR_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFRS_X1".
+ABC: Scl_LibertyReadGenlib() skipped cell "MUX2_X1" due to dont_use attribute.
+ABC: Library "NangateOpenCellLibrary" from "/mnt/e/桌面/fan-atpg/datasets/itc99_nangate45/tools/NangateOpenCellLibrary_base.lib" has 16 cells (3 skipped: 3 seq; 0 tri-state; 0 no func; 1 dont_use).  Time =     0.01 sec
+ABC: Memory =    0.85 MB. Time =     0.01 sec
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+6.1.2. Re-integrating ABC results.
+ABC RESULTS:           AND2_X1 cells:       19
+ABC RESULTS:            INV_X1 cells:       73
+ABC RESULTS:          NAND2_X1 cells:      230
+ABC RESULTS:          NAND3_X1 cells:       26
+ABC RESULTS:          NAND4_X1 cells:        2
+ABC RESULTS:           NOR2_X1 cells:       35
+ABC RESULTS:           NOR3_X1 cells:        6
+ABC RESULTS:            OR2_X1 cells:       15
+ABC RESULTS:            OR3_X1 cells:        5
+ABC RESULTS:          XNOR2_X1 cells:        7
+ABC RESULTS:           XOR2_X1 cells:        9
+ABC RESULTS:        internal signals:      754
+ABC RESULTS:           input signals:       95
+ABC RESULTS:          output signals:      132
+Removing temp directory.
+
+7. Executing SPLITNETS pass (splitting up multi-bit signals).
+
+8. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b04..
+Removed 0 unused cells and 1697 unused wires.
+<suppressed ~1 debug messages>
+
+9. Executing CHECK pass (checking for obvious problems).
+Checking module b04...
+Found and reported 0 problems.
+
+10. Executing Verilog backend.
+Dumping module `\b04'.

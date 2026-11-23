@@ -1,0 +1,83 @@
+#  ==========================================================================
+#
+#                                   FAN ATPG
+#
+#                Copyright(c) Laboratory of Dependable Systems,
+#                Graduate Institute of Electronics Engineering,
+#                          National Taiwan University
+#                             All Rights Reserved.
+#
+#  ==========================================================================
+#
+#  Kernel:   Linux
+#  Platform: unknown
+#  Memory:   7864.77 MB
+#
+fan.script 1> read_lib common.mdt
+#  Reading technology library ...
+#  Finished reading library `common.mdt'    0.000114 s    7.47266 MB
+fan.script 2> read_netlist c432_common.v
+#  Reading netlist ...
+#  Finished reading netlist `c432_common.v'    0.001419 s    8.51562 MB
+fan.script 3> build_circuit --frame 1
+#  Building circuit ...
+#  Finished building circuit    0.000551 s    8.68359 MB
+fan.script 4> report_circuit
+#  circuit information
+#    netlist:         c432
+#    number of PIs:   36
+#    number of PPIs:  0
+#    number of POs:   7
+#    number of combs: 288
+#    number of gates: 331
+#    number of nets:  507
+fan.script 5> set_fault_type saf
+#  fault type set to stuck-at fault
+fan.script 6> add_fault --all
+#  Building fault list ...
+#  Finished building fault list    5.4e-05 s    8.85547 MB
+fan.script 7> set_static_compression off
+#  static compression set to off
+fan.script 8> set_dynamic_compression off
+#  dynamic compression set to off
+fan.script 9> set_X-Fill on
+#  X-Fill set to on
+fan.script 10> run_atpg
+#  Performing pattern generation ...
+#  Finished pattern generation    0.055789 s    9.19922 MB
+fan.script 11> report_statistics
+#                 Statistics Report
+#  Circuit name                                 c432
+#  Fault model                                   SAF
+#  Pattern type                                BASIC
+#  -------------------------------------------------
+#  Fault classes                             #faults
+#  ----------------------------  -------------------
+#    FU (full)                                  1662
+#    FU (collapsed)                             1086
+#    --------------------------  -------------------
+#    UD (undetected)                               0
+#    PT (possibly testable)                        0
+#    AU (atpg untestable)                         37
+#    RE (redundant)                                0
+#    AB (atpg abort)                              14
+#    TI (tied)                                     0
+#    --------------------------  -------------------
+#    DT (detected)                              1611
+#  -------------------------------------------------
+#  Coverage                               percentage
+#    --------------------------  -------------------
+#    test coverage                            99.14%
+#    fault coverage                           96.93%
+#    atpg effectiveness                       99.16%
+#  -------------------------------------------------
+#  #Patterns                                      78
+#  -------------------------------------------------
+#  ATPG runtime                            0.05579 s
+#  -------------------------------------------------
+fan.script 12> write_pattern fan.pat
+#  Writing pattern to `fan.pat' ...
+fan.script 13> exit
+#  Goodbye
+#  Runtime        real 0.06602 s        user 0.05699 s        sys 0.002458 s
+#  Memory         peak 9.199 MB

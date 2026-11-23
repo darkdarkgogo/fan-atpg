@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "backend": "FAN",
+  "input_format": "verilog",
+  "cpp_fan_dir": "../FAN_ATPG",
+  "circuits": [
+    {
+      "name": "train_0005_small_iscas85_c432___nb_G333gat_na",
+      "netlist": "../datasets/verilog/full_train/train_0005_small_iscas85_c432___nb_G333gat_na.v",
+      "library": "../datasets/verilog/fan_primitives.mdt",
+      "graph": "../datasets/verilog_features/train/train_0005_small_iscas85_c432___nb_G333gat_na/train_0005_small_iscas85_c432___nb_G333gat_na.graph.json",
+      "embeddings": "../datasets/verilog_features/train/train_0005_small_iscas85_c432___nb_G333gat_na/train_0005_small_iscas85_c432___nb_G333gat_na.fault_embeddings.npz",
+      "metadata": "../datasets/verilog_features/train/train_0005_small_iscas85_c432___nb_G333gat_na/train_0005_small_iscas85_c432___nb_G333gat_na.faults.json"
+    }
+  ]
+}

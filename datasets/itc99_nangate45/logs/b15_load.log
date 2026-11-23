@@ -1,0 +1,45 @@
+#  ==========================================================================
+#
+#                                   FAN ATPG
+#
+#                Copyright(c) Laboratory of Dependable Systems,
+#                Graduate Institute of Electronics Engineering,
+#                          National Taiwan University
+#                             All Rights Reserved.
+#
+#  ==========================================================================
+#
+#  Kernel:   Linux
+#  Platform: unknown
+#  Memory:   7864.77 MB
+#
+/b15_load.script 1> read_lib techlib/mod_nangate45.mdt
+#  Reading technology library ...
+#  Finished reading library `techlib/mod_nangate45.mdt'    0.007605 s    9.82812 MB
+/b15_load.script 2> read_netlist netlist/b15_nangate45.v
+#  Reading netlist ...
+#  Finished reading netlist `netlist/b15_nangate45.v'    0.127513 s    54.8789 MB
+/b15_load.script 3> report_netlist
+#  netlist information
+#    number of modules: 1
+#    modules:           b15
+#    current module:    b15
+#    number of ports:   112
+#    number of cells:   11802
+#    number of nets:    11845
+/b15_load.script 4> build_circuit --frame 1
+#  Building circuit ...
+#  Finished building circuit    0.073908 s    57.7734 MB
+/b15_load.script 5> report_circuit
+#  circuit information
+#    netlist:         b15
+#    number of PIs:   36
+#    number of PPIs:  839
+#    number of POs:   72
+#    number of combs: 11292
+#    number of gates: 13078
+#    number of nets:  29308
+/b15_load.script 6> exit
+#  Goodbye
+#  Runtime        real 0.223465 s        user 0.142849 s        sys 0.021819 s
+#  Memory         peak 57.7734 MB

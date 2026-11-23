@@ -1,0 +1,13 @@
+read_lib common.mdt
+read_netlist b17_common.v
+build_circuit --frame 1
+report_circuit
+set_fault_type saf
+add_fault --all
+set_static_compression off
+set_dynamic_compression off
+set_X-Fill on
+run_atpg
+report_statistics
+write_pattern fan.pat
+exit

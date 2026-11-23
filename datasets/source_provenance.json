@@ -1,0 +1,19 @@
+{
+  "selection": "One real original-BENCH extracted cone per disjoint ISCAS85 family; held-out validation selected from original source train corpus, excluded from current training manifest. Original files copied byte-for-byte.",
+  "circuits": [
+    {
+      "split": "train",
+      "source": "E:\\\u684c\u9762\\fault-reorder\\reorderATPG\\datasets\\train\\train_0005_small_iscas85_c432___nb_G333gat_na.bench",
+      "local": "datasets\\train\\train_0005_small_iscas85_c432___nb_G333gat_na.bench",
+      "sha256": "a8b842498cfc0e3a9f6f7b8ebb768871b7301894dea4d596a105cc3b0271f067",
+      "source_family": "ISCAS85 c432"
+    },
+    {
+      "split": "validation",
+      "source": "E:\\\u684c\u9762\\fault-reorder\\reorderATPG\\datasets\\train\\train_0006_small_iscas85_c499___nb_God7_right.bench",
+      "local": "datasets\\validation\\train_0006_small_iscas85_c499___nb_God7_right.bench",
+      "sha256": "d5449f28e45a20da199c44006b7a8911b2f8eb85c1fefe7e60051b7d1f19b76f",
+      "source_family": "ISCAS85 c499"
+    }
+  ]
+}

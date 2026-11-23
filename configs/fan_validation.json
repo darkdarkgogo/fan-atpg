@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "backend": "FAN",
+  "input_format": "verilog",
+  "cpp_fan_dir": "../FAN_ATPG",
+  "circuits": [
+    {
+      "name": "train_0006_small_iscas85_c499___nb_God7_right",
+      "netlist": "../datasets/verilog/check_validation/train_0006_small_iscas85_c499___nb_God7_right.v",
+      "library": "../datasets/verilog/fan_primitives.mdt",
+      "graph": "../datasets/verilog_features/check_validation/train_0006_small_iscas85_c499___nb_God7_right/train_0006_small_iscas85_c499___nb_God7_right.graph.json",
+      "embeddings": "../datasets/verilog_features/check_validation/train_0006_small_iscas85_c499___nb_God7_right/train_0006_small_iscas85_c499___nb_God7_right.fault_embeddings.npz",
+      "metadata": "../datasets/verilog_features/check_validation/train_0006_small_iscas85_c499___nb_God7_right/train_0006_small_iscas85_c499___nb_God7_right.faults.json"
+    }
+  ]
+}

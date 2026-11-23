@@ -1,0 +1,7 @@
+{
+  "inputs": 36,
+  "outputs": 7,
+  "gates": 288,
+  "bench_sha256": "0e390b74ac47d247a37b3f46b2c1a52efdfbd4aea3bbfd178f243bba22405547",
+  "linux_dir": "/home/darkdarkgogo/fan-podem-c432-20261120"
+}

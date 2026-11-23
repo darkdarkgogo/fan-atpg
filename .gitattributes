@@ -1,0 +1,4 @@
+*.sh text eol=lf
+# Official DeepGate2 source and checkpoint hashes are byte-sensitive.
+third_party/python-deepgate/** -text
+datasets/** -text

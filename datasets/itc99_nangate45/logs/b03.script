@@ -1,0 +1,13 @@
+read_lib techlib/mod_nangate45.mdt
+read_netlist -v netlist/b03_nangate45.v
+report_netlist
+build_circuit --frame 1
+report_circuit
+set_fault_type saf
+add_fault --all
+set_static_compression on
+set_dynamic_compression on
+set_X-Fill on
+run_atpg
+report_statistics
+exit

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Export/check features only. This script never starts training.
+set -euo pipefail
+repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$repo_root"
+python_bin="${PYTHON:-python3}"
+train_manifest="${1:-configs/fan_train_full.json}"
+validation_manifest="${2:-configs/fan_validation_full.json}"
+for manifest in "$train_manifest" "$validation_manifest"; do
+  "$python_bin" scripts/prepare_fan_data.py --manifest "$manifest"
+  "$python_bin" -m fault_order_rl validate --manifest "$manifest"
+done
+echo 'Feature preparation complete. No training was started.'

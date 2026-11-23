@@ -1,0 +1,27 @@
+[
+  {
+    "circuit": "b12",
+    "passed": true,
+    "returncode": 0
+  },
+  {
+    "circuit": "b15",
+    "passed": true,
+    "returncode": 0
+  },
+  {
+    "circuit": "b20",
+    "passed": true,
+    "returncode": 0
+  },
+  {
+    "circuit": "b21",
+    "passed": true,
+    "returncode": 0
+  },
+  {
+    "circuit": "b22",
+    "passed": true,
+    "returncode": 0
+  }
+]

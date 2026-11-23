@@ -1,0 +1,177 @@
+#  ==========================================================================
+#
+#                                   FAN ATPG
+#
+#                Copyright(c) Laboratory of Dependable Systems,
+#                Graduate Institute of Electronics Engineering,
+#                          National Taiwan University
+#                             All Rights Reserved.
+#
+#  ==========================================================================
+#
+#  Kernel:   Linux
+#  Platform: unknown
+#  Memory:   7864.76 MB
+#
+/b05.script 1> read_lib techlib/mod_nangate45.mdt
+#  Reading technology library ...
+#  Finished reading library `techlib/mod_nangate45.mdt'    0.008862 s    10.125 MB
+/b05.script 2> read_netlist -v netlist/b05_nangate45.v
+#  Reading netlist ...
+#  Finished reading netlist `netlist/b05_nangate45.v'    0.016595 s    14.3867 MB
+/b05.script 3> report_netlist
+#  netlist information
+#    number of modules: 1
+#    modules:           b05
+#    current module:    b05
+#    number of ports:   42
+#    number of cells:   1114
+#    number of nets:    1130
+/b05.script 4> build_circuit --frame 1
+#  Building circuit ...
+#  Finished building circuit    0.006971 s    14.7109 MB
+/b05.script 5> report_circuit
+#  circuit information
+#    netlist:         b05
+#    number of PIs:   2
+#    number of PPIs:  88
+#    number of POs:   36
+#    number of combs: 1044
+#    number of gates: 1258
+#    number of nets:  2645
+/b05.script 6> set_fault_type saf
+#  fault type set to stuck-at fault
+/b05.script 7> add_fault --all
+#  Building fault list ...
+#  Finished building fault list    0.000227 s    15.418 MB
+/b05.script 8> set_static_compression on
+#  static compression set to on
+/b05.script 9> set_dynamic_compression on
+#  dynamic compression set to on
+/b05.script 10> set_X-Fill on
+#  X-Fill set to on
+/b05.script 11> run_atpg
+#  Performing pattern generation ...
+#  Finished pattern generation    5.42895 s    16.2109 MB
+/b05.script 12> report_statistics
+#                 Statistics Report
+#  Circuit name                                  b05
+#  Fault model                                   SAF
+#  Pattern type                                BASIC
+#  -------------------------------------------------
+#  Fault classes                             #faults
+#  ----------------------------  -------------------
+#    FU (full)                                  7212
+#    FU (collapsed)                             5062
+#    --------------------------  -------------------
+#    UD (undetected)                             176
+#    PT (possibly testable)                        0
+#    AU (atpg untestable)                        584
+#    RE (redundant)                                0
+#    AB (atpg abort)                               4
+#    TI (tied)                                     0
+#    --------------------------  -------------------
+#    DT (detected)                              6448
+#  -------------------------------------------------
+#  Coverage                               percentage
+#    --------------------------  -------------------
+#    test coverage                            97.28%
+#    fault coverage                           89.41%
+#    atpg effectiveness                        97.5%
+#  -------------------------------------------------
+#  #Patterns                                     150
+#  -------------------------------------------------
+#  ATPG runtime                              5.429 s
+#  -------------------------------------------------
+/b05.script 13> exit
+#  Goodbye
+#  Runtime        real 5.48 s        user 5.434 s        sys 0.01773 s
+#  Memory         peak 16.23 MB
+**WARN Techlib::check(): port `b05/_1998_/QN' unconnected
+**WARN Techlib::check(): port `b05/_1999_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2000_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2001_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2002_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2003_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2004_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2005_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2006_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2007_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2008_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2009_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2010_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2011_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2012_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2013_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2014_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2015_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2016_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2017_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2018_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2019_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2020_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2021_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2022_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2023_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2024_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2025_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2026_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2027_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2028_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2029_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2030_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2031_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2032_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2033_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2034_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2035_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2036_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2037_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2038_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2039_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2040_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2041_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2042_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2043_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2044_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2045_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2046_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2047_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2048_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2049_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2050_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2051_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2052_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2053_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2054_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2055_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2056_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2057_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2058_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2059_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2060_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2061_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2062_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2063_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2064_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2065_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2066_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2067_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2068_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2069_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2070_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2071_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2072_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2073_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2074_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2075_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2076_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2077_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2078_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2079_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2080_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2081_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2082_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2083_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2084_/QN' unconnected
+**WARN Techlib::check(): port `b05/_2085_/QN' unconnected

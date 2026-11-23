@@ -1,0 +1,175 @@
+array_delimiter = "[]";
+model FAN_NOT1
+(A0, Z)
+(
+ input (A0) ( )
+ output (Z) (
+ primitive = _inv p (A0, Z);
+)
+)
+model FAN_BUF1
+(A0, Z)
+(
+ input (A0) ( )
+ output (Z) (
+ primitive = _buf p (A0, Z);
+)
+)
+model FAN_AND2
+(A0, A1, Z)
+(
+ input (A0) ( )
+ input (A1) ( )
+ output (Z) (
+ primitive = _and p (A0, A1, Z);
+)
+)
+model FAN_AND3
+(A0, A1, A2, Z)
+(
+ input (A0) ( )
+ input (A1) ( )
+ input (A2) ( )
+ output (Z) (
+ primitive = _and p (A0, A1, A2, Z);
+)
+)
+model FAN_AND4
+(A0, A1, A2, A3, Z)
+(
+ input (A0) ( )
+ input (A1) ( )
+ input (A2) ( )
+ input (A3) ( )
+ output (Z) (
+ primitive = _and p (A0, A1, A2, A3, Z);
+)
+)
+model FAN_NAND2
+(A0, A1, Z)
+(
+ input (A0) ( )
+ input (A1) ( )
+ output (Z) (
+ primitive = _nand p (A0, A1, Z);
+)
+)
+model FAN_NAND3
+(A0, A1, A2, Z)
+(
+ input (A0) ( )
+ input (A1) ( )
+ input (A2) ( )
+ output (Z) (
+ primitive = _nand p (A0, A1, A2, Z);
+)
+)
+model FAN_NAND4
+(A0, A1, A2, A3, Z)
+(
+ input (A0) ( )
+ input (A1) ( )
+ input (A2) ( )
+ input (A3) ( )
+ output (Z) (
+ primitive = _nand p (A0, A1, A2, A3, Z);
+)
+)
+model FAN_OR2
+(A0, A1, Z)
+(
+ input (A0) ( )
+ input (A1) ( )
+ output (Z) (
+ primitive = _or p (A0, A1, Z);
+)
+)
+model FAN_OR3
+(A0, A1, A2, Z)
+(
+ input (A0) ( )
+ input (A1) ( )
+ input (A2) ( )
+ output (Z) (
+ primitive = _or p (A0, A1, A2, Z);
+)
+)
+model FAN_OR4
+(A0, A1, A2, A3, Z)
+(
+ input (A0) ( )
+ input (A1) ( )
+ input (A2) ( )
+ input (A3) ( )
+ output (Z) (
+ primitive = _or p (A0, A1, A2, A3, Z);
+)
+)
+model FAN_NOR2
+(A0, A1, Z)
+(
+ input (A0) ( )
+ input (A1) ( )
+ output (Z) (
+ primitive = _nor p (A0, A1, Z);
+)
+)
+model FAN_NOR3
+(A0, A1, A2, Z)
+(
+ input (A0) ( )
+ input (A1) ( )
+ input (A2) ( )
+ output (Z) (
+ primitive = _nor p (A0, A1, A2, Z);
+)
+)
+model FAN_NOR4
+(A0, A1, A2, A3, Z)
+(
+ input (A0) ( )
+ input (A1) ( )
+ input (A2) ( )
+ input (A3) ( )
+ output (Z) (
+ primitive = _nor p (A0, A1, A2, A3, Z);
+)
+)
+model FAN_XOR2
+(A0, A1, Z)
+(
+ input (A0) ( )
+ input (A1) ( )
+ output (Z) (
+ primitive = _xor p (A0, A1, Z);
+)
+)
+model FAN_XOR3
+(A0, A1, A2, Z)
+(
+ input (A0) ( )
+ input (A1) ( )
+ input (A2) ( )
+ output (Z) (
+ primitive = _xor p (A0, A1, A2, Z);
+)
+)
+model FAN_XNOR2
+(A0, A1, Z)
+(
+ input (A0) ( )
+ input (A1) ( )
+ output (Z) (
+ primitive = _xnor p (A0, A1, Z);
+)
+)
+model FAN_XNOR3
+(A0, A1, A2, Z)
+(
+ input (A0) ( )
+ input (A1) ( )
+ input (A2) ( )
+ output (Z) (
+ primitive = _xnor p (A0, A1, A2, Z);
+)
+)

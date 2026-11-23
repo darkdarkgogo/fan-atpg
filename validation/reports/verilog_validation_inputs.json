@@ -1,0 +1,48 @@
+{
+  "manifest": "E:\\\u684c\u9762\\fan-atpg\\configs\\fan_validation_full.json",
+  "input_format": "verilog",
+  "training_executed": false,
+  "checked": 5,
+  "circuits": [
+    {
+      "name": "b12_nangate45",
+      "native_gates": 1624,
+      "inputs": 198,
+      "outputs": 199,
+      "collapsed_faults": 8696,
+      "uncollapsed_faults": 8696
+    },
+    {
+      "name": "b15_nangate45",
+      "native_gates": 13078,
+      "inputs": 875,
+      "outputs": 911,
+      "collapsed_faults": 76230,
+      "uncollapsed_faults": 76230
+    },
+    {
+      "name": "b20_nangate45",
+      "native_gates": 9362,
+      "inputs": 660,
+      "outputs": 650,
+      "collapsed_faults": 52904,
+      "uncollapsed_faults": 52904
+    },
+    {
+      "name": "b21_nangate45",
+      "native_gates": 9103,
+      "inputs": 660,
+      "outputs": 650,
+      "collapsed_faults": 51542,
+      "uncollapsed_faults": 51542
+    },
+    {
+      "name": "b22_nangate45",
+      "native_gates": 13887,
+      "inputs": 942,
+      "outputs": 932,
+      "collapsed_faults": 78818,
+      "uncollapsed_faults": 78818
+    }
+  ]
+}

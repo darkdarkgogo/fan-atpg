@@ -1,0 +1,24 @@
+[
+  {
+    "tool": "FAN_ATPG",
+    "repeat": 0,
+    "wall_seconds": 378.024299649,
+    "atpg_seconds": 376.764,
+    "patterns": 4472,
+    "reported_coverage_percent": 95.92,
+    "full_faults": 221254,
+    "collapsed_faults": 146496,
+    "detected_faults": 212223
+  },
+  {
+    "tool": "PODEM",
+    "repeat": 0,
+    "wall_seconds": 1100.438710614,
+    "atpg_seconds": 1048.349448978,
+    "patterns": 2854,
+    "reported_coverage_percent": 96.95,
+    "full_faults": 163676,
+    "collapsed_faults": 88918,
+    "detected_faults": 158676
+  }
+]

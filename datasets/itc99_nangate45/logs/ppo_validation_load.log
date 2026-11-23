@@ -1,0 +1,30 @@
+[LOAD] catalog start circuit=b12_nangate45
+[LOAD] catalog done circuit=b12_nangate45 elapsed_s=0.094
+[LOAD] validation start circuit=b12_nangate45
+[LOAD] validation done circuit=b12_nangate45 elapsed_s=1.231
+[LOAD] catalog start circuit=b15_nangate45
+[LOAD] catalog done circuit=b15_nangate45 elapsed_s=0.670
+[LOAD] validation start circuit=b15_nangate45
+[LOAD] validation done circuit=b15_nangate45 elapsed_s=10.949
+[LOAD] catalog start circuit=b20_nangate45
+[LOAD] catalog done circuit=b20_nangate45 elapsed_s=0.892
+[LOAD] validation start circuit=b20_nangate45
+[LOAD] validation done circuit=b20_nangate45 elapsed_s=7.574
+[LOAD] catalog start circuit=b21_nangate45
+[LOAD] catalog done circuit=b21_nangate45 elapsed_s=0.491
+[LOAD] validation start circuit=b21_nangate45
+[LOAD] validation done circuit=b21_nangate45 elapsed_s=6.906
+[LOAD] catalog start circuit=b22_nangate45
+[LOAD] catalog done circuit=b22_nangate45 elapsed_s=0.662
+[LOAD] validation start circuit=b22_nangate45
+[LOAD] validation done circuit=b22_nangate45 elapsed_s=10.870
+{
+  "validated": 5,
+  "faults": {
+    "b12_nangate45": 8696,
+    "b15_nangate45": 76230,
+    "b20_nangate45": 52904,
+    "b21_nangate45": 51542,
+    "b22_nangate45": 78818
+  }
+}

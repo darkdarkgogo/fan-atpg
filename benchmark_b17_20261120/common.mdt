@@ -1,0 +1,45 @@
+array_delimiter = "[]";
+model C_AND2
+(A0, A1, Z)
+(
+ input (A0) ( )
+ input (A1) ( )
+ output (Z) (
+ primitive = _and p (A0, A1, Z);
+)
+)
+model C_NAND2
+(A0, A1, Z)
+(
+ input (A0) ( )
+ input (A1) ( )
+ output (Z) (
+ primitive = _nand p (A0, A1, Z);
+)
+)
+model C_NOR2
+(A0, A1, Z)
+(
+ input (A0) ( )
+ input (A1) ( )
+ output (Z) (
+ primitive = _nor p (A0, A1, Z);
+)
+)
+model C_NOT1
+(A0, Z)
+(
+ input (A0) ( )
+ output (Z) (
+ primitive = _inv p (A0, Z);
+)
+)
+model C_OR2
+(A0, A1, Z)
+(
+ input (A0) ( )
+ input (A1) ( )
+ output (Z) (
+ primitive = _or p (A0, A1, Z);
+)
+)

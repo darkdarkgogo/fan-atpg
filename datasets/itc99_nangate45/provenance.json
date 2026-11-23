@@ -1,0 +1,86 @@
+{
+  "date": "2026-11-20",
+  "rtl_repository": "https://github.com/ccsl-uaegean/ITC99-RTL-Verilog",
+  "rtl_commit": "8e6a23da036b7442ef4ea410c679d4cf21830a65",
+  "flow_repository": "https://github.com/Rueilian/ScanForge",
+  "flow_commit": "5185a55531f144dc1628f82acee842b794789ad5",
+  "liberty_repository": "https://github.com/Rueilian/FAN_ATPG",
+  "liberty_commit": "157c4d34411f5a9ae42fabf6f68ff0ad43b09ec5",
+  "liberty_path": "techlib/NangateOpenCellLibrary_base.lib",
+  "yosys": "0.52 (fee39a3284c90249e1d9684cf6944ffbbcbb8f90), Ubuntu package 0.52-2",
+  "inputs": [
+    {
+      "file": "datasets/itc99_nangate45/rtl/b03.v",
+      "sha256": "a8fdf2c1822626b89cbc56a766955ecf64f961775b449ab659bfeae2519cbd95"
+    },
+    {
+      "file": "datasets/itc99_nangate45/rtl/b04.v",
+      "sha256": "030dd98aeb14e6ab37e5d8779bbf5e71a238fc85d2ca2754e14214445f01346b"
+    },
+    {
+      "file": "datasets/itc99_nangate45/rtl/b05.v",
+      "sha256": "6cd05678f533e33d3fc5307f9c1aa124329ab75a6abac1e32eb4cd8a1c82ed09"
+    },
+    {
+      "file": "datasets/itc99_nangate45/rtl/b07.v",
+      "sha256": "355c87b5fba77997671636d7d2eb8021089356a14ec23656cc3da72deb28bba9"
+    },
+    {
+      "file": "datasets/itc99_nangate45/rtl/b08.v",
+      "sha256": "a6c4894e392970f941863631517fbbbf998dd921d95c0f0c1c089ecb8b4c6158"
+    },
+    {
+      "file": "datasets/itc99_nangate45/rtl/b09.v",
+      "sha256": "081177218b0e4542ee8cceabb7f2d3db22c3cead7f6b8111c55684c24db3638b"
+    },
+    {
+      "file": "datasets/itc99_nangate45/rtl/b11.v",
+      "sha256": "7d5ac3d1d680a9566e27ab1c9f6c4f029fe45f997e6714e32ce6b9bcd35fe7b7"
+    },
+    {
+      "file": "datasets/itc99_nangate45/rtl/b12.v",
+      "sha256": "f154aa775b45d9f9382aa69615a11cb11278c1dec1886c8d4c04b096498f97bd"
+    },
+    {
+      "file": "datasets/itc99_nangate45/rtl/b13.v",
+      "sha256": "1c6080c7d671a39609b1b86a8d08f5c6dd15e726afa4e1739526994d6a0b443e"
+    },
+    {
+      "file": "datasets/itc99_nangate45/rtl/b15.v",
+      "sha256": "c03092728efceb5006ca2af1cb7ec82fa16da4dc00bcd1a685556d3614bc930b"
+    },
+    {
+      "file": "datasets/itc99_nangate45/rtl/b20.v",
+      "sha256": "7377826d894ccb071cd57a95ffde2f40ab2e616ea2a7c3eeb22d80f10ba6670d"
+    },
+    {
+      "file": "datasets/itc99_nangate45/rtl/b21.v",
+      "sha256": "ca301525fb629b8d7d1aa3913df409f4dce7f2caccc7d97c20377f43b708dbee"
+    },
+    {
+      "file": "datasets/itc99_nangate45/rtl/b22.v",
+      "sha256": "d2b5c455a26c9a9457a97017342519b296151b1c6c24f99c7e8ad6b1705bb7a1"
+    },
+    {
+      "file": "datasets/itc99_nangate45/rtl/LICENSE",
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+    },
+    {
+      "file": "datasets/itc99_nangate45/tools/fixup_verilog.py",
+      "sha256": "2112258766d58ddac044b5a9aeee66bcf6c061dabf83d3e1f212b556a671a300"
+    },
+    {
+      "file": "datasets/itc99_nangate45/tools/LICENSE",
+      "sha256": "15323875155747c2603c298533dd7bac3be14afaeebd8a5fcaf0874dd60dbb67"
+    },
+    {
+      "file": "datasets/itc99_nangate45/tools/NangateOpenCellLibrary_base.lib",
+      "sha256": "52f3722df49605b036ffa6df29618c85472a2a5ea4f516de570b954590429546"
+    },
+    {
+      "file": "datasets/itc99_nangate45/tools/prepare_fan.py",
+      "sha256": "991807c71736acc9cb798f79bc0e4f59d7334538720ee5b14a584b1ad213ad29"
+    }
+  ],
+  "capture_view": "RN/SN tied to LOGIC1_X1; QN consumers use explicit INV on Q; unreachable unknown aliases removed only when unused"
+}

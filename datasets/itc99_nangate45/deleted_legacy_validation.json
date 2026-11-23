@@ -1,0 +1,46 @@
+{
+  "date": "2026-11-20",
+  "reason": "User requested removal of legacy _C combinational validation circuits",
+  "deleted": [
+    {
+      "path": "datasets/full_validation/b12_C.bench",
+      "sha256": "3574aa632ef0bdd49f7763a147739f2482572a50faa2d48ae5c3062ff46e5042"
+    },
+    {
+      "path": "datasets/verilog/full_validation/b12_C.v",
+      "sha256": "4ec8ffbf1111f6e934c9347b13198f6e9970b094d36f8db8f5f796936fa402b8"
+    },
+    {
+      "path": "datasets/full_validation/b15_C.bench",
+      "sha256": "3193a65b8b1ad82c11f9f04a11fca9708ead7506d2c02404e65808bb1bfd29b0"
+    },
+    {
+      "path": "datasets/verilog/full_validation/b15_C.v",
+      "sha256": "ab56ba63c3b3ff5b0efb0e0b34491137241791c7c7d2fe0d5cc8b223099f411e"
+    },
+    {
+      "path": "datasets/full_validation/b20_C.bench",
+      "sha256": "a3d6902d8fb6666c9a4da2866a83eb3254c2092e7b0fddfec3895e6472fc5673"
+    },
+    {
+      "path": "datasets/verilog/full_validation/b20_C.v",
+      "sha256": "cc8ab22c910fb7e8260a1203b87f124ccf79edd6c2a25bc427cb198e6a23c46e"
+    },
+    {
+      "path": "datasets/full_validation/b21_C.bench",
+      "sha256": "453d1da74ee2efee383c86095e0cfc1d36b7ca3d119c5f25f14bdebba0265d35"
+    },
+    {
+      "path": "datasets/verilog/full_validation/b21_C.v",
+      "sha256": "0f036c0caef90d96260b1552813f9ff6b6d4a2305a8c1a827f9da3c4734e084f"
+    },
+    {
+      "path": "datasets/full_validation/b22_C.bench",
+      "sha256": "3640a9d4fab871654abe927fa7ad4b8d28d5331e7b1e861dcb16c55c514ec8b9"
+    },
+    {
+      "path": "datasets/verilog/full_validation/b22_C.v",
+      "sha256": "6e8414e15b8feb992eb457ef372d92f634f2e3a6eda6ed11902d1bba0aa243cb"
+    }
+  ]
+}

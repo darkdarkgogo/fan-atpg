@@ -1,0 +1,1760 @@
+
+-- Running command `read_liberty -lib datasets/itc99_nangate45/tools/NangateOpenCellLibrary_base.lib; read_verilog -sv datasets/itc99_nangate45/rtl/b12.v; hierarchy -check -top b12; synth -top b12 -flatten -noabc; dfflibmap -liberty datasets/itc99_nangate45/tools/NangateOpenCellLibrary_base.lib; abc -liberty datasets/itc99_nangate45/tools/NangateOpenCellLibrary_base.lib -dont_use MUX2_X1; splitnets -ports; opt_clean; check -assert; write_verilog -noattr -noexpr datasets/itc99_nangate45/raw/b12.v' --
+
+1. Executing Liberty frontend: datasets/itc99_nangate45/tools/NangateOpenCellLibrary_base.lib
+Imported 20 cell types from liberty file.
+
+2. Executing Verilog-2005 frontend: datasets/itc99_nangate45/rtl/b12.v
+Parsing SystemVerilog input from `datasets/itc99_nangate45/rtl/b12.v' to AST representation.
+Generating RTLIL representation for module `\b12'.
+Warning: Replacing memory \memory with list of registers. See datasets/itc99_nangate45/rtl/b12.v:201
+Successfully finished Verilog frontend.
+
+3. Executing HIERARCHY pass (managing design hierarchy).
+
+3.1. Analyzing design hierarchy..
+Top module:  \b12
+
+3.2. Analyzing design hierarchy..
+Top module:  \b12
+Removed 0 unused modules.
+
+4. Executing SYNTH pass.
+
+4.1. Executing HIERARCHY pass (managing design hierarchy).
+
+4.1.1. Analyzing design hierarchy..
+Top module:  \b12
+
+4.1.2. Analyzing design hierarchy..
+Top module:  \b12
+Removed 0 unused modules.
+
+4.2. Executing PROC pass (convert processes to netlists).
+
+4.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+4.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 28 switch rules as full_case in process $proc$datasets/itc99_nangate45/rtl/b12.v:211$50 in module b12.
+Removed 1 dead cases from process $proc$datasets/itc99_nangate45/rtl/b12.v:195$35 in module b12.
+Marked 4 switch rules as full_case in process $proc$datasets/itc99_nangate45/rtl/b12.v:195$35 in module b12.
+Marked 1 switch rules as full_case in process $proc$datasets/itc99_nangate45/rtl/b12.v:180$31 in module b12.
+Marked 9 switch rules as full_case in process $proc$datasets/itc99_nangate45/rtl/b12.v:98$10 in module b12.
+Removed a total of 1 dead cases.
+
+4.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 3 redundant assignments.
+Promoted 15 assignments to connections.
+
+4.2.4. Executing PROC_INIT pass (extract init attributes).
+
+4.2.5. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \reset in `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:211$50'.
+Found async reset \reset in `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+Found async reset \reset in `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:180$31'.
+Found async reset \reset in `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:98$10'.
+
+4.2.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~38 debug messages>
+
+4.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:211$50'.
+     1/46: $13$lookahead\nl$49[3:0]$177
+     2/46: $12$lookahead\nl$49[3:0]$174
+     3/46: $11$lookahead\nl$49[3:0]$164
+     4/46: $4$bitselwrite$pos$datasets/itc99_nangate45/rtl/b12.v:570$7[3:0]$163
+     5/46: $10$lookahead\nl$49[3:0]$160
+     6/46: $9$lookahead\nl$49[3:0]$149
+     7/46: $5$bitselwrite$pos$datasets/itc99_nangate45/rtl/b12.v:529$6[3:0]$148
+     8/46: $8$lookahead\nl$49[3:0]$146
+     9/46: $4$bitselwrite$pos$datasets/itc99_nangate45/rtl/b12.v:529$6[3:0]$145
+    10/46: $7$lookahead\nl$49[3:0]$142
+    11/46: $6$lookahead\nl$49[3:0]$130
+    12/46: $5$lookahead\nl$49[3:0]$113
+    13/46: $4$lookahead\nl$49[3:0]$89
+    14/46: $3$lookahead\nl$49[3:0]$80
+    15/46: $3$bitselwrite$pos$datasets/itc99_nangate45/rtl/b12.v:570$7[3:0]$79
+    16/46: $3$bitselwrite$pos$datasets/itc99_nangate45/rtl/b12.v:529$6[3:0]$78
+    17/46: $3$bitselwrite$pos$datasets/itc99_nangate45/rtl/b12.v:488$5[3:0]$77
+    18/46: $3$bitselwrite$pos$datasets/itc99_nangate45/rtl/b12.v:437$4[2:0]$76
+    19/46: $3$bitselwrite$pos$datasets/itc99_nangate45/rtl/b12.v:380$3[2:0]$75
+    20/46: $3$bitselwrite$pos$datasets/itc99_nangate45/rtl/b12.v:272$2[3:0]$74
+    21/46: $2$lookahead\nl$49[3:0]$73
+    22/46: $2$bitselwrite$pos$datasets/itc99_nangate45/rtl/b12.v:570$7[3:0]$72
+    23/46: $2$bitselwrite$pos$datasets/itc99_nangate45/rtl/b12.v:529$6[3:0]$71
+    24/46: $2$bitselwrite$pos$datasets/itc99_nangate45/rtl/b12.v:488$5[3:0]$70
+    25/46: $2$bitselwrite$pos$datasets/itc99_nangate45/rtl/b12.v:437$4[2:0]$69
+    26/46: $2$bitselwrite$pos$datasets/itc99_nangate45/rtl/b12.v:380$3[2:0]$68
+    27/46: $2$bitselwrite$pos$datasets/itc99_nangate45/rtl/b12.v:272$2[3:0]$67
+    28/46: $1$lookahead\nl$49[3:0]$65
+    29/46: $1$bitselwrite$pos$datasets/itc99_nangate45/rtl/b12.v:570$7[3:0]$64
+    30/46: $1$bitselwrite$pos$datasets/itc99_nangate45/rtl/b12.v:529$6[3:0]$63
+    31/46: $1$bitselwrite$pos$datasets/itc99_nangate45/rtl/b12.v:488$5[3:0]$62
+    32/46: $1$bitselwrite$pos$datasets/itc99_nangate45/rtl/b12.v:437$4[2:0]$61
+    33/46: $1$bitselwrite$pos$datasets/itc99_nangate45/rtl/b12.v:380$3[2:0]$60
+    34/46: $1$bitselwrite$pos$datasets/itc99_nangate45/rtl/b12.v:272$2[3:0]$59
+    35/46: $0\countP1[5:0]
+    36/46: $0\timebase[5:0]
+    37/46: $0\max[31:0]
+    38/46: $0\scan[31:0]
+    39/46: $0\ind[2:0]
+    40/46: $0\play[0:0]
+    41/46: $0\sound[3:0]
+    42/46: $0\data_in[3:0]
+    43/46: $0\address[31:0]
+    44/46: $0\wr[0:0]
+    45/46: $0\gamma[4:0]
+    46/46: $0\nloss[0:0]
+Creating decoders for process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+     1/41: $2$mem2reg_wr$\memory$datasets/itc99_nangate45/rtl/b12.v:206$9_ADDR[4:0]$47
+     2/41: $2$mem2reg_wr$\memory$datasets/itc99_nangate45/rtl/b12.v:206$9_DATA[3:0]$48
+     3/41: $2$mem2reg_rd$\memory$datasets/itc99_nangate45/rtl/b12.v:204$8_DATA[3:0]$45
+     4/41: $1$mem2reg_wr$\memory$datasets/itc99_nangate45/rtl/b12.v:206$9_DATA[3:0]$44
+     5/41: $1$mem2reg_wr$\memory$datasets/itc99_nangate45/rtl/b12.v:206$9_ADDR[4:0]$43
+     6/41: $0\data_out[3:0]
+     7/41: $1$mem2reg_rd$\memory$datasets/itc99_nangate45/rtl/b12.v:204$8_DATA[3:0]$42
+     8/41: $1$mem2reg_rd$\memory$datasets/itc99_nangate45/rtl/b12.v:204$8_ADDR[4:0]$41
+     9/41: $1\mar[31:0]
+    10/41: $0\memory[31][3:0]
+    11/41: $0\memory[30][3:0]
+    12/41: $0\memory[29][3:0]
+    13/41: $0\memory[28][3:0]
+    14/41: $0\memory[27][3:0]
+    15/41: $0\memory[26][3:0]
+    16/41: $0\memory[25][3:0]
+    17/41: $0\memory[24][3:0]
+    18/41: $0\memory[23][3:0]
+    19/41: $0\memory[22][3:0]
+    20/41: $0\memory[21][3:0]
+    21/41: $0\memory[20][3:0]
+    22/41: $0\memory[19][3:0]
+    23/41: $0\memory[18][3:0]
+    24/41: $0\memory[17][3:0]
+    25/41: $0\memory[16][3:0]
+    26/41: $0\memory[15][3:0]
+    27/41: $0\memory[14][3:0]
+    28/41: $0\memory[13][3:0]
+    29/41: $0\memory[12][3:0]
+    30/41: $0\memory[11][3:0]
+    31/41: $0\memory[10][3:0]
+    32/41: $0\memory[9][3:0]
+    33/41: $0\memory[8][3:0]
+    34/41: $0\memory[7][3:0]
+    35/41: $0\memory[6][3:0]
+    36/41: $0\memory[5][3:0]
+    37/41: $0\memory[4][3:0]
+    38/41: $0\memory[3][3:0]
+    39/41: $0\memory[2][3:0]
+    40/41: $0\memory[1][3:0]
+    41/41: $0\memory[0][3:0]
+Creating decoders for process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:180$31'.
+     1/2: $0\num[3:0]
+     2/2: $1\count_P3[3:0]
+Creating decoders for process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:98$10'.
+     1/11: $9\s[0:0]
+     2/11: $8\s[0:0]
+     3/11: $7\s[0:0]
+     4/11: $6\s[0:0]
+     5/11: $5\s[0:0]
+     6/11: $0\counterP4[3:0]
+     7/11: $4\s[0:0]
+     8/11: $3\s[0:0]
+     9/11: $2\s[0:0]
+    10/11: $1\s[0:0]
+    11/11: $0\speaker[0:0]
+
+4.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+
+4.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\b12.\nloss' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:211$50'.
+  created $adff cell `$procdff$1908' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\nl' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:211$50'.
+  created $adff cell `$procdff$1911' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\gamma' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:211$50'.
+  created $adff cell `$procdff$1914' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\wr' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:211$50'.
+  created $adff cell `$procdff$1917' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\address' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:211$50'.
+  created $adff cell `$procdff$1920' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\data_in' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:211$50'.
+  created $adff cell `$procdff$1923' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\sound' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:211$50'.
+  created $adff cell `$procdff$1926' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\play' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:211$50'.
+  created $adff cell `$procdff$1929' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\ind' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:211$50'.
+  created $adff cell `$procdff$1932' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\scan' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:211$50'.
+  created $adff cell `$procdff$1935' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\max' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:211$50'.
+  created $adff cell `$procdff$1938' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\timebase' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:211$50'.
+  created $adff cell `$procdff$1941' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\countP1' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:211$50'.
+  created $adff cell `$procdff$1944' with positive edge clock and positive level reset.
+Creating register for signal `\b12.$bitselwrite$pos$datasets/itc99_nangate45/rtl/b12.v:272$2' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:211$50'.
+  created $adff cell `$procdff$1947' with positive edge clock and positive level reset.
+Creating register for signal `\b12.$bitselwrite$pos$datasets/itc99_nangate45/rtl/b12.v:380$3' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:211$50'.
+  created $adff cell `$procdff$1950' with positive edge clock and positive level reset.
+Creating register for signal `\b12.$bitselwrite$pos$datasets/itc99_nangate45/rtl/b12.v:437$4' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:211$50'.
+  created $adff cell `$procdff$1953' with positive edge clock and positive level reset.
+Creating register for signal `\b12.$bitselwrite$pos$datasets/itc99_nangate45/rtl/b12.v:488$5' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:211$50'.
+  created $adff cell `$procdff$1956' with positive edge clock and positive level reset.
+Creating register for signal `\b12.$bitselwrite$pos$datasets/itc99_nangate45/rtl/b12.v:529$6' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:211$50'.
+  created $adff cell `$procdff$1959' with positive edge clock and positive level reset.
+Creating register for signal `\b12.$bitselwrite$pos$datasets/itc99_nangate45/rtl/b12.v:570$7' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:211$50'.
+  created $adff cell `$procdff$1962' with positive edge clock and positive level reset.
+Creating register for signal `\b12.$lookahead\nl$49' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:211$50'.
+  created $adff cell `$procdff$1965' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\data_out' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+  created $adff cell `$procdff$1968' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\mar' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+  created $adff cell `$procdff$1971' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\memory[0]' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+  created $adff cell `$procdff$1974' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\memory[1]' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+  created $adff cell `$procdff$1977' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\memory[2]' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+  created $adff cell `$procdff$1980' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\memory[3]' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+  created $adff cell `$procdff$1983' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\memory[4]' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+  created $adff cell `$procdff$1986' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\memory[5]' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+  created $adff cell `$procdff$1989' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\memory[6]' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+  created $adff cell `$procdff$1992' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\memory[7]' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+  created $adff cell `$procdff$1995' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\memory[8]' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+  created $adff cell `$procdff$1998' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\memory[9]' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+  created $adff cell `$procdff$2001' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\memory[10]' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+  created $adff cell `$procdff$2004' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\memory[11]' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+  created $adff cell `$procdff$2007' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\memory[12]' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+  created $adff cell `$procdff$2010' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\memory[13]' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+  created $adff cell `$procdff$2013' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\memory[14]' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+  created $adff cell `$procdff$2016' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\memory[15]' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+  created $adff cell `$procdff$2019' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\memory[16]' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+  created $adff cell `$procdff$2022' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\memory[17]' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+  created $adff cell `$procdff$2025' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\memory[18]' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+  created $adff cell `$procdff$2028' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\memory[19]' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+  created $adff cell `$procdff$2031' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\memory[20]' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+  created $adff cell `$procdff$2034' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\memory[21]' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+  created $adff cell `$procdff$2037' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\memory[22]' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+  created $adff cell `$procdff$2040' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\memory[23]' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+  created $adff cell `$procdff$2043' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\memory[24]' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+  created $adff cell `$procdff$2046' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\memory[25]' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+  created $adff cell `$procdff$2049' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\memory[26]' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+  created $adff cell `$procdff$2052' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\memory[27]' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+  created $adff cell `$procdff$2055' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\memory[28]' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+  created $adff cell `$procdff$2058' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\memory[29]' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+  created $adff cell `$procdff$2061' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\memory[30]' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+  created $adff cell `$procdff$2064' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\memory[31]' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+  created $adff cell `$procdff$2067' with positive edge clock and positive level reset.
+Creating register for signal `\b12.$mem2reg_rd$\memory$datasets/itc99_nangate45/rtl/b12.v:204$8_ADDR' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+  created $adff cell `$procdff$2070' with positive edge clock and positive level reset.
+Creating register for signal `\b12.$mem2reg_rd$\memory$datasets/itc99_nangate45/rtl/b12.v:204$8_DATA' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+  created $adff cell `$procdff$2073' with positive edge clock and positive level reset.
+Creating register for signal `\b12.$mem2reg_wr$\memory$datasets/itc99_nangate45/rtl/b12.v:206$9_ADDR' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+  created $adff cell `$procdff$2076' with positive edge clock and positive level reset.
+Creating register for signal `\b12.$mem2reg_wr$\memory$datasets/itc99_nangate45/rtl/b12.v:206$9_DATA' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+  created $adff cell `$procdff$2079' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\num' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:180$31'.
+  created $adff cell `$procdff$2082' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\count_P3' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:180$31'.
+  created $adff cell `$procdff$2085' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\speaker' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:98$10'.
+  created $adff cell `$procdff$2088' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\s' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:98$10'.
+  created $adff cell `$procdff$2091' with positive edge clock and positive level reset.
+Creating register for signal `\b12.\counterP4' using process `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:98$10'.
+  created $adff cell `$procdff$2094' with positive edge clock and positive level reset.
+
+4.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+4.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 27 empty switches in `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:211$50'.
+Removing empty process `b12.$proc$datasets/itc99_nangate45/rtl/b12.v:211$50'.
+Found and cleaned up 3 empty switches in `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+Removing empty process `b12.$proc$datasets/itc99_nangate45/rtl/b12.v:195$35'.
+Removing empty process `b12.$proc$datasets/itc99_nangate45/rtl/b12.v:180$31'.
+Found and cleaned up 8 empty switches in `\b12.$proc$datasets/itc99_nangate45/rtl/b12.v:98$10'.
+Removing empty process `b12.$proc$datasets/itc99_nangate45/rtl/b12.v:98$10'.
+Cleaned up 38 empty switches.
+
+4.2.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module b12.
+<suppressed ~95 debug messages>
+
+4.3. Executing FLATTEN pass (flatten design).
+
+4.4. Executing OPT_EXPR pass (perform const folding).
+Optimizing module b12.
+<suppressed ~2 debug messages>
+
+4.5. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b12..
+Removed 51 unused cells and 459 unused wires.
+<suppressed ~53 debug messages>
+
+4.6. Executing CHECK pass (checking for obvious problems).
+Checking module b12...
+Found and reported 0 problems.
+
+4.7. Executing OPT pass (performing simple optimizations).
+
+4.7.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module b12.
+
+4.7.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\b12'.
+<suppressed ~606 debug messages>
+Removed a total of 202 cells.
+
+4.7.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \b12..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+    dead port 2/2 on $mux $procmux$1770.
+    dead port 2/2 on $mux $procmux$1772.
+    dead port 2/2 on $mux $procmux$1780.
+    dead port 2/2 on $mux $procmux$1782.
+    dead port 2/2 on $mux $procmux$1791.
+    dead port 2/2 on $mux $procmux$1793.
+    dead port 2/2 on $mux $procmux$1803.
+    dead port 2/2 on $mux $procmux$1805.
+    dead port 2/2 on $mux $procmux$1816.
+    dead port 2/2 on $mux $procmux$1818.
+    dead port 2/2 on $mux $procmux$183.
+    dead port 2/2 on $mux $procmux$1859.
+    dead port 1/2 on $mux $procmux$186.
+    dead port 2/2 on $mux $procmux$1861.
+    dead port 2/2 on $mux $procmux$1872.
+    dead port 2/2 on $mux $procmux$193.
+    dead port 1/2 on $mux $procmux$196.
+    dead port 2/2 on $mux $procmux$204.
+    dead port 1/2 on $mux $procmux$207.
+    dead port 2/2 on $mux $procmux$227.
+    dead port 1/2 on $mux $procmux$230.
+    dead port 2/2 on $mux $procmux$241.
+    dead port 2/2 on $mux $procmux$243.
+    dead port 1/2 on $mux $procmux$246.
+    dead port 2/2 on $mux $procmux$272.
+    dead port 1/2 on $mux $procmux$275.
+    dead port 2/2 on $mux $procmux$299.
+    dead port 1/2 on $mux $procmux$302.
+    dead port 2/2 on $mux $procmux$318.
+    dead port 1/2 on $mux $procmux$321.
+    dead port 2/2 on $mux $procmux$340.
+    dead port 1/2 on $mux $procmux$343.
+    dead port 2/2 on $mux $procmux$368.
+    dead port 1/2 on $mux $procmux$371.
+    dead port 1/2 on $mux $procmux$390.
+Removed 35 multiplexer ports.
+<suppressed ~49 debug messages>
+
+4.7.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \b12.
+    New ctrl vector for $pmux cell $procmux$374: { $procmux$1016_CMP $procmux$1011_CMP $procmux$341_CMP $auto$opt_reduce.cc:137:opt_pmux$2098 $procmux$319_CMP $auto$opt_reduce.cc:137:opt_pmux$2096 $procmux$300_CMP $procmux$244_CMP $procmux$228_CMP $procmux$205_CMP $procmux$194_CMP $procmux$184_CMP }
+    New ctrl vector for $pmux cell $procmux$510: { $procmux$1011_CMP $procmux$1007_CMP $procmux$1000_CMP $procmux$1065_CMP $procmux$341_CMP $procmux$553_CMP $procmux$319_CMP $procmux$539_CMP $auto$opt_reduce.cc:137:opt_pmux$2100 $procmux$300_CMP $procmux$244_CMP $procmux$228_CMP $procmux$205_CMP $procmux$194_CMP $procmux$184_CMP }
+    New ctrl vector for $pmux cell $procmux$722: { $procmux$1016_CMP $procmux$1011_CMP $procmux$1065_CMP $procmux$341_CMP $procmux$553_CMP $procmux$319_CMP $auto$opt_reduce.cc:137:opt_pmux$2102 $procmux$300_CMP $procmux$244_CMP $procmux$228_CMP $procmux$205_CMP $procmux$194_CMP $procmux$184_CMP }
+    New ctrl vector for $pmux cell $procmux$795: { $procmux$1065_CMP $procmux$553_CMP $auto$opt_reduce.cc:137:opt_pmux$2104 $procmux$244_CMP $procmux$205_CMP $procmux$184_CMP }
+    New ctrl vector for $pmux cell $procmux$877: { $auto$opt_reduce.cc:137:opt_pmux$2108 $auto$opt_reduce.cc:137:opt_pmux$2106 }
+    New ctrl vector for $pmux cell $procmux$908: { $procmux$1015_CMP $auto$opt_reduce.cc:137:opt_pmux$2110 }
+  Optimizing cells in module \b12.
+Performed a total of 6 changes.
+
+4.7.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\b12'.
+<suppressed ~66 debug messages>
+Removed a total of 22 cells.
+
+4.7.6. Executing OPT_DFF pass (perform DFF optimizations).
+Setting constant 0-bit at position 2 on $procdff$2082 ($adff) from module b12.
+Setting constant 0-bit at position 3 on $procdff$2082 ($adff) from module b12.
+
+4.7.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b12..
+Removed 0 unused cells and 258 unused wires.
+<suppressed ~1 debug messages>
+
+4.7.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module b12.
+
+4.7.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.7.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \b12..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~49 debug messages>
+
+4.7.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \b12.
+    New ctrl vector for $pmux cell $procmux$374: { $procmux$1016_CMP $auto$opt_reduce.cc:137:opt_pmux$2098 $auto$opt_reduce.cc:137:opt_pmux$2096 $procmux$244_CMP $procmux$205_CMP $procmux$194_CMP $auto$opt_reduce.cc:137:opt_pmux$2113 }
+    New ctrl vector for $pmux cell $procmux$510: { $procmux$1000_CMP $procmux$1065_CMP $procmux$553_CMP $auto$opt_reduce.cc:137:opt_pmux$2119 $auto$opt_reduce.cc:137:opt_pmux$2096 $auto$opt_reduce.cc:137:opt_pmux$2117 $procmux$244_CMP $auto$opt_reduce.cc:137:opt_pmux$2115 }
+    New ctrl vector for $pmux cell $procmux$626: { $procmux$1016_CMP $procmux$553_CMP $auto$opt_reduce.cc:137:opt_pmux$2121 $procmux$244_CMP }
+    New ctrl vector for $pmux cell $procmux$722: { $procmux$1016_CMP $procmux$1065_CMP $procmux$553_CMP $auto$opt_reduce.cc:137:opt_pmux$2096 $procmux$244_CMP $auto$opt_reduce.cc:137:opt_pmux$2125 $auto$opt_reduce.cc:137:opt_pmux$2123 }
+  Optimizing cells in module \b12.
+Performed a total of 4 changes.
+
+4.7.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\b12'.
+Removed a total of 0 cells.
+
+4.7.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.7.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b12..
+
+4.7.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module b12.
+
+4.7.16. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.7.17. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \b12..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~49 debug messages>
+
+4.7.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \b12.
+Performed a total of 0 changes.
+
+4.7.19. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\b12'.
+Removed a total of 0 cells.
+
+4.7.20. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.7.21. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b12..
+
+4.7.22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module b12.
+
+4.7.23. Finished OPT passes. (There is nothing left to do.)
+
+4.8. Executing FSM pass (extract and optimize FSM).
+
+4.8.1. Executing FSM_DETECT pass (finding FSMs in design).
+Found FSM state register b12.gamma.
+Not marking b12.ind as FSM state register:
+    Users of register don't seem to benefit from recoding.
+
+4.8.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+Extracting FSM `\gamma' from module `\b12'.
+  found $adff cell for state register: $procdff$1914
+  root of input selection tree: $0\gamma[4:0]
+  found reset state: 5'00000 (from async reset)
+  found ctrl input: \start
+  found ctrl input: $procmux$184_CMP
+  found ctrl input: $procmux$194_CMP
+  found ctrl input: $procmux$205_CMP
+  found ctrl input: $procmux$228_CMP
+  found ctrl input: $procmux$244_CMP
+  found ctrl input: $procmux$300_CMP
+  found ctrl input: $procmux$381_CMP
+  found ctrl input: $procmux$945_CMP
+  found ctrl input: $procmux$878_CMP
+  found ctrl input: $procmux$539_CMP
+  found ctrl input: $procmux$319_CMP
+  found ctrl input: $procmux$383_CMP
+  found ctrl input: $procmux$553_CMP
+  found ctrl input: $procmux$341_CMP
+  found ctrl input: $procmux$385_CMP
+  found ctrl input: $procmux$1065_CMP
+  found ctrl input: $procmux$999_CMP
+  found ctrl input: $procmux$1000_CMP
+  found ctrl input: $procmux$1007_CMP
+  found ctrl input: $procmux$1011_CMP
+  found ctrl input: $procmux$1012_CMP
+  found ctrl input: $procmux$1013_CMP
+  found ctrl input: $procmux$1014_CMP
+  found ctrl input: $procmux$1015_CMP
+  found ctrl input: $procmux$1016_CMP
+  found ctrl input: $procmux$1017_CMP
+  found ctrl input: $eq$datasets/itc99_nangate45/rtl/b12.v:279$88_Y
+  found state code: 5'11001
+  found state code: 5'11000
+  found state code: 5'10111
+  found state code: 5'10110
+  found state code: 5'10101
+  found ctrl input: $ne$datasets/itc99_nangate45/rtl/b12.v:521$147_Y
+  found state code: 5'10001
+  found state code: 5'10100
+  found state code: 5'10011
+  found state code: 5'10010
+  found state code: 5'10000
+  found state code: 5'01111
+  found state code: 5'01101
+  found ctrl input: $ne$datasets/itc99_nangate45/rtl/b12.v:292$92_Y
+  found ctrl input: $ne$datasets/itc99_nangate45/rtl/b12.v:409$118_Y
+  found state code: 5'00010
+  found state code: 5'01000
+  found state code: 5'01100
+  found ctrl input: \k [0]
+  found ctrl input: \k [1]
+  found ctrl input: \k [2]
+  found ctrl input: \k [3]
+  found state code: 5'01010
+  found ctrl input: $eq$datasets/itc99_nangate45/rtl/b12.v:366$104_Y
+  found state code: 5'01110
+  found state code: 5'01011
+  found ctrl input: $eq$datasets/itc99_nangate45/rtl/b12.v:353$102_Y
+  found ctrl input: $eq$datasets/itc99_nangate45/rtl/b12.v:340$100_Y
+  found ctrl input: $eq$datasets/itc99_nangate45/rtl/b12.v:327$98_Y
+  found state code: 5'01001
+  found state code: 5'00111
+  found state code: 5'00011
+  found state code: 5'00110
+  found state code: 5'00101
+  found state code: 5'00100
+  found ctrl output: $procmux$184_CMP
+  found ctrl output: $procmux$194_CMP
+  found ctrl output: $procmux$205_CMP
+  found ctrl output: $procmux$228_CMP
+  found ctrl output: $procmux$244_CMP
+  found ctrl output: $procmux$300_CMP
+  found ctrl output: $procmux$319_CMP
+  found ctrl output: $procmux$341_CMP
+  found ctrl output: $procmux$381_CMP
+  found ctrl output: $procmux$383_CMP
+  found ctrl output: $procmux$385_CMP
+  found ctrl output: $procmux$539_CMP
+  found ctrl output: $procmux$553_CMP
+  found ctrl output: $procmux$878_CMP
+  found ctrl output: $procmux$945_CMP
+  found ctrl output: $procmux$999_CMP
+  found ctrl output: $procmux$1000_CMP
+  found ctrl output: $procmux$1007_CMP
+  found ctrl output: $procmux$1011_CMP
+  found ctrl output: $procmux$1012_CMP
+  found ctrl output: $procmux$1013_CMP
+  found ctrl output: $procmux$1014_CMP
+  found ctrl output: $procmux$1015_CMP
+  found ctrl output: $procmux$1016_CMP
+  found ctrl output: $procmux$1017_CMP
+  found ctrl output: $procmux$1065_CMP
+  ctrl inputs: { $ne$datasets/itc99_nangate45/rtl/b12.v:521$147_Y $ne$datasets/itc99_nangate45/rtl/b12.v:409$118_Y $eq$datasets/itc99_nangate45/rtl/b12.v:366$104_Y $eq$datasets/itc99_nangate45/rtl/b12.v:353$102_Y $eq$datasets/itc99_nangate45/rtl/b12.v:340$100_Y $eq$datasets/itc99_nangate45/rtl/b12.v:327$98_Y $ne$datasets/itc99_nangate45/rtl/b12.v:292$92_Y $eq$datasets/itc99_nangate45/rtl/b12.v:279$88_Y \k \start }
+  ctrl outputs: { $procmux$1065_CMP $procmux$1017_CMP $procmux$1016_CMP $procmux$1015_CMP $procmux$1014_CMP $procmux$1013_CMP $procmux$1012_CMP $procmux$1011_CMP $procmux$1007_CMP $procmux$1000_CMP $procmux$999_CMP $procmux$945_CMP $procmux$878_CMP $procmux$553_CMP $procmux$539_CMP $procmux$385_CMP $procmux$383_CMP $procmux$381_CMP $procmux$341_CMP $procmux$319_CMP $procmux$300_CMP $procmux$244_CMP $procmux$228_CMP $procmux$205_CMP $procmux$194_CMP $procmux$184_CMP $0\gamma[4:0] }
+  transition:    5'00000 13'------------0 ->    5'00000 31'0100000000000000000000000000000
+  transition:    5'00000 13'------------1 ->    5'00010 31'0100000000000000000000000000010
+  transition:    5'10000 13'-------0----0 ->    5'10000 31'0000000000000010000000000010000
+  transition:    5'10000 13'-------1----0 ->    5'10001 31'0000000000000010000000000010001
+  transition:    5'10000 13'------------1 ->    5'00010 31'0000000000000010000000000000010
+  transition:    5'01000 13'------------0 ->    5'01001 31'0000000001000000000000000001001
+  transition:    5'01000 13'------------1 ->    5'00010 31'0000000001000000000000000000010
+  transition:    5'11000 13'-------0----0 ->    5'11000 31'0000000000000000000000001011000
+  transition:    5'11000 13'-------1----0 ->    5'11001 31'0000000000000000000000001011001
+  transition:    5'11000 13'------------1 ->    5'00010 31'0000000000000000000000001000010
+  transition:    5'00100 13'------------0 ->    5'00101 31'0000010000000000000000000000101
+  transition:    5'00100 13'------------1 ->    5'00010 31'0000010000000000000000000000010
+  transition:    5'10100 13'-------0----0 ->    5'10100 31'0000000000000000000010000010100
+  transition:    5'10100 13'-------1----0 ->    5'10101 31'0000000000000000000010000010101
+  transition:    5'10100 13'------------1 ->    5'00010 31'0000000000000000000010000000010
+  transition:    5'01100 13'-------0----0 ->    5'01100 31'0000000000000000001000000001100
+  transition:    5'01100 13'-------1----0 ->    5'01101 31'0000000000000000001000000001101
+  transition:    5'01100 13'------------1 ->    5'00010 31'0000000000000000001000000000010
+  transition:    5'00010 13'------------0 ->    5'00011 31'0001000000000000000000000000011
+  transition:    5'00010 13'------------1 ->    5'00010 31'0001000000000000000000000000010
+  transition:    5'10010 13'------------0 ->    5'10011 31'0000000000010000000000000010011
+  transition:    5'10010 13'------------1 ->    5'00010 31'0000000000010000000000000000010
+  transition:    5'01010 13'-------000000 ->    5'01010 31'1000000000000000000000000001010
+  transition:    5'01010 13'--0----010000 ->    5'01110 31'1000000000000000000000000001110
+  transition:    5'01010 13'--1----010000 ->    5'01011 31'1000000000000000000000000001011
+  transition:    5'01010 13'---0---0-1000 ->    5'01110 31'1000000000000000000000000001110
+  transition:    5'01010 13'---1---0-1000 ->    5'01011 31'1000000000000000000000000001011
+  transition:    5'01010 13'----0--0--100 ->    5'01110 31'1000000000000000000000000001110
+  transition:    5'01010 13'----1--0--100 ->    5'01011 31'1000000000000000000000000001011
+  transition:    5'01010 13'-----0-0---10 ->    5'01110 31'1000000000000000000000000001110
+  transition:    5'01010 13'-----1-0---10 ->    5'01011 31'1000000000000000000000000001011
+  transition:    5'01010 13'-------1----0 ->    5'10001 31'1000000000000000000000000010001
+  transition:    5'01010 13'------------1 ->    5'00010 31'1000000000000000000000000000010
+  transition:    5'00110 13'-------0----0 ->    5'00110 31'0000000100000000000000000000110
+  transition:    5'00110 13'-------1----0 ->    5'00111 31'0000000100000000000000000000111
+  transition:    5'00110 13'------------1 ->    5'00010 31'0000000100000000000000000000010
+  transition:    5'10110 13'-------0----0 ->    5'10110 31'0000000000000000000000100010110
+  transition:    5'10110 13'-------1----0 ->    5'10111 31'0000000000000000000000100010111
+  transition:    5'10110 13'------------1 ->    5'00010 31'0000000000000000000000100000010
+  transition:    5'01110 13'------------0 ->    5'01111 31'0000000000000000100000000001111
+  transition:    5'01110 13'------------1 ->    5'00010 31'0000000000000000100000000000010
+  transition:    5'10001 13'------------0 ->    5'10010 31'0000000000001000000000000010010
+  transition:    5'10001 13'------------1 ->    5'00010 31'0000000000001000000000000000010
+  transition:    5'01001 13'------------0 ->    5'01010 31'0000000000100000000000000001010
+  transition:    5'01001 13'------------1 ->    5'00010 31'0000000000100000000000000000010
+  transition:    5'11001 13'-------0----0 ->    5'11001 31'0000000000000000000000000111001
+  transition:    5'11001 13'-------1----0 ->    5'11000 31'0000000000000000000000000111000
+  transition:    5'11001 13'------------1 ->    5'00010 31'0000000000000000000000000100010
+  transition:    5'00101 13'------------0 ->    5'00110 31'0000001000000000000000000000110
+  transition:    5'00101 13'------------1 ->    5'00010 31'0000001000000000000000000000010
+  transition:    5'10101 13'-------0----0 ->    5'10101 31'0000000000000000000001000010101
+  transition:    5'10101 13'0------1----0 ->    5'10110 31'0000000000000000000001000010110
+  transition:    5'10101 13'1------1----0 ->    5'10001 31'0000000000000000000001000010001
+  transition:    5'10101 13'------------1 ->    5'00010 31'0000000000000000000001000000010
+  transition:    5'01101 13'-------0----0 ->    5'01101 31'0000000000000100000000000001101
+  transition:    5'01101 13'-0----01----0 ->    5'11000 31'0000000000000100000000000011000
+  transition:    5'01101 13'-1----01----0 ->    5'00010 31'0000000000000100000000000000010
+  transition:    5'01101 13'------11----0 ->    5'01000 31'0000000000000100000000000001000
+  transition:    5'01101 13'------------1 ->    5'00010 31'0000000000000100000000000000010
+  transition:    5'00011 13'------------0 ->    5'00100 31'0000100000000000000000000000100
+  transition:    5'00011 13'------------1 ->    5'00010 31'0000100000000000000000000000010
+  transition:    5'10011 13'------------0 ->    5'10100 31'0000000000000000010000000010100
+  transition:    5'10011 13'------------1 ->    5'00010 31'0000000000000000010000000000010
+  transition:    5'01011 13'------------0 ->    5'01100 31'0000000000000001000000000001100
+  transition:    5'01011 13'------------1 ->    5'00010 31'0000000000000001000000000000010
+  transition:    5'00111 13'-------0----0 ->    5'00111 31'0000000010000000000000000000111
+  transition:    5'00111 13'------01----0 ->    5'01000 31'0000000010000000000000000001000
+  transition:    5'00111 13'------11----0 ->    5'00011 31'0000000010000000000000000000011
+  transition:    5'00111 13'------------1 ->    5'00010 31'0000000010000000000000000000010
+  transition:    5'10111 13'-------0----0 ->    5'10111 31'0000000000000000000000010010111
+  transition:    5'10111 13'-------1----0 ->    5'10110 31'0000000000000000000000010010110
+  transition:    5'10111 13'------------1 ->    5'00010 31'0000000000000000000000010000010
+  transition:    5'01111 13'-------0----0 ->    5'01111 31'0000000000000000000100000001111
+  transition:    5'01111 13'-------1----0 ->    5'10000 31'0000000000000000000100000010000
+  transition:    5'01111 13'------------1 ->    5'00010 31'0000000000000000000100000000010
+
+4.8.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+Optimizing FSM `$fsm$\gamma$2126' from module `\b12'.
+
+4.8.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b12..
+Removed 54 unused cells and 54 unused wires.
+<suppressed ~55 debug messages>
+
+4.8.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+Optimizing FSM `$fsm$\gamma$2126' from module `\b12'.
+  Removing unused output signal $0\gamma[4:0] [0].
+  Removing unused output signal $0\gamma[4:0] [1].
+  Removing unused output signal $0\gamma[4:0] [2].
+  Removing unused output signal $0\gamma[4:0] [3].
+  Removing unused output signal $0\gamma[4:0] [4].
+  Removing unused output signal $procmux$945_CMP.
+  Removing unused output signal $procmux$999_CMP.
+  Removing unused output signal $procmux$1013_CMP.
+  Removing unused output signal $procmux$1017_CMP.
+
+4.8.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+Recoding FSM `$fsm$\gamma$2126' from module `\b12' using `auto' encoding:
+  mapping auto encoding to `one-hot` for this FSM.
+  00000 -> ------------------------1
+  10000 -> -----------------------1-
+  01000 -> ----------------------1--
+  11000 -> ---------------------1---
+  00100 -> --------------------1----
+  10100 -> -------------------1-----
+  01100 -> ------------------1------
+  00010 -> -----------------1-------
+  10010 -> ----------------1--------
+  01010 -> ---------------1---------
+  00110 -> --------------1----------
+  10110 -> -------------1-----------
+  01110 -> ------------1------------
+  10001 -> -----------1-------------
+  01001 -> ----------1--------------
+  11001 -> ---------1---------------
+  00101 -> --------1----------------
+  10101 -> -------1-----------------
+  01101 -> ------1------------------
+  00011 -> -----1-------------------
+  10011 -> ----1--------------------
+  01011 -> ---1---------------------
+  00111 -> --1----------------------
+  10111 -> -1-----------------------
+  01111 -> 1------------------------
+
+4.8.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+
+FSM `$fsm$\gamma$2126' from module `b12':
+-------------------------------------
+
+  Information on FSM $fsm$\gamma$2126 (\gamma):
+
+  Number of input signals:   13
+  Number of output signals:  22
+  Number of state bits:      25
+
+  Input signals:
+    0: \start
+    1: \k [0]
+    2: \k [1]
+    3: \k [2]
+    4: \k [3]
+    5: $eq$datasets/itc99_nangate45/rtl/b12.v:279$88_Y
+    6: $ne$datasets/itc99_nangate45/rtl/b12.v:292$92_Y
+    7: $eq$datasets/itc99_nangate45/rtl/b12.v:327$98_Y
+    8: $eq$datasets/itc99_nangate45/rtl/b12.v:340$100_Y
+    9: $eq$datasets/itc99_nangate45/rtl/b12.v:353$102_Y
+   10: $eq$datasets/itc99_nangate45/rtl/b12.v:366$104_Y
+   11: $ne$datasets/itc99_nangate45/rtl/b12.v:409$118_Y
+   12: $ne$datasets/itc99_nangate45/rtl/b12.v:521$147_Y
+
+  Output signals:
+    0: $procmux$184_CMP
+    1: $procmux$194_CMP
+    2: $procmux$205_CMP
+    3: $procmux$228_CMP
+    4: $procmux$244_CMP
+    5: $procmux$300_CMP
+    6: $procmux$319_CMP
+    7: $procmux$341_CMP
+    8: $procmux$381_CMP
+    9: $procmux$383_CMP
+   10: $procmux$385_CMP
+   11: $procmux$539_CMP
+   12: $procmux$553_CMP
+   13: $procmux$878_CMP
+   14: $procmux$1000_CMP
+   15: $procmux$1007_CMP
+   16: $procmux$1011_CMP
+   17: $procmux$1012_CMP
+   18: $procmux$1014_CMP
+   19: $procmux$1015_CMP
+   20: $procmux$1016_CMP
+   21: $procmux$1065_CMP
+
+  State encoding:
+    0: 25'------------------------1  <RESET STATE>
+    1: 25'-----------------------1-
+    2: 25'----------------------1--
+    3: 25'---------------------1---
+    4: 25'--------------------1----
+    5: 25'-------------------1-----
+    6: 25'------------------1------
+    7: 25'-----------------1-------
+    8: 25'----------------1--------
+    9: 25'---------------1---------
+   10: 25'--------------1----------
+   11: 25'-------------1-----------
+   12: 25'------------1------------
+   13: 25'-----------1-------------
+   14: 25'----------1--------------
+   15: 25'---------1---------------
+   16: 25'--------1----------------
+   17: 25'-------1-----------------
+   18: 25'------1------------------
+   19: 25'-----1-------------------
+   20: 25'----1--------------------
+   21: 25'---1---------------------
+   22: 25'--1----------------------
+   23: 25'-1-----------------------
+   24: 25'1------------------------
+
+  Transition Table (state_in, ctrl_in, state_out, ctrl_out):
+      0:     0 13'------------0   ->     0 22'0000000000000000000000
+      1:     0 13'------------1   ->     7 22'0000000000000000000000
+      2:     1 13'-------0----0   ->     1 22'0000000000100000000000
+      3:     1 13'------------1   ->     7 22'0000000000100000000000
+      4:     1 13'-------1----0   ->    13 22'0000000000100000000000
+      5:     2 13'------------1   ->     7 22'0000000100000000000000
+      6:     2 13'------------0   ->    14 22'0000000100000000000000
+      7:     3 13'-------0----0   ->     3 22'0000000000000000000010
+      8:     3 13'------------1   ->     7 22'0000000000000000000010
+      9:     3 13'-------1----0   ->    15 22'0000000000000000000010
+     10:     4 13'------------1   ->     7 22'0000000000000000000000
+     11:     4 13'------------0   ->    16 22'0000000000000000000000
+     12:     5 13'-------0----0   ->     5 22'0000000000000000100000
+     13:     5 13'------------1   ->     7 22'0000000000000000100000
+     14:     5 13'-------1----0   ->    17 22'0000000000000000100000
+     15:     6 13'-------0----0   ->     6 22'0000000000000010000000
+     16:     6 13'------------1   ->     7 22'0000000000000010000000
+     17:     6 13'-------1----0   ->    18 22'0000000000000010000000
+     18:     7 13'------------1   ->     7 22'0010000000000000000000
+     19:     7 13'------------0   ->    19 22'0010000000000000000000
+     20:     8 13'------------1   ->     7 22'0000000000000000000000
+     21:     8 13'------------0   ->    20 22'0000000000000000000000
+     22:     9 13'------------1   ->     7 22'1000000000000000000000
+     23:     9 13'-------000000   ->     9 22'1000000000000000000000
+     24:     9 13'--0----010000   ->    12 22'1000000000000000000000
+     25:     9 13'---0---0-1000   ->    12 22'1000000000000000000000
+     26:     9 13'----0--0--100   ->    12 22'1000000000000000000000
+     27:     9 13'-----0-0---10   ->    12 22'1000000000000000000000
+     28:     9 13'-------1----0   ->    13 22'1000000000000000000000
+     29:     9 13'--1----010000   ->    21 22'1000000000000000000000
+     30:     9 13'---1---0-1000   ->    21 22'1000000000000000000000
+     31:     9 13'----1--0--100   ->    21 22'1000000000000000000000
+     32:     9 13'-----1-0---10   ->    21 22'1000000000000000000000
+     33:    10 13'------------1   ->     7 22'0000010000000000000000
+     34:    10 13'-------0----0   ->    10 22'0000010000000000000000
+     35:    10 13'-------1----0   ->    22 22'0000010000000000000000
+     36:    11 13'------------1   ->     7 22'0000000000000000001000
+     37:    11 13'-------0----0   ->    11 22'0000000000000000001000
+     38:    11 13'-------1----0   ->    23 22'0000000000000000001000
+     39:    12 13'------------1   ->     7 22'0000000000001000000000
+     40:    12 13'------------0   ->    24 22'0000000000001000000000
+     41:    13 13'------------1   ->     7 22'0000000010000000000000
+     42:    13 13'------------0   ->     8 22'0000000010000000000000
+     43:    14 13'------------1   ->     7 22'0000000000000000000000
+     44:    14 13'------------0   ->     9 22'0000000000000000000000
+     45:    15 13'-------1----0   ->     3 22'0000000000000000000001
+     46:    15 13'------------1   ->     7 22'0000000000000000000001
+     47:    15 13'-------0----0   ->    15 22'0000000000000000000001
+     48:    16 13'------------1   ->     7 22'0000100000000000000000
+     49:    16 13'------------0   ->    10 22'0000100000000000000000
+     50:    17 13'------------1   ->     7 22'0000000000000000010000
+     51:    17 13'0------1----0   ->    11 22'0000000000000000010000
+     52:    17 13'1------1----0   ->    13 22'0000000000000000010000
+     53:    17 13'-------0----0   ->    17 22'0000000000000000010000
+     54:    18 13'------11----0   ->     2 22'0000000001000000000000
+     55:    18 13'-0----01----0   ->     3 22'0000000001000000000000
+     56:    18 13'-1----01----0   ->     7 22'0000000001000000000000
+     57:    18 13'------------1   ->     7 22'0000000001000000000000
+     58:    18 13'-------0----0   ->    18 22'0000000001000000000000
+     59:    19 13'------------0   ->     4 22'0001000000000000000000
+     60:    19 13'------------1   ->     7 22'0001000000000000000000
+     61:    20 13'------------0   ->     5 22'0000000000000100000000
+     62:    20 13'------------1   ->     7 22'0000000000000100000000
+     63:    21 13'------------0   ->     6 22'0000000000010000000000
+     64:    21 13'------------1   ->     7 22'0000000000010000000000
+     65:    22 13'------01----0   ->     2 22'0000001000000000000000
+     66:    22 13'------------1   ->     7 22'0000001000000000000000
+     67:    22 13'------11----0   ->    19 22'0000001000000000000000
+     68:    22 13'-------0----0   ->    22 22'0000001000000000000000
+     69:    23 13'------------1   ->     7 22'0000000000000000000100
+     70:    23 13'-------1----0   ->    11 22'0000000000000000000100
+     71:    23 13'-------0----0   ->    23 22'0000000000000000000100
+     72:    24 13'-------1----0   ->     1 22'0000000000000001000000
+     73:    24 13'------------1   ->     7 22'0000000000000001000000
+     74:    24 13'-------0----0   ->    24 22'0000000000000001000000
+
+-------------------------------------
+
+4.8.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+Mapping FSM `$fsm$\gamma$2126' from module `\b12'.
+
+4.9. Executing OPT pass (performing simple optimizations).
+
+4.9.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module b12.
+<suppressed ~27 debug messages>
+
+4.9.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\b12'.
+<suppressed ~96 debug messages>
+Removed a total of 32 cells.
+
+4.9.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \b12..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+    dead port 2/3 on $pmux $procmux$1064.
+    dead port 7/8 on $pmux $procmux$374.
+    dead port 2/3 on $pmux $procmux$609.
+    dead port 4/5 on $pmux $procmux$626.
+    dead port 7/8 on $pmux $procmux$722.
+Removed 5 multiplexer ports.
+<suppressed ~48 debug messages>
+
+4.9.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \b12.
+Performed a total of 0 changes.
+
+4.9.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\b12'.
+Removed a total of 0 cells.
+
+4.9.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $procdff$2091 ($adff) from module b12 (D = $3\s[0:0], Q = \s).
+Adding EN signal on $procdff$2088 ($adff) from module b12 (D = $0\speaker[0:0], Q = \speaker).
+Adding EN signal on $procdff$2067 ($adff) from module b12 (D = \data_in, Q = \memory[31]).
+Adding EN signal on $procdff$2064 ($adff) from module b12 (D = \data_in, Q = \memory[30]).
+Adding EN signal on $procdff$2061 ($adff) from module b12 (D = \data_in, Q = \memory[29]).
+Adding EN signal on $procdff$2058 ($adff) from module b12 (D = \data_in, Q = \memory[28]).
+Adding EN signal on $procdff$2055 ($adff) from module b12 (D = \data_in, Q = \memory[27]).
+Adding EN signal on $procdff$2052 ($adff) from module b12 (D = \data_in, Q = \memory[26]).
+Adding EN signal on $procdff$2049 ($adff) from module b12 (D = \data_in, Q = \memory[25]).
+Adding EN signal on $procdff$2046 ($adff) from module b12 (D = \data_in, Q = \memory[24]).
+Adding EN signal on $procdff$2043 ($adff) from module b12 (D = \data_in, Q = \memory[23]).
+Adding EN signal on $procdff$2040 ($adff) from module b12 (D = \data_in, Q = \memory[22]).
+Adding EN signal on $procdff$2037 ($adff) from module b12 (D = \data_in, Q = \memory[21]).
+Adding EN signal on $procdff$2034 ($adff) from module b12 (D = \data_in, Q = \memory[20]).
+Adding EN signal on $procdff$2031 ($adff) from module b12 (D = \data_in, Q = \memory[19]).
+Adding EN signal on $procdff$2028 ($adff) from module b12 (D = \data_in, Q = \memory[18]).
+Adding EN signal on $procdff$2025 ($adff) from module b12 (D = \data_in, Q = \memory[17]).
+Adding EN signal on $procdff$2022 ($adff) from module b12 (D = \data_in, Q = \memory[16]).
+Adding EN signal on $procdff$2019 ($adff) from module b12 (D = \data_in, Q = \memory[15]).
+Adding EN signal on $procdff$2016 ($adff) from module b12 (D = \data_in, Q = \memory[14]).
+Adding EN signal on $procdff$2013 ($adff) from module b12 (D = \data_in, Q = \memory[13]).
+Adding EN signal on $procdff$2010 ($adff) from module b12 (D = \data_in, Q = \memory[12]).
+Adding EN signal on $procdff$2007 ($adff) from module b12 (D = \data_in, Q = \memory[11]).
+Adding EN signal on $procdff$2004 ($adff) from module b12 (D = \data_in, Q = \memory[10]).
+Adding EN signal on $procdff$2001 ($adff) from module b12 (D = \data_in, Q = \memory[9]).
+Adding EN signal on $procdff$1998 ($adff) from module b12 (D = \data_in, Q = \memory[8]).
+Adding EN signal on $procdff$1995 ($adff) from module b12 (D = \data_in, Q = \memory[7]).
+Adding EN signal on $procdff$1992 ($adff) from module b12 (D = \data_in, Q = \memory[6]).
+Adding EN signal on $procdff$1989 ($adff) from module b12 (D = \data_in, Q = \memory[5]).
+Adding EN signal on $procdff$1986 ($adff) from module b12 (D = \data_in, Q = \memory[4]).
+Adding EN signal on $procdff$1983 ($adff) from module b12 (D = \data_in, Q = \memory[3]).
+Adding EN signal on $procdff$1980 ($adff) from module b12 (D = \data_in, Q = \memory[2]).
+Adding EN signal on $procdff$1977 ($adff) from module b12 (D = \data_in, Q = \memory[1]).
+Adding EN signal on $procdff$1974 ($adff) from module b12 (D = \data_in, Q = \memory[0]).
+Adding EN signal on $procdff$1944 ($adff) from module b12 (D = $procmux$510_Y, Q = \countP1).
+Adding EN signal on $procdff$1941 ($adff) from module b12 (D = $0\timebase[5:0], Q = \timebase).
+Adding EN signal on $procdff$1938 ($adff) from module b12 (D = $0\max[31:0], Q = \max).
+Adding EN signal on $procdff$1935 ($adff) from module b12 (D = $procmux$669_Y, Q = \scan).
+Adding EN signal on $procdff$1932 ($adff) from module b12 (D = $procmux$708_Y, Q = \ind).
+Adding EN signal on $procdff$1929 ($adff) from module b12 (D = $0\play[0:0], Q = \play).
+Adding EN signal on $procdff$1926 ($adff) from module b12 (D = $procmux$795_Y, Q = \sound).
+Adding EN signal on $procdff$1923 ($adff) from module b12 (D = { 2'00 \num [1:0] }, Q = \data_in).
+Adding EN signal on $procdff$1920 ($adff) from module b12 (D = $procmux$877_Y, Q = \address).
+Adding EN signal on $procdff$1917 ($adff) from module b12 (D = $0\wr[0:0], Q = \wr).
+Adding EN signal on $procdff$1911 ($adff) from module b12 (D = $0$lookahead\nl$49[3:0]$57, Q = \nl).
+Adding EN signal on $procdff$1908 ($adff) from module b12 (D = $0\nloss[0:0], Q = \nloss).
+Setting constant 0-bit at position 2 on $auto$ff.cc:266:slice$2622 ($adffe) from module b12.
+Setting constant 0-bit at position 3 on $auto$ff.cc:266:slice$2622 ($adffe) from module b12.
+
+4.9.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b12..
+Removed 74 unused cells and 137 unused wires.
+<suppressed ~75 debug messages>
+
+4.9.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module b12.
+<suppressed ~12 debug messages>
+
+4.9.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.9.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \b12..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~15 debug messages>
+
+4.9.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \b12.
+Performed a total of 0 changes.
+
+4.9.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\b12'.
+<suppressed ~81 debug messages>
+Removed a total of 27 cells.
+
+4.9.13. Executing OPT_DFF pass (perform DFF optimizations).
+Setting constant 0-bit at position 2 on $auto$ff.cc:266:slice$2465 ($adffe) from module b12.
+Setting constant 0-bit at position 3 on $auto$ff.cc:266:slice$2465 ($adffe) from module b12.
+Setting constant 0-bit at position 2 on $auto$ff.cc:266:slice$2468 ($adffe) from module b12.
+Setting constant 0-bit at position 3 on $auto$ff.cc:266:slice$2468 ($adffe) from module b12.
+Setting constant 0-bit at position 2 on $auto$ff.cc:266:slice$2471 ($adffe) from module b12.
+Setting constant 0-bit at position 3 on $auto$ff.cc:266:slice$2471 ($adffe) from module b12.
+Setting constant 0-bit at position 2 on $auto$ff.cc:266:slice$2474 ($adffe) from module b12.
+Setting constant 0-bit at position 3 on $auto$ff.cc:266:slice$2474 ($adffe) from module b12.
+Setting constant 0-bit at position 2 on $auto$ff.cc:266:slice$2477 ($adffe) from module b12.
+Setting constant 0-bit at position 3 on $auto$ff.cc:266:slice$2477 ($adffe) from module b12.
+Setting constant 0-bit at position 2 on $auto$ff.cc:266:slice$2480 ($adffe) from module b12.
+Setting constant 0-bit at position 3 on $auto$ff.cc:266:slice$2480 ($adffe) from module b12.
+Setting constant 0-bit at position 2 on $auto$ff.cc:266:slice$2483 ($adffe) from module b12.
+Setting constant 0-bit at position 3 on $auto$ff.cc:266:slice$2483 ($adffe) from module b12.
+Setting constant 0-bit at position 2 on $auto$ff.cc:266:slice$2486 ($adffe) from module b12.
+Setting constant 0-bit at position 3 on $auto$ff.cc:266:slice$2486 ($adffe) from module b12.
+Setting constant 0-bit at position 2 on $auto$ff.cc:266:slice$2489 ($adffe) from module b12.
+Setting constant 0-bit at position 3 on $auto$ff.cc:266:slice$2489 ($adffe) from module b12.
+Setting constant 0-bit at position 2 on $auto$ff.cc:266:slice$2492 ($adffe) from module b12.
+Setting constant 0-bit at position 3 on $auto$ff.cc:266:slice$2492 ($adffe) from module b12.
+Setting constant 0-bit at position 2 on $auto$ff.cc:266:slice$2495 ($adffe) from module b12.
+Setting constant 0-bit at position 3 on $auto$ff.cc:266:slice$2495 ($adffe) from module b12.
+Setting constant 0-bit at position 2 on $auto$ff.cc:266:slice$2498 ($adffe) from module b12.
+Setting constant 0-bit at position 3 on $auto$ff.cc:266:slice$2498 ($adffe) from module b12.
+Setting constant 0-bit at position 2 on $auto$ff.cc:266:slice$2501 ($adffe) from module b12.
+Setting constant 0-bit at position 3 on $auto$ff.cc:266:slice$2501 ($adffe) from module b12.
+Setting constant 0-bit at position 2 on $auto$ff.cc:266:slice$2504 ($adffe) from module b12.
+Setting constant 0-bit at position 3 on $auto$ff.cc:266:slice$2504 ($adffe) from module b12.
+Setting constant 0-bit at position 2 on $auto$ff.cc:266:slice$2411 ($adffe) from module b12.
+Setting constant 0-bit at position 3 on $auto$ff.cc:266:slice$2411 ($adffe) from module b12.
+Setting constant 0-bit at position 2 on $auto$ff.cc:266:slice$2414 ($adffe) from module b12.
+Setting constant 0-bit at position 3 on $auto$ff.cc:266:slice$2414 ($adffe) from module b12.
+Setting constant 0-bit at position 2 on $auto$ff.cc:266:slice$2417 ($adffe) from module b12.
+Setting constant 0-bit at position 3 on $auto$ff.cc:266:slice$2417 ($adffe) from module b12.
+Setting constant 0-bit at position 2 on $auto$ff.cc:266:slice$2420 ($adffe) from module b12.
+Setting constant 0-bit at position 3 on $auto$ff.cc:266:slice$2420 ($adffe) from module b12.
+Setting constant 0-bit at position 2 on $auto$ff.cc:266:slice$2423 ($adffe) from module b12.
+Setting constant 0-bit at position 3 on $auto$ff.cc:266:slice$2423 ($adffe) from module b12.
+Setting constant 0-bit at position 2 on $auto$ff.cc:266:slice$2426 ($adffe) from module b12.
+Setting constant 0-bit at position 3 on $auto$ff.cc:266:slice$2426 ($adffe) from module b12.
+Setting constant 0-bit at position 2 on $auto$ff.cc:266:slice$2429 ($adffe) from module b12.
+Setting constant 0-bit at position 3 on $auto$ff.cc:266:slice$2429 ($adffe) from module b12.
+Setting constant 0-bit at position 2 on $auto$ff.cc:266:slice$2432 ($adffe) from module b12.
+Setting constant 0-bit at position 3 on $auto$ff.cc:266:slice$2432 ($adffe) from module b12.
+Setting constant 0-bit at position 2 on $auto$ff.cc:266:slice$2435 ($adffe) from module b12.
+Setting constant 0-bit at position 3 on $auto$ff.cc:266:slice$2435 ($adffe) from module b12.
+Setting constant 0-bit at position 2 on $auto$ff.cc:266:slice$2438 ($adffe) from module b12.
+Setting constant 0-bit at position 3 on $auto$ff.cc:266:slice$2438 ($adffe) from module b12.
+Setting constant 0-bit at position 2 on $auto$ff.cc:266:slice$2441 ($adffe) from module b12.
+Setting constant 0-bit at position 3 on $auto$ff.cc:266:slice$2441 ($adffe) from module b12.
+Setting constant 0-bit at position 2 on $auto$ff.cc:266:slice$2444 ($adffe) from module b12.
+Setting constant 0-bit at position 3 on $auto$ff.cc:266:slice$2444 ($adffe) from module b12.
+Setting constant 0-bit at position 2 on $auto$ff.cc:266:slice$2462 ($adffe) from module b12.
+Setting constant 0-bit at position 3 on $auto$ff.cc:266:slice$2462 ($adffe) from module b12.
+Setting constant 0-bit at position 2 on $auto$ff.cc:266:slice$2447 ($adffe) from module b12.
+Setting constant 0-bit at position 3 on $auto$ff.cc:266:slice$2447 ($adffe) from module b12.
+Setting constant 0-bit at position 2 on $auto$ff.cc:266:slice$2450 ($adffe) from module b12.
+Setting constant 0-bit at position 3 on $auto$ff.cc:266:slice$2450 ($adffe) from module b12.
+Setting constant 0-bit at position 2 on $auto$ff.cc:266:slice$2453 ($adffe) from module b12.
+Setting constant 0-bit at position 3 on $auto$ff.cc:266:slice$2453 ($adffe) from module b12.
+Setting constant 0-bit at position 2 on $auto$ff.cc:266:slice$2456 ($adffe) from module b12.
+Setting constant 0-bit at position 3 on $auto$ff.cc:266:slice$2456 ($adffe) from module b12.
+Setting constant 0-bit at position 2 on $auto$ff.cc:266:slice$2459 ($adffe) from module b12.
+Setting constant 0-bit at position 3 on $auto$ff.cc:266:slice$2459 ($adffe) from module b12.
+
+4.9.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b12..
+Removed 0 unused cells and 27 unused wires.
+<suppressed ~1 debug messages>
+
+4.9.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module b12.
+
+4.9.16. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.9.17. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \b12..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~15 debug messages>
+
+4.9.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \b12.
+Performed a total of 0 changes.
+
+4.9.19. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\b12'.
+Removed a total of 0 cells.
+
+4.9.20. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.9.21. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b12..
+
+4.9.22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module b12.
+
+4.9.23. Finished OPT passes. (There is nothing left to do.)
+
+4.10. Executing WREDUCE pass (reducing word size of cells).
+Removed top 30 bits (of 32) from port B of cell b12.$gt$datasets/itc99_nangate45/rtl/b12.v:109$13 ($gt).
+Removed top 31 bits (of 32) from port B of cell b12.$add$datasets/itc99_nangate45/rtl/b12.v:115$15 ($add).
+Removed top 28 bits (of 32) from port Y of cell b12.$add$datasets/itc99_nangate45/rtl/b12.v:115$15 ($add).
+Removed top 30 bits (of 32) from port B of cell b12.$gt$datasets/itc99_nangate45/rtl/b12.v:119$16 ($gt).
+Removed top 29 bits (of 32) from port B of cell b12.$gt$datasets/itc99_nangate45/rtl/b12.v:129$19 ($gt).
+Removed top 2 bits (of 5) from port B of cell b12.$auto$fsm_map.cc:77:implement_pattern_cache$2266 ($eq).
+Removed top 29 bits (of 32) from port B of cell b12.$gt$datasets/itc99_nangate45/rtl/b12.v:139$22 ($gt).
+Removed top 29 bits (of 32) from port B of cell b12.$gt$datasets/itc99_nangate45/rtl/b12.v:149$25 ($gt).
+Removed top 31 bits (of 32) from port B of cell b12.$gt$datasets/itc99_nangate45/rtl/b12.v:159$28 ($gt).
+Removed top 2 bits (of 4) from port A of cell b12.$add$datasets/itc99_nangate45/rtl/b12.v:187$33 ($add).
+Removed top 31 bits (of 32) from port B of cell b12.$add$datasets/itc99_nangate45/rtl/b12.v:187$33 ($add).
+Removed top 30 bits (of 32) from port Y of cell b12.$add$datasets/itc99_nangate45/rtl/b12.v:187$33 ($add).
+Removed top 1 bits (of 6) from port B of cell b12.$auto$opt_dff.cc:195:make_patterns_logic$2599 ($ne).
+Removed top 1 bits (of 2) from port B of cell b12.$auto$opt_dff.cc:195:make_patterns_logic$2617 ($ne).
+Removed top 31 bits (of 32) from port B of cell b12.$sub$datasets/itc99_nangate45/rtl/b12.v:286$90 ($sub).
+Removed top 26 bits (of 32) from port Y of cell b12.$sub$datasets/itc99_nangate45/rtl/b12.v:286$90 ($sub).
+Removed top 31 bits (of 32) from port B of cell b12.$add$datasets/itc99_nangate45/rtl/b12.v:293$93 ($add).
+Removed top 3 bits (of 4) from port B of cell b12.$eq$datasets/itc99_nangate45/rtl/b12.v:340$100 ($eq).
+Removed top 2 bits (of 4) from port B of cell b12.$eq$datasets/itc99_nangate45/rtl/b12.v:353$102 ($eq).
+Removed top 2 bits (of 4) from port B of cell b12.$eq$datasets/itc99_nangate45/rtl/b12.v:366$104 ($eq).
+Converting cell b12.$neg$datasets/itc99_nangate45/rtl/b12.v:0$105 ($neg) from signed to unsigned.
+Removed top 1 bits (of 4) from port A of cell b12.$neg$datasets/itc99_nangate45/rtl/b12.v:0$105 ($neg).
+Removed top 1 bits (of 3) from port B of cell b12.$auto$fsm_map.cc:77:implement_pattern_cache$2172 ($eq).
+Removed top 27 bits (of 32) from port B of cell b12.$ne$datasets/itc99_nangate45/rtl/b12.v:409$118 ($ne).
+Removed top 31 bits (of 32) from port B of cell b12.$add$datasets/itc99_nangate45/rtl/b12.v:411$119 ($add).
+Removed top 31 bits (of 32) from port B of cell b12.$sub$datasets/itc99_nangate45/rtl/b12.v:413$120 ($sub).
+Removed top 26 bits (of 32) from port Y of cell b12.$sub$datasets/itc99_nangate45/rtl/b12.v:413$120 ($sub).
+Removed top 1 bits (of 3) from port B of cell b12.$auto$opt_dff.cc:195:make_patterns_logic$2539 ($ne).
+Removed top 2 bits (of 4) from port B of cell b12.$auto$fsm_map.cc:77:implement_pattern_cache$2270 ($eq).
+Removed top 1 bits (of 4) from port B of cell b12.$auto$opt_dff.cc:195:make_patterns_logic$2541 ($ne).
+Converting cell b12.$neg$datasets/itc99_nangate45/rtl/b12.v:0$134 ($neg) from signed to unsigned.
+Removed top 1 bits (of 5) from port A of cell b12.$neg$datasets/itc99_nangate45/rtl/b12.v:0$134 ($neg).
+Removed top 1 bits (of 3) from port B of cell b12.$auto$opt_dff.cc:195:make_patterns_logic$2528 ($ne).
+Removed top 2 bits (of 6) from port B of cell b12.$auto$fsm_map.cc:77:implement_pattern_cache$2262 ($eq).
+Removed top 2 bits (of 5) from port B of cell b12.$auto$opt_dff.cc:195:make_patterns_logic$2530 ($ne).
+Removed top 1 bits (of 2) from port B of cell b12.$auto$opt_dff.cc:195:make_patterns_logic$2607 ($ne).
+Removed top 1 bits (of 2) from port B of cell b12.$auto$opt_dff.cc:195:make_patterns_logic$2605 ($ne).
+Removed top 1 bits (of 7) from port B of cell b12.$auto$opt_dff.cc:195:make_patterns_logic$2576 ($ne).
+Removed top 2 bits (of 7) from port B of cell b12.$auto$fsm_map.cc:77:implement_pattern_cache$2258 ($eq).
+Removed top 6 bits (of 7) from port B of cell b12.$auto$opt_dff.cc:195:make_patterns_logic$2408 ($ne).
+Removed top 1 bits (of 2) from port B of cell b12.$auto$opt_dff.cc:195:make_patterns_logic$2560 ($ne).
+Removed top 1 bits (of 3) from port B of cell b12.$auto$fsm_map.cc:77:implement_pattern_cache$2249 ($eq).
+Removed top 1 bits (of 3) from port B of cell b12.$auto$opt_dff.cc:195:make_patterns_logic$2558 ($ne).
+Removed top 1 bits (of 2) from port B of cell b12.$auto$opt_dff.cc:195:make_patterns_logic$2556 ($ne).
+Removed top 1 bits (of 3) from port B of cell b12.$auto$opt_dff.cc:195:make_patterns_logic$2647 ($ne).
+Removed top 2 bits (of 4) from port B of cell b12.$auto$fsm_map.cc:77:implement_pattern_cache$2185 ($eq).
+Removed top 1 bits (of 3) from port B of cell b12.$auto$opt_dff.cc:195:make_patterns_logic$2641 ($ne).
+Removed top 1 bits (of 5) from port B of cell b12.$procmux$1093_CMP0 ($eq).
+Removed top 1 bits (of 5) from port B of cell b12.$procmux$1094_CMP0 ($eq).
+Removed top 1 bits (of 5) from port B of cell b12.$procmux$1095_CMP0 ($eq).
+Removed top 1 bits (of 5) from port B of cell b12.$procmux$1096_CMP0 ($eq).
+Removed top 1 bits (of 5) from port B of cell b12.$procmux$1097_CMP0 ($eq).
+Removed top 1 bits (of 5) from port B of cell b12.$procmux$1098_CMP0 ($eq).
+Removed top 1 bits (of 5) from port B of cell b12.$procmux$1099_CMP0 ($eq).
+Removed top 1 bits (of 5) from port B of cell b12.$procmux$1100_CMP0 ($eq).
+Removed top 2 bits (of 5) from port B of cell b12.$procmux$1101_CMP0 ($eq).
+Removed top 2 bits (of 5) from port B of cell b12.$procmux$1102_CMP0 ($eq).
+Removed top 2 bits (of 5) from port B of cell b12.$procmux$1103_CMP0 ($eq).
+Removed top 2 bits (of 5) from port B of cell b12.$procmux$1104_CMP0 ($eq).
+Removed top 3 bits (of 5) from port B of cell b12.$procmux$1105_CMP0 ($eq).
+Removed top 3 bits (of 5) from port B of cell b12.$procmux$1106_CMP0 ($eq).
+Removed top 4 bits (of 5) from port B of cell b12.$procmux$1107_CMP0 ($eq).
+Removed top 1 bits (of 4) from port B of cell b12.$procmux$1771_CMP0 ($eq).
+Removed top 1 bits (of 4) from port B of cell b12.$procmux$1781_CMP0 ($eq).
+Removed top 2 bits (of 4) from port B of cell b12.$procmux$1792_CMP0 ($eq).
+Removed top 2 bits (of 4) from port B of cell b12.$procmux$1804_CMP0 ($eq).
+Removed top 3 bits (of 4) from port B of cell b12.$procmux$1817_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell b12.$auto$opt_dff.cc:195:make_patterns_logic$2580 ($ne).
+Removed top 27 bits (of 32) from FF cell b12.$auto$ff.cc:266:slice$2627 ($adffe).
+Removed top 27 bits (of 32) from mux cell b12.$procmux$877 ($pmux).
+Removed top 2 bits (of 4) from wire b12.$0\count_P3[3:0].
+Removed top 28 bits (of 32) from wire b12.$add$datasets/itc99_nangate45/rtl/b12.v:115$15_Y.
+Removed top 4 bits (of 25) from wire b12.$auto$fsm_map.cc:170:map_fsm$2154.
+Removed top 27 bits (of 32) from wire b12.$procmux$877_Y.
+Removed top 26 bits (of 32) from wire b12.$sub$datasets/itc99_nangate45/rtl/b12.v:413$120_Y.
+Removed top 27 bits (of 32) from wire b12.address.
+Removed top 2 bits (of 4) from wire b12.memory[0].
+Removed top 2 bits (of 4) from wire b12.memory[10].
+Removed top 2 bits (of 4) from wire b12.memory[12].
+Removed top 2 bits (of 4) from wire b12.memory[14].
+Removed top 2 bits (of 4) from wire b12.memory[18].
+Removed top 2 bits (of 4) from wire b12.memory[20].
+Removed top 2 bits (of 4) from wire b12.memory[22].
+Removed top 2 bits (of 4) from wire b12.memory[24].
+Removed top 2 bits (of 4) from wire b12.memory[26].
+Removed top 2 bits (of 4) from wire b12.memory[28].
+Removed top 2 bits (of 4) from wire b12.memory[2].
+Removed top 2 bits (of 4) from wire b12.memory[30].
+Removed top 2 bits (of 4) from wire b12.memory[4].
+Removed top 2 bits (of 4) from wire b12.memory[6].
+Removed top 2 bits (of 4) from wire b12.memory[8].
+
+4.11. Executing PEEPOPT pass (run peephole optimizers).
+
+4.12. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b12..
+Removed 0 unused cells and 21 unused wires.
+<suppressed ~1 debug messages>
+
+4.13. Executing ALUMACC pass (create $alu and $macc cells).
+Extracting $alu and $macc cells in module b12:
+  creating $macc model for $add$datasets/itc99_nangate45/rtl/b12.v:115$15 ($add).
+  creating $macc model for $add$datasets/itc99_nangate45/rtl/b12.v:187$33 ($add).
+  creating $macc model for $add$datasets/itc99_nangate45/rtl/b12.v:293$93 ($add).
+  creating $macc model for $add$datasets/itc99_nangate45/rtl/b12.v:411$119 ($add).
+  creating $macc model for $neg$datasets/itc99_nangate45/rtl/b12.v:0$105 ($neg).
+  creating $macc model for $neg$datasets/itc99_nangate45/rtl/b12.v:0$134 ($neg).
+  creating $macc model for $sub$datasets/itc99_nangate45/rtl/b12.v:286$90 ($sub).
+  creating $macc model for $sub$datasets/itc99_nangate45/rtl/b12.v:413$120 ($sub).
+  creating $alu model for $macc $sub$datasets/itc99_nangate45/rtl/b12.v:413$120.
+  creating $alu model for $macc $sub$datasets/itc99_nangate45/rtl/b12.v:286$90.
+  creating $alu model for $macc $neg$datasets/itc99_nangate45/rtl/b12.v:0$134.
+  creating $alu model for $macc $neg$datasets/itc99_nangate45/rtl/b12.v:0$105.
+  creating $alu model for $macc $add$datasets/itc99_nangate45/rtl/b12.v:411$119.
+  creating $alu model for $macc $add$datasets/itc99_nangate45/rtl/b12.v:293$93.
+  creating $alu model for $macc $add$datasets/itc99_nangate45/rtl/b12.v:187$33.
+  creating $alu model for $macc $add$datasets/itc99_nangate45/rtl/b12.v:115$15.
+  creating $alu model for $gt$datasets/itc99_nangate45/rtl/b12.v:109$13 ($gt): new $alu
+  creating $alu model for $gt$datasets/itc99_nangate45/rtl/b12.v:119$16 ($gt): new $alu
+  creating $alu model for $gt$datasets/itc99_nangate45/rtl/b12.v:129$19 ($gt): new $alu
+  creating $alu model for $gt$datasets/itc99_nangate45/rtl/b12.v:139$22 ($gt): new $alu
+  creating $alu model for $gt$datasets/itc99_nangate45/rtl/b12.v:149$25 ($gt): new $alu
+  creating $alu model for $gt$datasets/itc99_nangate45/rtl/b12.v:159$28 ($gt): new $alu
+  creating $alu cell for $gt$datasets/itc99_nangate45/rtl/b12.v:159$28: $auto$alumacc.cc:495:replace_alu$2727
+  creating $alu cell for $gt$datasets/itc99_nangate45/rtl/b12.v:149$25: $auto$alumacc.cc:495:replace_alu$2738
+  creating $alu cell for $gt$datasets/itc99_nangate45/rtl/b12.v:139$22: $auto$alumacc.cc:495:replace_alu$2749
+  creating $alu cell for $gt$datasets/itc99_nangate45/rtl/b12.v:129$19: $auto$alumacc.cc:495:replace_alu$2760
+  creating $alu cell for $gt$datasets/itc99_nangate45/rtl/b12.v:119$16: $auto$alumacc.cc:495:replace_alu$2771
+  creating $alu cell for $gt$datasets/itc99_nangate45/rtl/b12.v:109$13: $auto$alumacc.cc:495:replace_alu$2782
+  creating $alu cell for $add$datasets/itc99_nangate45/rtl/b12.v:115$15: $auto$alumacc.cc:495:replace_alu$2793
+  creating $alu cell for $add$datasets/itc99_nangate45/rtl/b12.v:187$33: $auto$alumacc.cc:495:replace_alu$2796
+  creating $alu cell for $add$datasets/itc99_nangate45/rtl/b12.v:293$93: $auto$alumacc.cc:495:replace_alu$2799
+  creating $alu cell for $add$datasets/itc99_nangate45/rtl/b12.v:411$119: $auto$alumacc.cc:495:replace_alu$2802
+  creating $alu cell for $neg$datasets/itc99_nangate45/rtl/b12.v:0$105: $auto$alumacc.cc:495:replace_alu$2805
+  creating $alu cell for $neg$datasets/itc99_nangate45/rtl/b12.v:0$134: $auto$alumacc.cc:495:replace_alu$2808
+  creating $alu cell for $sub$datasets/itc99_nangate45/rtl/b12.v:286$90: $auto$alumacc.cc:495:replace_alu$2811
+  creating $alu cell for $sub$datasets/itc99_nangate45/rtl/b12.v:413$120: $auto$alumacc.cc:495:replace_alu$2814
+  created 14 $alu and 0 $macc cells.
+
+4.14. Executing SHARE pass (SAT-based resource sharing).
+
+4.15. Executing OPT pass (performing simple optimizations).
+
+4.15.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module b12.
+<suppressed ~12 debug messages>
+
+4.15.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\b12'.
+Removed a total of 0 cells.
+
+4.15.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \b12..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~15 debug messages>
+
+4.15.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \b12.
+Performed a total of 0 changes.
+
+4.15.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\b12'.
+Removed a total of 0 cells.
+
+4.15.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.15.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b12..
+Removed 0 unused cells and 6 unused wires.
+<suppressed ~1 debug messages>
+
+4.15.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module b12.
+
+4.15.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.15.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \b12..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~15 debug messages>
+
+4.15.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \b12.
+Performed a total of 0 changes.
+
+4.15.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\b12'.
+Removed a total of 0 cells.
+
+4.15.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.15.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b12..
+
+4.15.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module b12.
+
+4.15.16. Finished OPT passes. (There is nothing left to do.)
+
+4.16. Executing MEMORY pass.
+
+4.16.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+4.16.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+4.16.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+
+4.16.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+4.16.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+
+4.16.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b12..
+
+4.16.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+4.16.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+4.16.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b12..
+
+4.16.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+4.17. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b12..
+
+4.18. Executing OPT pass (performing simple optimizations).
+
+4.18.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module b12.
+<suppressed ~76 debug messages>
+
+4.18.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\b12'.
+<suppressed ~12 debug messages>
+Removed a total of 4 cells.
+
+4.18.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.18.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b12..
+Removed 0 unused cells and 67 unused wires.
+<suppressed ~1 debug messages>
+
+4.18.5. Finished fast OPT passes.
+
+4.19. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+
+4.20. Executing OPT pass (performing simple optimizations).
+
+4.20.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module b12.
+<suppressed ~1 debug messages>
+
+4.20.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\b12'.
+<suppressed ~3 debug messages>
+Removed a total of 1 cells.
+
+4.20.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \b12..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~13 debug messages>
+
+4.20.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \b12.
+    Consolidated identical input bits for $pmux cell $procmux$1076:
+      Old ports: A={ 2'00 \memory[0] }, B={ 2'00 \memory[1] [1:0] 2'00 \memory[2] 2'00 \memory[3] [1:0] 2'00 \memory[4] 2'00 \memory[5] [1:0] 2'00 \memory[6] 2'00 \memory[7] [1:0] 2'00 \memory[8] 2'00 \memory[9] [1:0] 2'00 \memory[10] 2'00 \memory[11] [1:0] 2'00 \memory[12] 2'00 \memory[13] [1:0] 2'00 \memory[14] 2'00 \memory[15] [1:0] 2'00 \memory[16] [1:0] 2'00 \memory[17] [1:0] 2'00 \memory[18] 2'00 \memory[19] [1:0] 2'00 \memory[20] 2'00 \memory[21] [1:0] 2'00 \memory[22] 2'00 \memory[23] [1:0] 2'00 \memory[24] 2'00 \memory[25] [1:0] 2'00 \memory[26] 2'00 \memory[27] [1:0] 2'00 \memory[28] 2'00 \memory[29] [1:0] 2'00 \memory[30] 2'00 \memory[31] [1:0] }, Y=$0$mem2reg_rd$\memory$datasets/itc99_nangate45/rtl/b12.v:204$8_DATA[3:0]$37
+      New ports: A=\memory[0], B={ \memory[1] [1:0] \memory[2] \memory[3] [1:0] \memory[4] \memory[5] [1:0] \memory[6] \memory[7] [1:0] \memory[8] \memory[9] [1:0] \memory[10] \memory[11] [1:0] \memory[12] \memory[13] [1:0] \memory[14] \memory[15] [1:0] \memory[16] [1:0] \memory[17] [1:0] \memory[18] \memory[19] [1:0] \memory[20] \memory[21] [1:0] \memory[22] \memory[23] [1:0] \memory[24] \memory[25] [1:0] \memory[26] \memory[27] [1:0] \memory[28] \memory[29] [1:0] \memory[30] \memory[31] [1:0] }, Y=$0$mem2reg_rd$\memory$datasets/itc99_nangate45/rtl/b12.v:204$8_DATA[3:0]$37 [1:0]
+      New connections: $0$mem2reg_rd$\memory$datasets/itc99_nangate45/rtl/b12.v:204$8_DATA[3:0]$37 [3:2] = 2'00
+    Consolidated identical input bits for $pmux cell $procmux$1865:
+      Old ports: A=$4\s[0:0], B={ $4\s[0:0] $4\s[0:0] $4\s[0:0] $4\s[0:0] $4\s[0:0] }, Y=$3\s[0:0]
+      New connections: $3\s[0:0] = $4\s[0:0]
+    New ctrl vector for $pmux cell $procmux$374: { $auto$opt_reduce.cc:137:opt_pmux$2826 \gamma [3] $auto$opt_reduce.cc:137:opt_pmux$2113 }
+    New ctrl vector for $pmux cell $procmux$510: { \gamma [9] $auto$opt_reduce.cc:137:opt_pmux$2119 $auto$opt_reduce.cc:137:opt_pmux$2096 $auto$opt_reduce.cc:137:opt_pmux$2117 $auto$opt_reduce.cc:137:opt_pmux$2828 }
+    New ctrl vector for $pmux cell $procmux$626: $auto$fsm_map.cc:102:implement_pattern_cache$2280
+    Consolidated identical input bits for $mux cell $procmux$702:
+      Old ports: A=3'011, B=3'010, Y=$procmux$702_Y
+      New ports: A=1'1, B=1'0, Y=$procmux$702_Y [0]
+      New connections: $procmux$702_Y [2:1] = 2'01
+    New ctrl vector for $pmux cell $procmux$722: $auto$opt_reduce.cc:137:opt_pmux$2125
+    New ctrl vector for $pmux cell $procmux$795: { $auto$opt_reduce.cc:137:opt_pmux$2096 $auto$opt_reduce.cc:137:opt_pmux$2832 $auto$opt_reduce.cc:137:opt_pmux$2830 }
+    Consolidated identical input bits for $mux cell $procmux$823:
+      Old ports: A=4'0011, B=4'0010, Y=$procmux$823_Y
+      New ports: A=1'1, B=1'0, Y=$procmux$823_Y [0]
+      New connections: $procmux$823_Y [3:1] = 3'001
+    New input vector for $reduce_or cell $auto$opt_reduce.cc:131:opt_pmux$2825: { \gamma [23] \gamma [20] \gamma [17:16] }
+    New input vector for $reduce_or cell $auto$opt_reduce.cc:131:opt_pmux$2827: { \gamma [23] \gamma [18:17] \gamma [15] \gamma [11] \gamma [3] }
+  Optimizing cells in module \b12.
+    Consolidated identical input bits for $mux cell $procmux$705:
+      Old ports: A=$procmux$702_Y, B=3'001, Y=$procmux$705_Y
+      New ports: A={ 1'1 $procmux$702_Y [0] }, B=2'01, Y=$procmux$705_Y [1:0]
+      New connections: $procmux$705_Y [2] = 1'0
+    Consolidated identical input bits for $mux cell $procmux$826:
+      Old ports: A=$procmux$823_Y, B=4'0001, Y=$procmux$826_Y
+      New ports: A={ 1'1 $procmux$823_Y [0] }, B=2'01, Y=$procmux$826_Y [1:0]
+      New connections: $procmux$826_Y [3:2] = 2'00
+  Optimizing cells in module \b12.
+    Consolidated identical input bits for $mux cell $procmux$708:
+      Old ports: A=$procmux$705_Y, B=3'000, Y=$procmux$708_Y
+      New ports: A=$procmux$705_Y [1:0], B=2'00, Y=$procmux$708_Y [1:0]
+      New connections: $procmux$708_Y [2] = 1'0
+    Consolidated identical input bits for $mux cell $procmux$829:
+      Old ports: A=$procmux$826_Y, B=4'0000, Y=$procmux$829_Y
+      New ports: A=$procmux$826_Y [1:0], B=2'00, Y=$procmux$829_Y [1:0]
+      New connections: $procmux$829_Y [3:2] = 2'00
+  Optimizing cells in module \b12.
+Performed a total of 15 changes.
+
+4.20.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\b12'.
+<suppressed ~9 debug messages>
+Removed a total of 3 cells.
+
+4.20.6. Executing OPT_SHARE pass.
+
+4.20.7. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.20.8. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b12..
+Removed 0 unused cells and 5 unused wires.
+<suppressed ~1 debug messages>
+
+4.20.9. Executing OPT_EXPR pass (perform const folding).
+Optimizing module b12.
+<suppressed ~2 debug messages>
+
+4.20.10. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.20.11. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \b12..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~12 debug messages>
+
+4.20.12. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \b12.
+Performed a total of 0 changes.
+
+4.20.13. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\b12'.
+Removed a total of 0 cells.
+
+4.20.14. Executing OPT_SHARE pass.
+
+4.20.15. Executing OPT_DFF pass (perform DFF optimizations).
+Setting constant 0-bit at position 2 on $auto$ff.cc:266:slice$2565 ($adffe) from module b12.
+Setting constant 0-bit at position 2 on $procdff$1968 ($adff) from module b12.
+Setting constant 0-bit at position 3 on $procdff$1968 ($adff) from module b12.
+
+4.20.16. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b12..
+
+4.20.17. Executing OPT_EXPR pass (perform const folding).
+Optimizing module b12.
+<suppressed ~1 debug messages>
+
+4.20.18. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.20.19. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \b12..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~12 debug messages>
+
+4.20.20. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \b12.
+    Consolidated identical input bits for $pmux cell $procmux$795:
+      Old ports: A={ 2'00 $procmux$708_Y [1:0] }, B={ 2'00 \data_out [1:0] 8'01010100 }, Y=$procmux$795_Y
+      New ports: A={ 1'0 $procmux$708_Y [1:0] }, B={ 1'0 \data_out [1:0] 6'101100 }, Y=$procmux$795_Y [2:0]
+      New connections: $procmux$795_Y [3] = 1'0
+  Optimizing cells in module \b12.
+Performed a total of 1 changes.
+
+4.20.21. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\b12'.
+Removed a total of 0 cells.
+
+4.20.22. Executing OPT_SHARE pass.
+
+4.20.23. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.20.24. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b12..
+
+4.20.25. Executing OPT_EXPR pass (perform const folding).
+Optimizing module b12.
+
+4.20.26. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.20.27. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \b12..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~12 debug messages>
+
+4.20.28. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \b12.
+Performed a total of 0 changes.
+
+4.20.29. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\b12'.
+Removed a total of 0 cells.
+
+4.20.30. Executing OPT_SHARE pass.
+
+4.20.31. Executing OPT_DFF pass (perform DFF optimizations).
+Setting constant 0-bit at position 3 on $auto$ff.cc:266:slice$2597 ($adffe) from module b12.
+
+4.20.32. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b12..
+
+4.20.33. Executing OPT_EXPR pass (perform const folding).
+Optimizing module b12.
+<suppressed ~1 debug messages>
+
+4.20.34. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.20.35. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \b12..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~12 debug messages>
+
+4.20.36. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \b12.
+Performed a total of 0 changes.
+
+4.20.37. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\b12'.
+Removed a total of 0 cells.
+
+4.20.38. Executing OPT_SHARE pass.
+
+4.20.39. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.20.40. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b12..
+
+4.20.41. Executing OPT_EXPR pass (perform const folding).
+Optimizing module b12.
+
+4.20.42. Finished OPT passes. (There is nothing left to do.)
+
+4.21. Executing TECHMAP pass (map to technology primitives).
+
+4.21.1. Executing Verilog-2005 frontend: /mnt/e/桌面/fan-atpg/tmp/itc99-tools/usr/bin/../share/yosys/techmap.v
+Parsing Verilog input from `/mnt/e/桌面/fan-atpg/tmp/itc99-tools/usr/bin/../share/yosys/techmap.v' to AST representation.
+Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
+Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
+Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
+Generating RTLIL representation for module `\_90_simplemap_compare_ops'.
+Generating RTLIL representation for module `\_90_simplemap_various'.
+Generating RTLIL representation for module `\_90_simplemap_registers'.
+Generating RTLIL representation for module `\_90_shift_ops_shr_shl_sshl_sshr'.
+Generating RTLIL representation for module `\_90_shift_shiftx'.
+Generating RTLIL representation for module `\_90_fa'.
+Generating RTLIL representation for module `\_90_lcu_brent_kung'.
+Generating RTLIL representation for module `\_90_alu'.
+Generating RTLIL representation for module `\_90_macc'.
+Generating RTLIL representation for module `\_90_alumacc'.
+Generating RTLIL representation for module `\$__div_mod_u'.
+Generating RTLIL representation for module `\$__div_mod_trunc'.
+Generating RTLIL representation for module `\_90_div'.
+Generating RTLIL representation for module `\_90_mod'.
+Generating RTLIL representation for module `\$__div_mod_floor'.
+Generating RTLIL representation for module `\_90_divfloor'.
+Generating RTLIL representation for module `\_90_modfloor'.
+Generating RTLIL representation for module `\_90_pow'.
+Generating RTLIL representation for module `\_90_pmux'.
+Generating RTLIL representation for module `\_90_demux'.
+Generating RTLIL representation for module `\_90_lut'.
+Successfully finished Verilog frontend.
+
+4.21.2. Continuing TECHMAP pass.
+Using extmapper simplemap for cells of type $reduce_or.
+Using template $paramod$32a7b7b86c07519b7537abc18e96f0331f97914d\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $adffe.
+Using extmapper simplemap for cells of type $not.
+Using template $paramod$175e67c02b86e96b1288b9dc100122520d7240d8\_90_alu for cells of type $alu.
+Using template $paramod$b8c0a997bce700f23568a5ada79cc6781d1f5ca0\_90_alu for cells of type $alu.
+Using template $paramod$5ccf584370207a3ccc3032757a8e590623d4de56\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $eq.
+Using template $paramod$ba698a254f9a5947e85cbe7beae6b161eefc5386\_90_alu for cells of type $alu.
+Using template $paramod$f956edc9fe4df758d9fdb10bfc518a364c99e75e\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $and.
+Using template $paramod$2116a631f856d4d4902c2618dca73dafa3b8c9c0\_90_alu for cells of type $alu.
+Using template $paramod$6a42b6fefed750f8a1c58eab59479d960557103c\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $reduce_bool.
+Using extmapper simplemap for cells of type $ne.
+Using extmapper simplemap for cells of type $reduce_and.
+Using extmapper simplemap for cells of type $logic_not.
+Using template $paramod$a04dd9d4d8b430140c4ff94b50470fb380fda2a0\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $or.
+Using template $paramod$3ace65afedd5f6a6849996376b6c02262a5f23eb\_90_alu for cells of type $alu.
+Using template $paramod$025d767fc934a3e7d59a671de523743ebaa07759\_90_alu for cells of type $alu.
+Using template $paramod$constmap:45dd65093308c650ef50140a2b54536f69ddaea7$paramod$9d6bbabc3d2506981f229d240236b41321b3f0fd\_90_shift_shiftx for cells of type $shift.
+Using template $paramod$constmap:732b779b62ab61ddf267c8b443ceeea5b7c85854$paramod$7977455ea5c919947559dbbfa4dace2d451abbc5\_90_shift_shiftx for cells of type $shift.
+Using extmapper simplemap for cells of type $adff.
+Using template $paramod$c2e415ef15bc3ccd2723772353a6b450d3d76206\_90_pmux for cells of type $pmux.
+Using extmapper simplemap for cells of type $mux.
+Using template $paramod$90ef9d3919151a0ff7c15c5c14550fb560f421a1\_90_pmux for cells of type $pmux.
+Using template $paramod$8fabc56b80a569262acfc42757a02ca0b8e91278\_90_pmux for cells of type $pmux.
+Using template $paramod$85df5dc01c7df96a7d8e5f1fdf76ce9ac452af63\_90_pmux for cells of type $pmux.
+Using template $paramod$8742280fdebca84e1c87f2a86ed84f62d558f4cc\_90_alu for cells of type $alu.
+Using template $paramod$6ed760179a3d13e332c5410ab001555d6fb9cfff\_90_pmux for cells of type $pmux.
+Using template $paramod$a13703aa027da371a1931fc542d213d7de559b19\_90_pmux for cells of type $pmux.
+Using extmapper simplemap for cells of type $pos.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000000100 for cells of type $lcu.
+Using extmapper simplemap for cells of type $xor.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000000101 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000100000 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000000011 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000000110 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000000010 for cells of type $lcu.
+No more expansions possible.
+<suppressed ~2355 debug messages>
+
+4.22. Executing OPT pass (performing simple optimizations).
+
+4.22.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module b12.
+<suppressed ~1220 debug messages>
+
+4.22.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\b12'.
+<suppressed ~1158 debug messages>
+Removed a total of 386 cells.
+
+4.22.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.22.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b12..
+Removed 113 unused cells and 1491 unused wires.
+<suppressed ~114 debug messages>
+
+4.22.5. Finished fast OPT passes.
+
+4.23. Executing HIERARCHY pass (managing design hierarchy).
+Attribute `top' found on module `b12'. Setting top module to b12.
+
+4.23.1. Analyzing design hierarchy..
+Top module:  \b12
+
+4.23.2. Analyzing design hierarchy..
+Top module:  \b12
+Removed 0 unused modules.
+
+4.24. Printing statistics.
+
+=== b12 ===
+
+   Number of wires:                668
+   Number of wire bits:           2132
+   Number of public wires:          55
+   Number of public wire bits:     247
+   Number of ports:                  7
+   Number of port bits:             13
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:               1727
+     $_AND_                        476
+     $_DFFE_PP0P_                  161
+     $_DFF_PP0_                     32
+     $_MUX_                        255
+     $_NOT_                        138
+     $_OR_                         554
+     $_XOR_                        111
+
+4.25. Executing CHECK pass (checking for obvious problems).
+Checking module b12...
+Found and reported 0 problems.
+
+5. Executing DFFLIBMAP pass (mapping DFF cells to sequential cells from liberty file).
+  cell DFFR_X1 (noninv, pins=5, area=5.32) is a direct match for cell type $_DFF_PN0_.
+  cell DFFRS_X1 (noninv, pins=6, area=6.38) is a direct match for cell type $_DFFSR_PNN_.
+  final dff cell mappings:
+    unmapped dff cell: $_DFF_N_
+    unmapped dff cell: $_DFF_P_
+    unmapped dff cell: $_DFF_NN0_
+    unmapped dff cell: $_DFF_NN1_
+    unmapped dff cell: $_DFF_NP0_
+    unmapped dff cell: $_DFF_NP1_
+    \DFFR_X1 _DFF_PN0_ (.CK( C), .D( D), .Q( Q), .QN(~Q), .RN( R));
+    unmapped dff cell: $_DFF_PN1_
+    unmapped dff cell: $_DFF_PP0_
+    unmapped dff cell: $_DFF_PP1_
+    unmapped dff cell: $_DFFE_NN_
+    unmapped dff cell: $_DFFE_NP_
+    unmapped dff cell: $_DFFE_PN_
+    unmapped dff cell: $_DFFE_PP_
+    unmapped dff cell: $_DFFSR_NNN_
+    unmapped dff cell: $_DFFSR_NNP_
+    unmapped dff cell: $_DFFSR_NPN_
+    unmapped dff cell: $_DFFSR_NPP_
+    \DFFRS_X1 _DFFSR_PNN_ (.CK( C), .D( D), .Q( Q), .QN(~Q), .RN( R), .SN( S));
+    unmapped dff cell: $_DFFSR_PNP_
+    unmapped dff cell: $_DFFSR_PPN_
+    unmapped dff cell: $_DFFSR_PPP_
+
+5.1. Executing DFFLEGALIZE pass (convert FFs to types supported by the target).
+Mapping DFF cells in module `\b12':
+  mapped 193 $_DFF_PN0_ cells to \DFFR_X1 cells.
+
+6. Executing ABC pass (technology mapping using ABC).
+
+6.1. Extracting gate netlist of module `\b12' to `<abc-temp-dir>/input.blif'..
+Extracted 1888 gates and 2133 wires to a netlist network with 243 inputs and 385 outputs.
+
+6.1.1. Executing ABC.
+Running ABC command: "<yosys-exe-dir>/yosys-abc" -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC: 
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_lib -X MUX2_X1 -w /mnt/e/桌面/fan-atpg/datasets/itc99_nangate45/tools/NangateOpenCellLibrary_base.lib 
+ABC: Parsing finished successfully.  Parsing time =     0.01 sec
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFR_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFR_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFRS_X1".
+ABC: Scl_LibertyReadGenlib() skipped cell "MUX2_X1" due to dont_use attribute.
+ABC: Library "NangateOpenCellLibrary" from "/mnt/e/桌面/fan-atpg/datasets/itc99_nangate45/tools/NangateOpenCellLibrary_base.lib" has 16 cells (3 skipped: 3 seq; 0 tri-state; 0 no func; 1 dont_use).  Time =     0.01 sec
+ABC: Memory =    0.85 MB. Time =     0.01 sec
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+6.1.2. Re-integrating ABC results.
+ABC RESULTS:           AND2_X1 cells:       67
+ABC RESULTS:           AND3_X1 cells:       34
+ABC RESULTS:           AND4_X1 cells:       14
+ABC RESULTS:            INV_X1 cells:      226
+ABC RESULTS:          NAND2_X1 cells:      429
+ABC RESULTS:          NAND3_X1 cells:      101
+ABC RESULTS:          NAND4_X1 cells:       30
+ABC RESULTS:           NOR2_X1 cells:      247
+ABC RESULTS:           NOR3_X1 cells:       75
+ABC RESULTS:           NOR4_X1 cells:       28
+ABC RESULTS:            OR2_X1 cells:       27
+ABC RESULTS:            OR3_X1 cells:       15
+ABC RESULTS:            OR4_X1 cells:        6
+ABC RESULTS:          XNOR2_X1 cells:       29
+ABC RESULTS:           XOR2_X1 cells:       16
+ABC RESULTS:        internal signals:     1505
+ABC RESULTS:           input signals:      243
+ABC RESULTS:          output signals:      385
+Removing temp directory.
+
+7. Executing SPLITNETS pass (splitting up multi-bit signals).
+
+8. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \b12..
+Removed 0 unused cells and 2528 unused wires.
+<suppressed ~2 debug messages>
+
+9. Executing CHECK pass (checking for obvious problems).
+Checking module b12...
+Found and reported 0 problems.
+
+10. Executing Verilog backend.
+Dumping module `\b12'.

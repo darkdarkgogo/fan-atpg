@@ -1,0 +1,376 @@
+
+#Circuit Summary:
+#---------------
+#number of inputs = 36
+#number of outputs = 7
+#number of gates = 288
+#number of wires = 324
+#atpg: cputime for reading in circuit c432_common.bench: 0.0s 0.0s
+#atpg: cputime for levelling circuit c432_common.bench: 0.0s 0.0s
+#atpg: cputime for rearranging gate inputs c432_common.bench: 0.0s 0.0s
+#atpg: cputime for creating dummy nodes c432_common.bench: 0.0s 0.0s
+#number of equivalent faults = 616
+#atpg: cputime for generating fault list c432_common.bench: 0.0s 0.0s
+T'111110111011001100001001000010110010'
+T'011100001000101100111001100110101011'
+T'010001000111100000110010001010101110'
+T'000001000101100111100001010010011101'
+T'000100111000000010000011000100101010'
+T'010111000101010111011010100001000001'
+T'001000100011101010110011001000011001'
+T'010011100101000001100100011011010011'
+T'011001111111011110101111001110101110'
+T'010011011011111111111101100111001001'
+T'010111000110010001101000010111011100'
+T'011010100110011101111010011010111011'
+T'011100111001110001010110010100000110'
+T'010100001100110001010100101110010000'
+T'010010001101100110111111101011101111'
+T'010111011111111111010010010000000111'
+T'010100011010010011000000010000111010'
+T'010110101110110010111111110010111001'
+T'010100111011011001110110010100001101'
+T'011101100111011011100011101010100110'
+T'011100010111110111010100010001100110'
+T'010100010001011001011110010100011110'
+T'010110001010100011011101111110111001'
+T'010110111111100110001100010100111011'
+T'011100111101001110110101110101010010'
+T'010100010011000110001100110000111011'
+T'010110101000100110101100100111001111'
+T'000100001011000010111000100000010000'
+T'010100011101110001000101110001010101'
+T'010101111101000100110010010010101011'
+T'010010011100110110101010110011101101'
+T'010111011001001001000011110001110100'
+T'011111100110101110111011101011100110'
+T'010111010111111100111111101111010100'
+T'010110111011010100111101010100000100'
+T'010100110101111001010101100001001000'
+T'010111011010110110001101100011001001'
+T'011110110110001011110111001001011010'
+T'011011100111111100101100011110100111'
+T'001000100001100111011011000100000001'
+T'100010001011011100000000101010010000'
+T'011110100101111101111111011010110111'
+T'001010010000100010001010100110000110'
+T'100010110000100000111000001011011000'
+T'101100010000100100110010111110101001'
+T'101100100010101000000101101000100000'
+T'001100010010001001111011000010011011'
+T'101010101010111000110010101010100001'
+T'001110101110000110111001101010110010'
+T'100001000000101010011010001100010001'
+T'011001110110001111000110101101111110'
+T'011010101011110001110110011001110010'
+T'110001110111001101100111001010111111'
+T'110101000000101000111011001110110010'
+T'000010010100000000111001000000111011'
+T'100110110010000110011101001000001010'
+T'000010110000000000111001010100000000'
+T'000000100011001000000011001111010011'
+T'100100010010000100110001100110110100'
+T'101101011010001100111001000010111010'
+T'110100001000000000000010001000011011'
+T'011010100110011000110110101001110100'
+T'011111111110111111111010111110111100'
+T'011011101010101111101011111111000011'
+T'011010111111101110111111110001111111'
+T'011111111011111011111110011011111011'
+T'011111101010101111000110111111101011'
+T'011011101111111101111110101111101111'
+T'011111111100011011101111111010101011'
+T'011101001111001100110111011010100010'
+T'011111000111101010111110111111111011'
+T'110001111011101010101010111110111011'
+T'011111111110010011111010111000110010'
+T'010010011001111110001000100010101110'
+T'010010111110100111011111111011100001'
+T'010110011011100010101110011110111111'
+T'010110001110111001111100111110111011'
+T'010011001110001110111010101011101001'
+T'010011100110111010111101100011001001'
+T'011001011110110011101101110111111101'
+T'011111101010101010101110111011100011'
+T'011011111111101010111110111100101011'
+T'011010111110111110101111001110111011'
+T'011011111010111011100010111111111011'
+T'011011100011111110111111111110101111'
+T'001111111111100111111101101111001101'
+T'001101011101010011000100001101000011'
+
+#number of aborted faults = 23
+
+#number of redundant faults = 18
+
+#number of calling podem1 = 128
+
+#total number of backtracks = 11521
+[BENCH] ATPG seconds=0.057231001
+
+#FAULT COVERAGE RESULTS :
+#number of test vectors = 87
+#total number of gate faults (uncollapsed) = 1192
+#total number of detected faults = 1145
+#total gate fault coverage = 96.06%
+#number of equivalent gate faults (collapsed) = 616
+#number of equivalent detected faults = 575
+#equivalent gate fault coverage = 93.34%
+
+#atpg: cputime for test pattern generation c432_common.bench: 0.1s 0.1s
+[ATPG][PRIMARY] start fault=dummy_gate1:GO:sa0 selectable=616 backtrack_limit=500
+[ATPG][PRIMARY] done fault=dummy_gate1:GO:sa0 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=dummy_gate1:GO:sa1 selectable=500 backtrack_limit=500
+[ATPG][PRIMARY] done fault=dummy_gate1:GO:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G241:GI0:sa1 selectable=480 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G241:GI0:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=dummy_gate2:GO:sa1 selectable=454 backtrack_limit=500
+[ATPG][PRIMARY] done fault=dummy_gate2:GO:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G154:GI0:sa1 selectable=439 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G154:GI0:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=dummy_gate4:GO:sa0 selectable=425 backtrack_limit=500
+[ATPG][PRIMARY] done fault=dummy_gate4:GO:sa0 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G159:GI0:sa1 selectable=406 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G159:GI0:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=dummy_gate7:GO:sa0 selectable=400 backtrack_limit=500
+[ATPG][PRIMARY] done fault=dummy_gate7:GO:sa0 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G183:GI0:sa0 selectable=395 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G183:GI0:sa0 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G184:GI0:sa0 selectable=371 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G184:GI0:sa0 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=dummy_gate11:GO:sa0 selectable=367 backtrack_limit=500
+[ATPG][PRIMARY] done fault=dummy_gate11:GO:sa0 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G185:GI0:sa0 selectable=343 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G185:GI0:sa0 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=dummy_gate12:GO:sa0 selectable=336 backtrack_limit=500
+[ATPG][PRIMARY] done fault=dummy_gate12:GO:sa0 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=dummy_gate13:GO:sa0 selectable=320 backtrack_limit=500
+[ATPG][PRIMARY] done fault=dummy_gate13:GO:sa0 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G186:GI0:sa0 selectable=318 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G186:GI0:sa0 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=dummy_gate16:GO:sa0 selectable=316 backtrack_limit=500
+[ATPG][PRIMARY] done fault=dummy_gate16:GO:sa0 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=dummy_gate17:GO:sa0 selectable=293 backtrack_limit=500
+[ATPG][PRIMARY] done fault=dummy_gate17:GO:sa0 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G188:GI0:sa0 selectable=291 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G188:GI0:sa0 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=dummy_gate19:GO:sa0 selectable=289 backtrack_limit=500
+[ATPG][PRIMARY] done fault=dummy_gate19:GO:sa0 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G189:GI0:sa0 selectable=286 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G189:GI0:sa0 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=dummy_gate20:GO:sa0 selectable=285 backtrack_limit=500
+[ATPG][PRIMARY] done fault=dummy_gate20:GO:sa0 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=dummy_gate21:GO:sa0 selectable=281 backtrack_limit=500
+[ATPG][PRIMARY] done fault=dummy_gate21:GO:sa0 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G190:GI0:sa0 selectable=279 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G190:GI0:sa0 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=dummy_gate23:GO:sa1 selectable=277 backtrack_limit=500
+[ATPG][PRIMARY] done fault=dummy_gate23:GO:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=dummy_gate24:GO:sa0 selectable=275 backtrack_limit=500
+[ATPG][PRIMARY] done fault=dummy_gate24:GO:sa0 status=detected backtracks=1 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=dummy_gate25:GO:sa0 selectable=249 backtrack_limit=500
+[ATPG][PRIMARY] done fault=dummy_gate25:GO:sa0 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G192:GI0:sa0 selectable=247 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G192:GI0:sa0 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G174:GI0:sa1 selectable=245 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G174:GI0:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=dummy_gate28:GO:sa1 selectable=243 backtrack_limit=500
+[ATPG][PRIMARY] done fault=dummy_gate28:GO:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=dummy_gate29:GO:sa0 selectable=234 backtrack_limit=500
+[ATPG][PRIMARY] done fault=dummy_gate29:GO:sa0 status=detected backtracks=1 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G194:GI0:sa0 selectable=230 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G194:GI0:sa0 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=dummy_gate31:GO:sa0 selectable=226 backtrack_limit=500
+[ATPG][PRIMARY] done fault=dummy_gate31:GO:sa0 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G195:GI0:sa0 selectable=215 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G195:GI0:sa0 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=dummy_gate32:GO:sa0 selectable=211 backtrack_limit=500
+[ATPG][PRIMARY] done fault=dummy_gate32:GO:sa0 status=detected backtracks=1 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=dummy_gate32:GO:sa1 selectable=201 backtrack_limit=500
+[ATPG][PRIMARY] done fault=dummy_gate32:GO:sa1 status=detected backtracks=1 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=dummy_gate33:GO:sa0 selectable=186 backtrack_limit=500
+[ATPG][PRIMARY] done fault=dummy_gate33:GO:sa0 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G196:GI0:sa0 selectable=184 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G196:GI0:sa0 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G147:GO:sa1 selectable=182 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G147:GO:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G139:GO:sa1 selectable=170 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G139:GO:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G134:GO:sa1 selectable=160 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G134:GO:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G130:GO:sa1 selectable=154 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G130:GO:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G127:GO:sa1 selectable=149 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G127:GO:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=Y250:GI0:sa1 selectable=141 backtrack_limit=500
+[ATPG][PRIMARY] done fault=Y250:GI0:sa1 status=redundant backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=__smartatpg_bin_45_7:GI1:sa1 selectable=140 backtrack_limit=500
+[ATPG][PRIMARY] done fault=__smartatpg_bin_45_7:GI1:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=Y246:GI0:sa1 selectable=134 backtrack_limit=500
+[ATPG][PRIMARY] done fault=Y246:GI0:sa1 status=redundant backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=__smartatpg_bin_45_7:GI0:sa1 selectable=133 backtrack_limit=500
+[ATPG][PRIMARY] done fault=__smartatpg_bin_45_7:GI0:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=Y242:GI0:sa1 selectable=132 backtrack_limit=500
+[ATPG][PRIMARY] done fault=Y242:GI0:sa1 status=redundant backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=__smartatpg_bin_45_6:GI0:sa1 selectable=131 backtrack_limit=500
+[ATPG][PRIMARY] done fault=__smartatpg_bin_45_6:GI0:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=Y238:GI0:sa1 selectable=128 backtrack_limit=500
+[ATPG][PRIMARY] done fault=Y238:GI0:sa1 status=redundant backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=__smartatpg_bin_45_5:GI1:sa1 selectable=127 backtrack_limit=500
+[ATPG][PRIMARY] done fault=__smartatpg_bin_45_5:GI1:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=Y235:GI0:sa1 selectable=125 backtrack_limit=500
+[ATPG][PRIMARY] done fault=Y235:GI0:sa1 status=redundant backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=__smartatpg_bin_45_5:GI0:sa1 selectable=124 backtrack_limit=500
+[ATPG][PRIMARY] done fault=__smartatpg_bin_45_5:GI0:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=Y232:GI0:sa1 selectable=122 backtrack_limit=500
+[ATPG][PRIMARY] done fault=Y232:GI0:sa1 status=redundant backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=__smartatpg_bin_45_3:GI1:sa1 selectable=121 backtrack_limit=500
+[ATPG][PRIMARY] done fault=__smartatpg_bin_45_3:GI1:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=Y229:GI0:sa1 selectable=119 backtrack_limit=500
+[ATPG][PRIMARY] done fault=Y229:GI0:sa1 status=redundant backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=__smartatpg_bin_45_3:GI0:sa1 selectable=118 backtrack_limit=500
+[ATPG][PRIMARY] done fault=__smartatpg_bin_45_3:GI0:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=Y226:GI0:sa1 selectable=115 backtrack_limit=500
+[ATPG][PRIMARY] done fault=Y226:GI0:sa1 status=redundant backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=__smartatpg_bin_45_2:GI1:sa1 selectable=114 backtrack_limit=500
+[ATPG][PRIMARY] done fault=__smartatpg_bin_45_2:GI1:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=Y223:GI0:sa1 selectable=112 backtrack_limit=500
+[ATPG][PRIMARY] done fault=Y223:GI0:sa1 status=redundant backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=Z235:GO:sa1 selectable=111 backtrack_limit=500
+[ATPG][PRIMARY] done fault=Z235:GO:sa1 status=detected backtracks=1 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=Z232:GO:sa1 selectable=106 backtrack_limit=500
+[ATPG][PRIMARY] done fault=Z232:GO:sa1 status=detected backtracks=1 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=Z223:GO:sa1 selectable=101 backtrack_limit=500
+[ATPG][PRIMARY] done fault=Z223:GO:sa1 status=detected backtracks=1 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=X223:GI1:sa1 selectable=96 backtrack_limit=500
+[ATPG][PRIMARY] done fault=X223:GI1:sa1 status=redundant backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=X226:GI1:sa1 selectable=95 backtrack_limit=500
+[ATPG][PRIMARY] done fault=X226:GI1:sa1 status=redundant backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=X229:GI1:sa1 selectable=94 backtrack_limit=500
+[ATPG][PRIMARY] done fault=X229:GI1:sa1 status=redundant backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=X232:GI1:sa1 selectable=93 backtrack_limit=500
+[ATPG][PRIMARY] done fault=X232:GI1:sa1 status=redundant backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=X235:GI1:sa1 selectable=92 backtrack_limit=500
+[ATPG][PRIMARY] done fault=X235:GI1:sa1 status=redundant backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=X238:GI1:sa1 selectable=91 backtrack_limit=500
+[ATPG][PRIMARY] done fault=X238:GI1:sa1 status=redundant backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=X242:GI1:sa1 selectable=90 backtrack_limit=500
+[ATPG][PRIMARY] done fault=X242:GI1:sa1 status=redundant backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=X246:GI1:sa1 selectable=89 backtrack_limit=500
+[ATPG][PRIMARY] done fault=X246:GI1:sa1 status=redundant backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=X250:GI1:sa1 selectable=88 backtrack_limit=500
+[ATPG][PRIMARY] done fault=X250:GI1:sa1 status=redundant backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G241:GI1:sa1 selectable=87 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G241:GI1:sa1 status=detected backtracks=1 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G249:GI1:sa1 selectable=85 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G249:GI1:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G255:GI1:sa1 selectable=82 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G255:GI1:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G256:GI1:sa1 selectable=80 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G256:GI1:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G257:GI1:sa1 selectable=78 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G257:GI1:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G258:GI1:sa1 selectable=74 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G258:GI1:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G258:GO:sa1 selectable=71 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G258:GO:sa1 status=aborted backtracks=500 elapsed_s=0.001
+[ATPG][PRIMARY] start fault=Y226:GO:sa1 selectable=70 backtrack_limit=500
+[ATPG][PRIMARY] done fault=Y226:GO:sa1 status=detected backtracks=1 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=Y223:GO:sa1 selectable=69 backtrack_limit=500
+[ATPG][PRIMARY] done fault=Y223:GO:sa1 status=detected backtracks=1 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G284:GI1:sa1 selectable=68 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G284:GI1:sa1 status=detected backtracks=1 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G294:GI1:sa1 selectable=67 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G294:GI1:sa1 status=detected backtracks=1 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G293:GI1:sa1 selectable=66 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G293:GI1:sa1 status=detected backtracks=1 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G292:GI1:sa1 selectable=65 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G292:GI1:sa1 status=detected backtracks=1 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G291:GI1:sa1 selectable=64 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G291:GI1:sa1 status=detected backtracks=1 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G290:GI1:sa1 selectable=63 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G290:GI1:sa1 status=detected backtracks=1 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G289:GI1:sa1 selectable=62 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G289:GI1:sa1 status=detected backtracks=1 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G288:GI1:sa1 selectable=61 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G288:GI1:sa1 status=detected backtracks=1 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G263:GI1:sa1 selectable=60 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G263:GI1:sa1 status=detected backtracks=1 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G287:GI1:sa1 selectable=59 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G287:GI1:sa1 status=detected backtracks=1 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G262:GI1:sa1 selectable=58 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G262:GI1:sa1 status=detected backtracks=1 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=Y341:GI0:sa1 selectable=57 backtrack_limit=500
+[ATPG][PRIMARY] done fault=Y341:GI0:sa1 status=aborted backtracks=500 elapsed_s=0.002
+[ATPG][PRIMARY] start fault=Y339:GI0:sa1 selectable=56 backtrack_limit=500
+[ATPG][PRIMARY] done fault=Y339:GI0:sa1 status=aborted backtracks=500 elapsed_s=0.002
+[ATPG][PRIMARY] start fault=Y337:GI0:sa1 selectable=55 backtrack_limit=500
+[ATPG][PRIMARY] done fault=Y337:GI0:sa1 status=aborted backtracks=500 elapsed_s=0.002
+[ATPG][PRIMARY] start fault=Y335:GI0:sa1 selectable=54 backtrack_limit=500
+[ATPG][PRIMARY] done fault=Y335:GI0:sa1 status=aborted backtracks=500 elapsed_s=0.002
+[ATPG][PRIMARY] start fault=Y333:GI0:sa1 selectable=53 backtrack_limit=500
+[ATPG][PRIMARY] done fault=Y333:GI0:sa1 status=aborted backtracks=500 elapsed_s=0.002
+[ATPG][PRIMARY] start fault=Y331:GI0:sa1 selectable=52 backtrack_limit=500
+[ATPG][PRIMARY] done fault=Y331:GI0:sa1 status=aborted backtracks=500 elapsed_s=0.002
+[ATPG][PRIMARY] start fault=__smartatpg_bin_120_3:GI1:sa1 selectable=51 backtrack_limit=500
+[ATPG][PRIMARY] done fault=__smartatpg_bin_120_3:GI1:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=Y330:GI0:sa1 selectable=47 backtrack_limit=500
+[ATPG][PRIMARY] done fault=Y330:GI0:sa1 status=aborted backtracks=500 elapsed_s=0.002
+[ATPG][PRIMARY] start fault=Y329:GI0:sa1 selectable=46 backtrack_limit=500
+[ATPG][PRIMARY] done fault=Y329:GI0:sa1 status=aborted backtracks=500 elapsed_s=0.002
+[ATPG][PRIMARY] start fault=Y328:GI0:sa1 selectable=45 backtrack_limit=500
+[ATPG][PRIMARY] done fault=Y328:GI0:sa1 status=aborted backtracks=500 elapsed_s=0.002
+[ATPG][PRIMARY] start fault=Z341:GO:sa1 selectable=44 backtrack_limit=500
+[ATPG][PRIMARY] done fault=Z341:GO:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=Z339:GO:sa1 selectable=41 backtrack_limit=500
+[ATPG][PRIMARY] done fault=Z339:GO:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=Z335:GO:sa1 selectable=38 backtrack_limit=500
+[ATPG][PRIMARY] done fault=Z335:GO:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=Z331:GO:sa1 selectable=33 backtrack_limit=500
+[ATPG][PRIMARY] done fault=Z331:GO:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=Z330:GO:sa1 selectable=29 backtrack_limit=500
+[ATPG][PRIMARY] done fault=Z330:GO:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=Z329:GO:sa1 selectable=26 backtrack_limit=500
+[ATPG][PRIMARY] done fault=Z329:GO:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=Z328:GO:sa1 selectable=23 backtrack_limit=500
+[ATPG][PRIMARY] done fault=Z328:GO:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=X328:GI1:sa1 selectable=20 backtrack_limit=500
+[ATPG][PRIMARY] done fault=X328:GI1:sa1 status=aborted backtracks=500 elapsed_s=0.002
+[ATPG][PRIMARY] start fault=X329:GI1:sa1 selectable=19 backtrack_limit=500
+[ATPG][PRIMARY] done fault=X329:GI1:sa1 status=aborted backtracks=500 elapsed_s=0.002
+[ATPG][PRIMARY] start fault=X330:GI1:sa1 selectable=18 backtrack_limit=500
+[ATPG][PRIMARY] done fault=X330:GI1:sa1 status=aborted backtracks=500 elapsed_s=0.002
+[ATPG][PRIMARY] start fault=X331:GI1:sa1 selectable=17 backtrack_limit=500
+[ATPG][PRIMARY] done fault=X331:GI1:sa1 status=aborted backtracks=500 elapsed_s=0.002
+[ATPG][PRIMARY] start fault=X333:GI1:sa1 selectable=16 backtrack_limit=500
+[ATPG][PRIMARY] done fault=X333:GI1:sa1 status=aborted backtracks=500 elapsed_s=0.002
+[ATPG][PRIMARY] start fault=X335:GI1:sa1 selectable=15 backtrack_limit=500
+[ATPG][PRIMARY] done fault=X335:GI1:sa1 status=aborted backtracks=500 elapsed_s=0.002
+[ATPG][PRIMARY] start fault=X337:GI1:sa1 selectable=14 backtrack_limit=500
+[ATPG][PRIMARY] done fault=X337:GI1:sa1 status=aborted backtracks=500 elapsed_s=0.002
+[ATPG][PRIMARY] start fault=X339:GI1:sa1 selectable=13 backtrack_limit=500
+[ATPG][PRIMARY] done fault=X339:GI1:sa1 status=aborted backtracks=500 elapsed_s=0.002
+[ATPG][PRIMARY] start fault=X341:GI1:sa1 selectable=12 backtrack_limit=500
+[ATPG][PRIMARY] done fault=X341:GI1:sa1 status=aborted backtracks=500 elapsed_s=0.002
+[ATPG][PRIMARY] start fault=G345:GO:sa1 selectable=11 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G345:GO:sa1 status=aborted backtracks=500 elapsed_s=0.001
+[ATPG][PRIMARY] start fault=__smartatpg_bin_214_1:GO:sa1 selectable=10 backtrack_limit=500
+[ATPG][PRIMARY] done fault=__smartatpg_bin_214_1:GO:sa1 status=aborted backtracks=500 elapsed_s=0.001
+[ATPG][PRIMARY] start fault=Y339:GO:sa1 selectable=9 backtrack_limit=500
+[ATPG][PRIMARY] done fault=Y339:GO:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=Y337:GO:sa1 selectable=8 backtrack_limit=500
+[ATPG][PRIMARY] done fault=Y337:GO:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=Y335:GO:sa1 selectable=7 backtrack_limit=500
+[ATPG][PRIMARY] done fault=Y335:GO:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=Y333:GO:sa1 selectable=6 backtrack_limit=500
+[ATPG][PRIMARY] done fault=Y333:GO:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=Y329:GO:sa1 selectable=5 backtrack_limit=500
+[ATPG][PRIMARY] done fault=Y329:GO:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G376:GI1:sa1 selectable=4 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G376:GI1:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=G376:GO:sa1 selectable=3 backtrack_limit=500
+[ATPG][PRIMARY] done fault=G376:GO:sa1 status=aborted backtracks=500 elapsed_s=0.001
+[ATPG][PRIMARY] start fault=__smartatpg_bin_222_2:GI0:sa1 selectable=2 backtrack_limit=500
+[ATPG][PRIMARY] done fault=__smartatpg_bin_222_2:GI0:sa1 status=detected backtracks=0 elapsed_s=0.000
+[ATPG][PRIMARY] start fault=__smartatpg_bin_224_1:GI1:sa1 selectable=1 backtrack_limit=500
+[ATPG][PRIMARY] done fault=__smartatpg_bin_224_1:GI1:sa1 status=aborted backtracks=500 elapsed_s=0.001

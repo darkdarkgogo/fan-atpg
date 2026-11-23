@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+*.pyd
+*.so
+*.egg-info/
+build/
+.pytest_cache/
+.pytest_tmp/
+tmp/
+.tmp-*/
+runs/
+dist/
+datasets/fan_features/
+datasets/verilog_features/
+third_party/**/.git/

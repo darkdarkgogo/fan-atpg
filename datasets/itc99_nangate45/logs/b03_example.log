@@ -1,0 +1,107 @@
+#  ==========================================================================
+#
+#                                   FAN ATPG
+#
+#                Copyright(c) Laboratory of Dependable Systems,
+#                Graduate Institute of Electronics Engineering,
+#                          National Taiwan University
+#                             All Rights Reserved.
+#
+#  ==========================================================================
+#
+#  Kernel:   Linux
+#  Platform: unknown
+#  Memory:   7864.76 MB
+#
+/atpg_b03.script 1> read_lib techlib/mod_nangate45.mdt
+#  Reading technology library ...
+#  Finished reading library `techlib/mod_nangate45.mdt'    0.009259 s    9.79297 MB
+/atpg_b03.script 2> read_netlist netlist/b03_nangate45.v
+#  Reading netlist ...
+#  Finished reading netlist `netlist/b03_nangate45.v'    0.006092 s    10.5664 MB
+/atpg_b03.script 3> report_netlist
+#  netlist information
+#    number of modules: 1
+#    modules:           b03
+#    current module:    b03
+#    number of ports:   13
+#    number of cells:   206
+#    number of nets:    215
+/atpg_b03.script 4> build_circuit --frame 1
+#  Building circuit ...
+#  Finished building circuit    0.002132 s    10.7266 MB
+/atpg_b03.script 5> report_circuit
+#  circuit information
+#    netlist:         b03
+#    number of PIs:   5
+#    number of PPIs:  31
+#    number of POs:   4
+#    number of combs: 177
+#    number of gates: 248
+#    number of nets:  482
+/atpg_b03.script 6> set_fault_type saf
+#  fault type set to stuck-at fault
+/atpg_b03.script 7> add_fault --all
+#  Building fault list ...
+#  Finished building fault list    5.9e-05 s    10.8555 MB
+/atpg_b03.script 8> set_static_compression on
+#  static compression set to on
+/atpg_b03.script 9> set_dynamic_compression on
+#  dynamic compression set to on
+/atpg_b03.script 10> set_X-Fill on
+#  X-Fill set to on
+/atpg_b03.script 11> run_atpg
+#  Performing pattern generation ...
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+Bug: storeCurrentAtpgVal detects the numAssignedValueChanged is not 0
+#  Finished pattern generation    0.011865 s    11.1523 MB
+/atpg_b03.script 12> report_statistics
+#                 Statistics Report
+#  Circuit name                                  b03
+#  Fault model                                   SAF
+#  Pattern type                                BASIC
+#  -------------------------------------------------
+#  Fault classes                             #faults
+#  ----------------------------  -------------------
+#    FU (full)                                  1266
+#    FU (collapsed)                              955
+#    --------------------------  -------------------
+#    UD (undetected)                              62
+#    PT (possibly testable)                        0
+#    AU (atpg untestable)                          7
+#    RE (redundant)                                0
+#    AB (atpg abort)                               0
+#    TI (tied)                                     0
+#    --------------------------  -------------------
+#    DT (detected)                              1197
+#  -------------------------------------------------
+#  Coverage                               percentage
+#    --------------------------  -------------------
+#    test coverage                            95.08%
+#    fault coverage                           94.55%
+#    atpg effectiveness                        95.1%
+#  -------------------------------------------------
+#  #Patterns                                      20
+#  -------------------------------------------------
+#  ATPG runtime                            0.01187 s
+#  -------------------------------------------------
+/atpg_b03.script 13> write_pattern pat/b03_nangate45.pat
+#  Writing pattern to `pat/b03_nangate45.pat' ...
+/atpg_b03.script 14> exit
+#  Goodbye
+#  Runtime        real 0.0578 s        user 0.003188 s        sys 0.01114 s
+#  Memory         peak 11.15 MB
