@@ -27,6 +27,47 @@ def source_digest(source):
     return digest.hexdigest()
 
 
+def _active_pyg_generated_modules(source_package, cache_key):
+    """Recognize PyG templates actually bound to the verified cached encoder.
+
+    Modern PyG generates propagate/edge_updater modules in a temporary
+    directory using the layer's DeepGate module name as a prefix. They are
+    runtime helpers, not additional DeepGate source files. A matching name or
+    temporary filename alone is not sufficient: require the active function
+    and its globals to belong to the same module object.
+    """
+    from torch_geometric.nn import MessagePassing
+    trusted = {}
+    model = _MODEL_CACHE.get(cache_key)
+    if model is None:
+        return trusted
+    for layer in model.modules():
+        if not isinstance(layer, MessagePassing):
+            continue
+        cls = type(layer)
+        owner = sys.modules.get(cls.__module__)
+        if owner is None or getattr(owner, cls.__name__, None) is not cls:
+            continue
+        try:
+            Path(owner.__file__).resolve().relative_to(source_package)
+        except (AttributeError, TypeError, ValueError):
+            continue
+        prefix = cls.__module__ + '_' + cls.__name__
+        names = {prefix + '_propagate', prefix + '_edge_updater'}
+        for attr in ('propagate', 'collect', 'edge_updater', 'edge_collect'):
+            method = getattr(layer, attr, None)
+            function = getattr(method, '__func__', method)
+            name = getattr(function, '__module__', None)
+            if name not in names:
+                continue
+            module = sys.modules.get(name)
+            if (module is not None
+                    and getattr(function, '__globals__', None) is module.__dict__
+                    and getattr(module, function.__name__, None) is function):
+                trusted[name] = module
+    return trusted
+
+
 def infer_gate_embeddings(graph, checkpoint=DEFAULT_CHECKPOINT, source=DEFAULT_SOURCE, seed=0):
     checkpoint, source = Path(checkpoint).resolve(), Path(source).resolve()
     if not checkpoint.is_file():
@@ -41,12 +82,16 @@ def infer_gate_embeddings(graph, checkpoint=DEFAULT_CHECKPOINT, source=DEFAULT_S
     current_source_sha = source_digest(source)
     if current_source_sha != OFFICIAL_SOURCE_SHA256:
         raise ValueError("DeepGate2 source does not match the pinned official revision")
+    cache_key = (str(checkpoint), str(source), checkpoint_sha, current_source_sha)
     try:
         import torch
         from torch_geometric.data import Data
         source_package = (source / "deepgate").resolve()
+        generated_modules = _active_pyg_generated_modules(source_package, cache_key)
         for name, module in list(sys.modules.items()):
             if name == "deepgate" or name.startswith("deepgate."):
+                if name in generated_modules and generated_modules[name] is module:
+                    continue
                 module_file = getattr(module, "__file__", None)
                 if not module_file:
                     raise ValueError(f"DeepGate module has no verifiable source file: {name}")
@@ -90,7 +135,6 @@ def infer_gate_embeddings(graph, checkpoint=DEFAULT_CHECKPOINT, source=DEFAULT_S
         np.random.seed(seed)
         torch.set_num_threads(1)
         torch.use_deterministic_algorithms(True)
-        cache_key = (str(checkpoint), str(source), checkpoint_sha, current_source_sha)
         model = _MODEL_CACHE.get(cache_key)
         if model is None:
             model = model_module.Model()
