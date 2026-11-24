@@ -17,6 +17,8 @@
 
 环境安装见 [LINUX.md](LINUX.md)。在项目根目录执行：
 
+神经网络计算默认优先使用 CUDA，CPU 张量线程默认最多 8 个；需要安装匹配的 CUDA PyTorch/PyG。可显式指定 `DEVICE=cuda THREADS=8`，启动日志会显示实际设备。原生 FAN 求解使用 CPU。
+
 ```bash
 PYTHON=python bash scripts/setup_fan_linux.sh
 PYTHON=python bash scripts/prepare_fan_linux.sh
@@ -35,6 +37,8 @@ PowerShell 的 `run_fan_workflow.ps1` 默认也只执行1024张训练集的一�
 
 ```bash
 PYTHON=python bash scripts/test_fan_linux.sh runs/fan_train_once/final.pt
+# 显式使用 GPU、8 个 CPU 张量线程
+DEVICE=cuda THREADS=8 PYTHON=python bash scripts/test_fan_linux.sh runs/fan_train_once/final.pt
 # 自定义测试目录、输出目录、MDT工艺库
 PYTHON=python bash scripts/test_fan_linux.sh runs/fan_train_once/final.pt /data/test_v runs/custom_test /data/cells.mdt
 ```

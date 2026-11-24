@@ -22,7 +22,40 @@ python -m pip install 'torch-scatter==2.0.9' 'torch-sparse==0.6.13' --only-binar
 python -m pip install 'torch-geometric==2.1.0'
 ```
 
-系统需要 C++14 编译器与 Python.h。其他 PyTorch 环境需安装匹配版本的 PyG 扩展。当前特征推理和 PPO 使用 CPU。常规扩展构建不要求安装 flex/bison；若重建解析器才需要它们。
+系统需要 C++14 编译器与 Python.h。其他 PyTorch 环境需安装匹配版本的 PyG 扩展。特征提取、策略推理和 PPO 默认自动选择 CUDA，无可用 CUDA 时使用 CPU；原生 FAN 求解仍使用 CPU。常规扩展构建不要求安装 flex/bison；若重建解析器才需要它们。
+
+### GPU 与 CPU 线程
+
+上面的 `+cpu` 安装命令仅供 CPU 环境使用。GPU 环境需安装 CUDA 版本的 PyTorch，且 PyG 的 `torch-scatter`、`torch-sparse` 必须匹配 PyTorch/CUDA 版本。安装组合以 [PyTorch 官方选择器](https://pytorch.org/get-started/locally/) 和 [PyG 官方安装说明](https://pytorch-geometric.readthedocs.io/en/latest/install/installation.html) 为准。
+
+若继续使用已有的 Python 3.9 / PyTorch 1.11.0 checkpoint，可按 [PyTorch 历史版本说明](https://pytorch.org/get-started/previous-versions/#v1110) 选择同版本 CUDA wheel；以下是 CUDA 11.3 示例，显卡与驱动需支持该组合：
+
+```bash
+python -m pip install --upgrade 'torch==1.11.0+cu113' --extra-index-url https://download.pytorch.org/whl/cu113
+python -m pip install --force-reinstall --no-deps 'torch-scatter==2.0.9' 'torch-sparse==0.6.13' --only-binary=:all: --no-index -f https://data.pyg.org/whl/torch-1.11.0+cu113.html
+python -c "import torch; print(torch.__version__, torch.version.cuda, torch.cuda.is_available()); assert torch.cuda.is_available(); print(torch.cuda.get_device_name(0))"
+```
+
+新显卡可能需要更新的 CUDA/PyTorch；参考上述官方支持矩阵。不同 PyTorch 发布版本的旧 checkpoint 仍会被拒绝，同一版本的 `+cpu` 与 `+cu...` 可互读。改变设备或线程数不保证与原运行逐位一致。
+
+脚本无需改动原位置参数，增加环境变量即可：
+
+```bash
+# 特征准备、训练、测试均可指定设备和 CPU 张量线程
+DEVICE=cuda THREADS=8 PYTHON=python bash scripts/prepare_fan_linux.sh
+DEVICE=cuda THREADS=8 PYTHON=python bash scripts/train_fan_linux.sh runs/fan_train_once 1
+DEVICE=cuda THREADS=8 PYTHON=python bash scripts/test_fan_linux.sh runs/fan_train_once/final.pt
+# 续训也可以从 CPU 切换到 GPU
+python -m fault_order_rl train --resume runs/fan_train_once/latest.pt --device cuda --threads 8
+```
+
+`DEVICE` 默认 `auto`，也可用 `cpu`、`cuda:1`；显式指定 CUDA 而不可用时直接报错。新训练和测试的 `THREADS` 默认取进程可用 CPU 数，最多 8 个；续训未显式指定时保留 checkpoint 的线程数。它控制 PyTorch CPU 张量计算，不表示 FAN 单个会话多线程求解。启动会打印 `[RUNTIME] configured device=cuda:0 threads=8 gpu=...`，便于核对实际设备。
+
+测试或 rollout 对全部剩余故障评分，默认每块最多 16384 行，所有块共享完整剩余集合的上下文；通过 `INFERENCE_CHUNK_SIZE=8192` 或 Python 参数 `--inference-chunk-size 8192` 可进一步降低评分的临时显存。该参数不限制故障候选数，也不改变 PPO 的 128 决策 minibatch。PPO 反向传播仍需保存每个 minibatch 的训练激活，因此训练显存需求与测试不同。
+
+已有特征缓存直接复用，无需重新编码。CUDA 图聚合可能存在浮点归约差异，导出的 provenance 会记录实际设备；如需严格使用 CPU 生成特征而用 GPU 运行策略，可指定 `DEVICE=cuda FEATURE_DEVICE=cpu THREADS=8`。直接 Python 测试命令对应 `--device cuda --feature-device cpu --threads 8`。
+
+`[POLICY] step timing` 和 `episode timing` 分别记录特征构造、网络前向、FAN 会话步骤（含 DTC 回调排序）、策略统计和 STC 耗时；`[EXPORT]` 记录排序导出准备。`[PPO] minibatch done` 显示优化进度。首次特征导出与原生基线仍可能耗时较长。
 
 ## 只训练一次
 

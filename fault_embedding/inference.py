@@ -5,6 +5,7 @@ import importlib
 from pathlib import Path
 import random
 import sys
+import threading
 import types
 
 import numpy as np
@@ -17,6 +18,23 @@ OFFICIAL_REVISION = "173db7529cefc97f7b9b2b3fa97ec1bd5773754d"
 OFFICIAL_CHECKPOINT_SHA256 = "9bc4a0c1f8fc57cc3aa0498dd8737af561ca71c26ca5332288d12a91a308f4d5"
 OFFICIAL_SOURCE_SHA256 = "b88833d4bf6979909e33f92b76fb0101e66a6dcdc12ec3b539d0b4a3fa19312c"
 _MODEL_CACHE = {}
+_INFERENCE_LOCK = threading.RLock()
+
+
+def _cpu_structure_init(original):
+    """Adapt upstream CPU structure initialization to a CUDA graph.
+
+    Pinned DeepGate2 constructs hs on CPU before moving it to the model device.
+    Its NumPy orthogonal-vector initializer therefore also needs CPU indices.
+    Keep the original initializer and inputs; only move its index metadata.
+    """
+    def initialize(graph, hs, dimension):
+        metadata = types.SimpleNamespace(
+            batch=None if graph.batch is None else graph.batch.cpu(),
+            forward_level=graph.forward_level.cpu(),
+            forward_index=graph.forward_index.cpu())
+        return original(metadata, hs.cpu(), dimension)
+    return initialize
 
 
 def source_digest(source):
@@ -68,7 +86,14 @@ def _active_pyg_generated_modules(source_package, cache_key):
     return trusted
 
 
-def infer_gate_embeddings(graph, checkpoint=DEFAULT_CHECKPOINT, source=DEFAULT_SOURCE, seed=0):
+def infer_gate_embeddings(graph, checkpoint=DEFAULT_CHECKPOINT, source=DEFAULT_SOURCE,
+                          seed=0, device="auto", threads=None):
+    # Module cache and the upstream CPU-initializer adapter are process-global.
+    with _INFERENCE_LOCK:
+        return _infer_gate_embeddings(graph, checkpoint, source, seed, device, threads)
+
+
+def _infer_gate_embeddings(graph, checkpoint, source, seed, device, threads):
     checkpoint, source = Path(checkpoint).resolve(), Path(source).resolve()
     if not checkpoint.is_file():
         raise ValueError(f"Pretrained checkpoint not found: {checkpoint}")
@@ -82,12 +107,20 @@ def infer_gate_embeddings(graph, checkpoint=DEFAULT_CHECKPOINT, source=DEFAULT_S
     current_source_sha = source_digest(source)
     if current_source_sha != OFFICIAL_SOURCE_SHA256:
         raise ValueError("DeepGate2 source does not match the pinned official revision")
-    cache_key = (str(checkpoint), str(source), checkpoint_sha, current_source_sha)
     try:
         import torch
         from torch_geometric.data import Data
+        from fault_order_rl.runtime import resolve_device, default_threads
+        selected = resolve_device(device)
+        thread_count = default_threads() if threads is None else threads
+        if isinstance(thread_count, bool) or not isinstance(thread_count, int) or thread_count <= 0:
+            raise ValueError("threads must be a positive integer")
+        cache_key = (str(checkpoint), str(source), checkpoint_sha, current_source_sha, str(selected))
         source_package = (source / "deepgate").resolve()
-        generated_modules = _active_pyg_generated_modules(source_package, cache_key)
+        generated_modules = {}
+        # PyG helper classes are shared by cached CPU/CUDA model instances.
+        for existing_key in _MODEL_CACHE:
+            generated_modules.update(_active_pyg_generated_modules(source_package, existing_key))
         for name, module in list(sys.modules.items()):
             if name == "deepgate" or name.startswith("deepgate."):
                 if name in generated_modules and generated_modules[name] is module:
@@ -127,14 +160,20 @@ def infer_gate_embeddings(graph, checkpoint=DEFAULT_CHECKPOINT, source=DEFAULT_S
         ) from exc
     python_state, numpy_state = random.getstate(), np.random.get_state()
     torch_state = torch.random.get_rng_state()
+    cuda_state = torch.cuda.get_rng_state_all() if torch.cuda.is_available() else None
     old_threads = torch.get_num_threads()
     old_deterministic = torch.are_deterministic_algorithms_enabled()
+    old_warn_only = (torch.is_deterministic_algorithms_warn_only_enabled()
+                     if hasattr(torch, "is_deterministic_algorithms_warn_only_enabled") else False)
+    original_init = model_module.generate_hs_init
     try:
         torch.manual_seed(seed)
         random.seed(seed)
         np.random.seed(seed)
-        torch.set_num_threads(1)
-        torch.use_deterministic_algorithms(True)
+        torch.set_num_threads(thread_count)
+        # CUDA graph scatter reductions may not have a deterministic kernel.
+        # CPU extraction retains strict determinism; GPU provenance records it.
+        torch.use_deterministic_algorithms(True, warn_only=selected.type == "cuda")
         model = _MODEL_CACHE.get(cache_key)
         if model is None:
             model = model_module.Model()
@@ -153,7 +192,7 @@ def infer_gate_embeddings(graph, checkpoint=DEFAULT_CHECKPOINT, source=DEFAULT_S
                     raise ValueError(f"Duplicate checkpoint parameter {key}")
                 state[key] = tensor
             model.load_state_dict(state, strict=True)
-            model.eval()
+            model.to(selected).eval()
             _MODEL_CACHE[cache_key] = model
         kinds = {"INPUT": 0, "AND": 1, "NOT": 2}
         nodes = graph["nodes"]
@@ -169,14 +208,20 @@ def infer_gate_embeddings(graph, checkpoint=DEFAULT_CHECKPOINT, source=DEFAULT_S
                     backward_level=torch.tensor(backward),
                     forward_index=torch.arange(len(nodes)), backward_index=torch.arange(len(nodes)),
                     num_nodes=len(nodes))
+        if selected.type == "cuda":
+            model_module.generate_hs_init = _cpu_structure_init(original_init)
+            data = data.to(selected)
         with torch.inference_mode():
             hs, hf = model(data)
     finally:
+        model_module.generate_hs_init = original_init
         random.setstate(python_state)
         np.random.set_state(numpy_state)
         torch.random.set_rng_state(torch_state)
+        if cuda_state is not None:
+            torch.cuda.set_rng_state_all(cuda_state)
         torch.set_num_threads(old_threads)
-        torch.use_deterministic_algorithms(old_deterministic)
+        torch.use_deterministic_algorithms(old_deterministic, warn_only=old_warn_only)
     arrays = {"hs": hs.cpu().numpy(), "hf": hf.cpu().numpy()}
     for name, array in arrays.items():
         if array.shape != (len(nodes), model.dim_hidden) or not np.isfinite(array).all():
@@ -186,6 +231,7 @@ def infer_gate_embeddings(graph, checkpoint=DEFAULT_CHECKPOINT, source=DEFAULT_S
                   "is_known_official_checkpoint": True,
                   "source_path": str(source), "source_sha256": current_source_sha,
                   "downloaded_source_revision": OFFICIAL_REVISION,
-                  "seed": seed, "device": "cpu", "torch_version": str(torch.__version__),
+                  "seed": seed, "device": str(selected), "torch_version": str(torch.__version__),
+                  "deterministic_reductions": selected.type == "cpu",
                   "numpy_version": np.__version__}
     return arrays, provenance

@@ -14,6 +14,9 @@ header = os.path.join(sysconfig.get_path('include'), 'Python.h')
 assert os.path.isfile(header), 'Missing Python development header: ' + header
 print('Python:', sys.executable)
 print('PyTorch:', torch.__version__)
+print('CUDA build:', torch.version.cuda, 'CUDA available:', torch.cuda.is_available())
+if torch.cuda.is_available():
+    print('GPU:', torch.cuda.get_device_name(0))
 PY
 "$python_bin" FAN_ATPG/setup.py build_ext --inplace
 "$python_bin" - <<'PY'

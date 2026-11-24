@@ -39,7 +39,7 @@ def discover_test_manifest(directory=DEFAULT_TEST_DIR, library=DEFAULT_LIBRARY,
     output.write_text(json.dumps(value,indent=2)+'\n',encoding='utf-8')
     return output
 
-def prepare_test_features(manifest):
+def prepare_test_features(manifest, device="auto", threads=None):
     from .data import load_manifest,load_circuit_data
     from .environment import load_cpp_fan
     from scripts.prepare_fan_data import export
@@ -49,5 +49,5 @@ def prepare_test_features(manifest):
         path,library=str(spec.netlist_path),str(spec.library_path)
         graph=native.circuit_graph(path,library)
         catalog=native.catalog_stuck_at(path,library)
-        export(spec,catalog,graph)
+        export(spec,catalog,graph,device=device,threads=threads)
         load_circuit_data(spec,catalog,graph)

@@ -84,13 +84,15 @@ def _conditional_prefix_stats(logits, available_rows, executed_rows):
     log_probs = []
     raw_entropies = []
     normalized_entropies = []
-    row_to_logit = {
-        int(row): logits[index] for index, row in enumerate(available_rows.tolist())
-    }
+    # Keep index metadata as Python integers. Constructing one scalar tensor per
+    # remaining fault is especially expensive for large CUDA-backed policies.
+    row_to_position = {row: index for index, row in enumerate(available)}
     for selected in executed:
         if selected not in available:
             raise ValueError("executed row is not available in its action mask")
-        conditional_logits = torch.stack([row_to_logit[row] for row in available])
+        positions = torch.tensor([row_to_position[row] for row in available],
+                                 device=logits.device, dtype=torch.long)
+        conditional_logits = logits[positions]
         conditional_log_probs = torch.log_softmax(conditional_logits, dim=0)
         conditional_probs = torch.exp(conditional_log_probs)
         selected_position = available.index(selected)

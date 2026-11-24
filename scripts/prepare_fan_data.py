@@ -21,7 +21,7 @@ def write_json(path, value):
     path.write_text(json.dumps(value, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
 
 
-def export(spec, catalog, native_circuit, seed=0):
+def export(spec, catalog, native_circuit, seed=0, device="auto", threads=None):
     target, stem = spec.embeddings_path.parent, spec.netlist_path.stem
     expected = {'graph': target / (stem + '.graph.json'), 'meta': target / (stem + '.faults.json'),
                 'emb': target / (stem + '.fault_embeddings.npz'), 'gates': target / (stem + '.gates.npz')}
@@ -41,7 +41,8 @@ def export(spec, catalog, native_circuit, seed=0):
         verify_native_equivalence(native_circuit, graph)
         write_json(paths['graph'], graph)
         faults = resolve_fan_faults(catalog, native_circuit, graph)
-        arrays, provenance = infer_gate_embeddings(graph, DEFAULT_CHECKPOINT, DEFAULT_SOURCE, seed)
+        arrays, provenance = infer_gate_embeddings(
+            graph, DEFAULT_CHECKPOINT, DEFAULT_SOURCE, seed, device=device, threads=threads)
         features = compose_original_fault_embeddings(arrays['hf'], faults)
         layout = {'gate_feature': 'hf', 'gate_dimension': 128, 'fault_dimension': 257,
                   'columns': ['gate_hf', 'connected_hf', 'sa_value'],
@@ -82,7 +83,11 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--manifest', type=Path, required=True)
     parser.add_argument('--seed', type=int, default=0)
+    parser.add_argument('--device', default='auto')
+    parser.add_argument('--threads', type=int)
     args = parser.parse_args()
+    from fault_order_rl.runtime import configure_runtime
+    configure_runtime(args.device, args.threads)
     from fault_order_rl.data import load_manifest, load_circuit_data
     manifest = load_manifest(args.manifest)
     sys.path.insert(0, str(manifest.module_dir))
@@ -90,7 +95,7 @@ def main():
     for spec in manifest.circuits:
         catalog = dict(native.catalog_stuck_at(str(spec.netlist_path), str(spec.library_path)))
         circuit = dict(native.circuit_graph(str(spec.netlist_path), str(spec.library_path)))
-        export(spec, catalog, circuit, args.seed)
+        export(spec, catalog, circuit, args.seed, device=args.device, threads=args.threads)
         load_circuit_data(spec, catalog, circuit)
 
 

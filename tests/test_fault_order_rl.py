@@ -854,7 +854,7 @@ def test_rollout_batch_checkpoint_resume_validation_best_and_final(
         output / "latest.pt", environment=train_env)
     assert resumed.next_circuit_index == 0
     assert resumed._round_circuit_indices(1) == round_order
-    assert all(torch.equal(initial_parameters[key], resumed.model.state_dict()[key])
+    assert all(torch.equal(initial_parameters[key], resumed.model.state_dict()[key].cpu())
                for key in initial_parameters)
     train_env.fail_once.add(ordered_names[4])
     with pytest.raises(RuntimeError, match="injected"):

@@ -1,4 +1,4 @@
-"""Atomic local checkpoints and CPU random-state restoration."""
+"""Atomic local checkpoints and CPU/CUDA random-state restoration."""
 
 import inspect
 import json
@@ -12,14 +12,20 @@ import torch
 
 
 def capture_rng():
-    return {"python": random.getstate(), "numpy": np.random.get_state(),
-            "torch": torch.get_rng_state()}
+    state = {"python": random.getstate(), "numpy": np.random.get_state(),
+             "torch": torch.get_rng_state()}
+    if torch.cuda.is_available():
+        state["cuda"] = torch.cuda.get_rng_state_all()
+    return state
 
 
 def restore_rng(state):
     random.setstate(state["python"])
     np.random.set_state(state["numpy"])
     torch.set_rng_state(state["torch"])
+    if "cuda" in state and torch.cuda.is_available():
+        for index, rng in enumerate(state["cuda"][:torch.cuda.device_count()]):
+            torch.cuda.set_rng_state(rng, index)
 
 
 def atomic_write(path, writer):

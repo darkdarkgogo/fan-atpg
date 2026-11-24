@@ -2,7 +2,7 @@
 
 import copy
 import csv
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, field
 import io
 import json
 import math
@@ -18,12 +18,13 @@ from .checkpoint import (atomic_write, capture_rng, load_checkpoint, restore_rng
                          save_checkpoint, write_json, write_npz)
 from .data import _sha256, load_all_circuits, load_manifest
 from .environment import PROTOCOL_CONFIG, FanEnvironment
-from .model import FaultActorCritic, build_dynamic_features
+from .model import FaultActorCritic, build_dynamic_features, score_remaining
 from .policy import (joint_action_stats, joint_action_stats_from_scores,
                      sample_candidate_ranking, sample_primary)
 from .progress import progress, sample_progress
 from .reward import (compute_gae, normalize_advantages, ppo_objective,
                      step_reward, target_return, terminal_correction)
+from .runtime import configure_runtime, default_threads, same_torch_release
 
 
 POLICY_IDENTITY = "fan_verilog_dynamic_bfs_ranked_dtc_actor_critic_ppo_v2"
@@ -57,12 +58,14 @@ class TrainConfig:
     temperature: float = 1.0
     seed: int = 14
     backtrack_limit: int = 100
-    threads: int = 1
+    threads: int = field(default_factory=default_threads)
+    device: str = "auto"
+    inference_chunk_size: int = 16384
 
     def validate(self):
         for key in (
                 "rounds", "circuit_batch_size", "ppo_minibatch_size",
-                "ppo_epochs", "backtrack_limit", "threads"):
+                "ppo_epochs", "backtrack_limit", "threads", "inference_chunk_size"):
             value = getattr(self, key)
             if isinstance(value, bool) or not isinstance(value, int) or value <= 0:
                 raise ValueError(key + " must be a positive integer")
@@ -193,6 +196,7 @@ class Trainer:
     def __init__(self, manifest, config, output, environment=None):
         config.validate()
         self.config = config
+        self.device = configure_runtime(config.device, config.threads)
         self.manifest = load_manifest(manifest)
         self.environment = environment or FanEnvironment(
             self.manifest.module_dir, config.backtrack_limit, 14)
@@ -202,9 +206,8 @@ class Trainer:
 
         module_path = getattr(getattr(self.environment, "module", None), "__file__", None)
         self.solver_digest = _sha256(module_path) if module_path else None
-        torch.set_num_threads(config.threads)
         torch.use_deterministic_algorithms(True)
-        self.model = FaultActorCritic()
+        self.model = FaultActorCritic().to(self.device)
         self.optimizer = self._optimizer(self.model)
         self.round = 0
         self.next_circuit_index = 0
@@ -256,7 +259,8 @@ class Trainer:
         return self
 
     @classmethod
-    def resume(cls, checkpoint, rounds=None, environment=None):
+    def resume(cls, checkpoint, rounds=None, environment=None, *, device="auto",
+               threads=None, inference_chunk_size=16384):
         checkpoint = Path(checkpoint).resolve()
         saved = load_checkpoint(checkpoint)
         if saved.get("kind") != "latest":
@@ -266,6 +270,10 @@ class Trainer:
                 "resume requires schema 10 train-only FAN training; "
                 "older checkpoints remain evaluation-only")
         config = TrainConfig(**saved["config"])
+        config.device = device
+        if threads is not None:
+            config.threads = threads
+        config.inference_chunk_size = inference_chunk_size
         if rounds is not None:
             if rounds != config.rounds:
                 raise ValueError("resume cannot change the saved round target")
@@ -299,7 +307,7 @@ class Trainer:
              "checkpoint training circuit order changed"),
             (saved["solver_digest"], self.solver_digest,
              "checkpoint FAN binary changed"),
-            (saved["torch_version"], str(torch.__version__),
+            (same_torch_release(saved["torch_version"]), True,
              "checkpoint PyTorch version changed"),
             (saved.get("policy"), POLICY_IDENTITY,
              "checkpoint policy identity changed"),
@@ -382,6 +390,8 @@ class Trainer:
         previous_patterns = 0
         decisions, trace = [], []
         step_number = 0
+        embeddings = circuit.embeddings.to(next(model.parameters()).device)
+        totals = dict(features_s=0.0, forward_s=0.0, fan_s=0.0, bookkeeping_s=0.0)
         while session.remaining_fault_ids:
             step_number += 1
             try:
@@ -390,8 +400,18 @@ class Trainer:
             except KeyError as exc:
                 raise RuntimeError(
                     "FAN remaining fault is absent from embeddings") from exc
-            features = build_dynamic_features(circuit.embeddings, rows)
-            scores, value = model(features)
+            sampled = sample_progress(step_number, 5, 100)
+            if sampled:
+                progress("POLICY", "score start", circuit=circuit.name,
+                         step=step_number, selectable=len(rows), device=embeddings.device)
+            timing = {}
+            scores, value = score_remaining(
+                model, embeddings, rows, self.config.inference_chunk_size, timing)
+            # One score transfer per step; Python callbacks and bookkeeping use
+            # CPU tensors instead of synchronizing CUDA once per fault.
+            scores, value = scores.cpu(), value.cpu()
+            bookkeeping_started = time.perf_counter()
+            row_positions = {row: index for index, row in enumerate(rows)}
             primary_row = int(sample_primary(
                 scores, rows, temperature, stochastic))
             primary_id = circuit.fault_ids[primary_row]
@@ -403,14 +423,16 @@ class Trainer:
                     raise RuntimeError(
                         "FAN DTC candidate is absent from embeddings") from exc
                 if (primary_row in candidate_rows
-                        or not set(candidate_rows) <= set(rows) - {primary_row}):
+                        or any(row not in row_positions for row in candidate_rows)):
                     raise RuntimeError(
                         "FAN DTC candidate is outside the step-start remaining set")
+                candidate_scores = scores[torch.tensor(
+                    [row_positions[row] for row in candidate_rows], dtype=torch.long)]
                 ranking = sample_candidate_ranking(
-                    scores, rows, candidate_rows, temperature, stochastic)
+                    candidate_scores, candidate_rows, candidate_rows, temperature, stochastic)
                 return tuple(circuit.fault_ids[int(row)]
                              for row in ranking.tolist())
-            sampled = sample_progress(step_number, 5, 100)
+            timing["bookkeeping_s"] = time.perf_counter() - bookkeeping_started
             if sampled:
                 progress(
                     "ATPG", "step start", circuit=circuit.name, mode="policy",
@@ -419,12 +441,14 @@ class Trainer:
                 )
             step_started = time.perf_counter()
             step = session.step(primary_id, rank_batch)
+            timing["fan_s"] = time.perf_counter() - step_started
             if sampled:
                 progress(
                     "ATPG", "step done", circuit=circuit.name, mode="policy",
                     step=step_number, remaining=len(session.remaining_fault_ids),
                     elapsed_s="{:.3f}".format(time.perf_counter() - step_started),
                 )
+            bookkeeping_started = time.perf_counter()
             dtc_batches = tuple({
                 "unknown_po_id": batch["unknown_po_id"],
                 "bfs_candidate_rows": tuple(
@@ -490,6 +514,12 @@ class Trainer:
                 "current_pattern_count": step["current_pattern_count"],
             })
             previous_patterns = step["current_pattern_count"]
+            timing["bookkeeping_s"] += time.perf_counter() - bookkeeping_started
+            for key in totals:
+                totals[key] += timing[key]
+            if sampled:
+                progress("POLICY", "step timing", circuit=circuit.name,
+                         step=step_number, **{key: "{:.3f}".format(val) for key, val in timing.items()})
         finalize_started = time.perf_counter()
         progress("STC", "finalize start", circuit=circuit.name, mode="policy")
         result = session.finish()
@@ -499,6 +529,9 @@ class Trainer:
             elapsed_s="{:.3f}".format(time.perf_counter() - finalize_started),
         )
         self._check_result(circuit, result)
+        progress("POLICY", "episode timing", circuit=circuit.name,
+                 steps=step_number, stc_s="{:.3f}".format(time.perf_counter() - finalize_started),
+                 **{key: "{:.3f}".format(val) for key, val in totals.items()})
         return result, time.perf_counter() - start, decisions, trace
 
     def _finish_trajectory(self, circuit, metrics, decisions, baseline):
@@ -527,6 +560,7 @@ class Trainer:
         }
 
     def _ppo_update(self, model, optimizer, rollouts):
+        device = next(model.parameters()).device
         samples = [
             (rollout["circuit"], decision)
             for rollout in rollouts
@@ -536,12 +570,12 @@ class Trainer:
             raise ValueError("rollout batch must contain at least one transition")
         old_log_probs = torch.tensor(
             [decision["old_log_prob"] for _, decision in samples],
-            dtype=torch.float32)
+            dtype=torch.float32, device=device)
         returns = torch.tensor(
-            [decision["return"] for _, decision in samples], dtype=torch.float32)
+            [decision["return"] for _, decision in samples], dtype=torch.float32, device=device)
         advantages = normalize_advantages(torch.tensor(
             [decision["advantage"] for _, decision in samples],
-            dtype=torch.float32))
+            dtype=torch.float32, device=device))
         transition_count = len(samples)
         minibatch_count = (
             transition_count + self.config.ppo_minibatch_size - 1
@@ -557,11 +591,14 @@ class Trainer:
                     start:start + self.config.ppo_minibatch_size]
                 new_log_probs, raw_entropies = [], []
                 normalized_entropies, values = [], []
+                active_embeddings = {}
                 for index in indices.tolist():
                     circuit, decision = samples[index]
+                    if circuit.name not in active_embeddings:
+                        active_embeddings[circuit.name] = circuit.embeddings.to(device)
                     (log_prob, entropy_raw,
                      entropy_normalized, value) = joint_action_stats(
-                        model, circuit.embeddings, decision["remaining_rows"],
+                        model, active_embeddings[circuit.name], decision["remaining_rows"],
                         decision["primary_row"], decision["dtc_batches"],
                         self.config.temperature)
                     new_log_probs.append(log_prob)
@@ -599,6 +636,9 @@ class Trainer:
                     **{key: float(value.detach())
                        for key, value in details.items()},
                 })
+                progress("PPO", "minibatch done", epoch=epoch + 1,
+                         minibatch=len(minibatches), minibatches=minibatch_count,
+                         device=device)
             epochs.append({"epoch": epoch + 1, "minibatches": minibatches})
         all_minibatches = [
             minibatch
@@ -644,13 +684,19 @@ class Trainer:
                 metrics = dict(metrics, seconds=elapsed)
                 results[circuit.name] = metrics
                 first_rows = tuple(range(circuit.fault_count))
-                scores, _ = model(build_dynamic_features(
-                    circuit.embeddings, first_rows))
+                export_started = time.perf_counter()
+                progress("EXPORT", "ranking start", circuit=circuit.name)
+                scores, _ = score_remaining(
+                    model, circuit.embeddings.to(next(model.parameters()).device),
+                    first_rows, self.config.inference_chunk_size)
+                scores = scores.cpu()
                 order = sample_candidate_ranking(
                     scores, first_rows, first_rows, self.config.temperature,
                     False).detach().cpu().numpy()
                 exports[circuit.name] = _evaluation_export(
                     circuit, scores, order, decisions, trace, metrics)
+                progress("EXPORT", "ranking done", circuit=circuit.name,
+                         elapsed_s="{:.3f}".format(time.perf_counter() - export_started))
         report = {
             "round": round_number,
             "circuits": results,
@@ -1006,7 +1052,9 @@ def _complete_report(report, checkpoint, native_metrics, states, checkpoint_kind
 
 
 def _write_evaluation(output, report, exports):
+    started = time.perf_counter()
     output = Path(output)
+    progress("EXPORT", "report start", output=output)
     for name, arrays in exports.items():
         arrays = dict(arrays)
         trajectory = arrays.pop("_trajectory", [])
@@ -1037,16 +1085,21 @@ def _write_evaluation(output, report, exports):
     atomic_write(output / "comparison_by_circuit.csv",
                  lambda destination: destination.write(encoded))
     write_json(output / "summary.json", report)
+    progress("EXPORT", "report done", output=output,
+             elapsed_s="{:.3f}".format(time.perf_counter() - started))
 
 
-def _standalone_evaluator(saved, output, manifest, environment):
+def _standalone_evaluator(saved, output, manifest, environment, *, device="auto",
+                          threads=None, inference_chunk_size=16384):
     config_values = dict(saved["config"])
+    config_values.update(device=device, threads=default_threads() if threads is None else threads,
+                         inference_chunk_size=inference_chunk_size)
     trainer = Trainer(
         manifest, TrainConfig(**config_values), output, environment,
         )
     if saved["solver_digest"] != trainer.solver_digest:
         raise ValueError("checkpoint FAN binary changed")
-    if saved["torch_version"] != str(torch.__version__):
+    if not same_torch_release(saved["torch_version"]):
         raise ValueError("checkpoint PyTorch version changed")
     if saved.get("policy") != POLICY_IDENTITY:
         raise ValueError("checkpoint policy identity changed")
@@ -1056,7 +1109,8 @@ def _standalone_evaluator(saved, output, manifest, environment):
     return trainer
 
 
-def evaluate_checkpoint(checkpoint, output, environment=None, manifest=None):
+def evaluate_checkpoint(checkpoint, output, environment=None, manifest=None, *,
+                        device="auto", threads=None, inference_chunk_size=16384):
     """Independent testing, with no saved test identity or model selection."""
     checkpoint = Path(checkpoint).resolve()
     saved = load_checkpoint(checkpoint)
@@ -1066,13 +1120,14 @@ def evaluate_checkpoint(checkpoint, output, environment=None, manifest=None):
     if manifest is None:
         from .testing import discover_test_manifest, prepare_test_features
         evaluation_manifest = discover_test_manifest(output=Path(output)/"test_manifest.json")
-        prepare_test_features(evaluation_manifest)
+        prepare_test_features(evaluation_manifest, device=device, threads=threads)
     else:
         evaluation_manifest = Path(manifest).resolve()
     rng = capture_rng()
     try:
         trainer = _standalone_evaluator(
-            saved, output, evaluation_manifest, environment)
+            saved, output, evaluation_manifest, environment, device=device,
+            threads=threads, inference_chunk_size=inference_chunk_size)
         native_metrics = {}
         states = {}
         for circuit in trainer.circuits:

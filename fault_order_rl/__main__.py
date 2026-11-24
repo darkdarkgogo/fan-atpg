@@ -11,6 +11,7 @@ from .trainer import (TrainConfig, Trainer,
                       evaluate_checkpoint)
 from .testing import (DEFAULT_TEST_DIR, DEFAULT_LIBRARY, discover_test_manifest,
                       prepare_test_features)
+from .runtime import configure_runtime, default_threads
 
 
 def _print_evaluation_by_circuit(report):
@@ -68,6 +69,15 @@ def main(argv=None):
     evaluate.add_argument("--output", type=Path)
     evaluate.add_argument("--test-dir",type=Path,default=DEFAULT_TEST_DIR)
     evaluate.add_argument("--library",type=Path,default=DEFAULT_LIBRARY)
+    for command in (train, evaluate):
+        command.add_argument('--device', default='auto',
+                             help='Neural compute device: auto, cpu, cuda or cuda:N')
+        command.add_argument('--threads', type=int, default=None,
+                             help='CPU tensor threads (default: up to 8 available cores)')
+        command.add_argument('--inference-chunk-size', type=int, default=16384,
+                             help='Maximum faults per rollout/evaluation scoring chunk')
+    evaluate.add_argument('--feature-device', default=None,
+                          help='Optional separate DeepGate2 device (default: --device)')
     args = parser.parse_args(argv)
     try:
         if args.command == "validate":
@@ -78,18 +88,25 @@ def main(argv=None):
             if args.resume:
                 if args.output is not None:
                     raise ValueError("resume preserves the saved output and fixed configuration")
-                trainer = Trainer.resume(args.resume, rounds=args.rounds)
+                trainer = Trainer.resume(args.resume, rounds=args.rounds,
+                                         device=args.device, threads=args.threads,
+                                         inference_chunk_size=args.inference_chunk_size)
             else:
                 if args.output is None:
                     raise ValueError("new training requires --output")
                 trainer = Trainer.create(
-                    args.manifest, TrainConfig(rounds=1 if args.rounds is None else args.rounds), args.output)
+                    args.manifest, TrainConfig(
+                        rounds=1 if args.rounds is None else args.rounds,
+                        device=args.device, threads=default_threads() if args.threads is None else args.threads,
+                        inference_chunk_size=args.inference_chunk_size), args.output)
             report = trainer.train()
             print(json.dumps({"checkpoint_kind": report["checkpoint_kind"],
                               "round": report["round"],
                               "model_evaluation_executed": False,
                               "training_patterns": report["totals"]["pattern_count"]}, indent=2))
         else:
+            # Fail an unavailable explicit CUDA request before costly feature work.
+            configure_runtime(args.device, args.threads)
             if args.output is not None:
                 output = args.output
             elif args.manifest is not None:
@@ -100,8 +117,11 @@ def main(argv=None):
             manifest=args.manifest
             if manifest is None:
                 manifest=discover_test_manifest(args.test_dir,args.library,Path(output)/"test_manifest.json")
-            prepare_test_features(manifest)
-            report = evaluate_checkpoint(args.checkpoint, output, manifest=manifest)
+            prepare_test_features(manifest, device=args.feature_device or args.device,
+                                  threads=args.threads)
+            report = evaluate_checkpoint(
+                args.checkpoint, output, manifest=manifest, device=args.device,
+                threads=args.threads, inference_chunk_size=args.inference_chunk_size)
             _print_evaluation_by_circuit(report)
     except KeyboardInterrupt:
         print("Interrupted; resume from the last committed latest.pt.", file=sys.stderr)
