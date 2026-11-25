@@ -5,7 +5,7 @@ import os
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
-DEFAULT_TEST_DIR=ROOT/'FAN_ATPG/netlist/test'
+DEFAULT_TEST_DIR=ROOT/'FAN_ATPG/netlist/iscas_test'
 DEFAULT_LIBRARY=ROOT/'FAN_ATPG/techlib/mod_nangate45.mdt'
 DEFAULT_TEST_MANIFEST=ROOT/'configs/fan_test.json'
 

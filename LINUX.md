@@ -88,7 +88,7 @@ PYTHON=python bash scripts/train_fan_linux.sh runs/fan_smoke 1 configs/fan_train
 PYTHON=python bash scripts/test_fan_linux.sh runs/fan_train_once/final.pt
 ```
 
-默认扫描 `FAN_ATPG/netlist/test/`。目前放入 b12/b14/b15/b17/b18/b19/b20/b21/b22；这不是固定白名单。把其他兼容 `.v/.sv` 网表放进去，再执行命令即可，脚本会重新发现文件并为新电路生成特征。
+默认扫描 `FAN_ATPG/netlist/iscas_test/`，包含 SmartATPG（DAC 2024）图 4 和表 1 所列 16 张整电路（ISCAS85 9 张、ISCAS89 全扫描 7 张）。把其他兼容 `.v/.sv` 网表放进去，再执行命令即可，脚本会重新发现文件并为新电路生成特征。若要单独测试 ITC99，向脚本传入 `FAN_ATPG/netlist/test` 作为第二个参数。
 
 ```bash
 # 自选测试目录/输出/MDT库
@@ -97,7 +97,7 @@ PYTHON=python bash scripts/test_fan_linux.sh runs/fan_train_once/final.pt /data/
 python -m fault_order_rl test --checkpoint runs/fan_train_once/final.pt --manifest /data/test.json --output runs/custom_test
 ```
 
-测试不依赖训练时的测试清单，不限制电路名字、数量，也不修改checkpoint。格式、MDT单元、故障目录与embedding的一致性仍检查。完整大电路测试和其首次特征生成需要额外时间及内存；b19有约18.6万原语门和108万功能故障。
+测试不依赖训练时的测试清单，不限制电路名字、数量，也不修改checkpoint。格式、MDT单元、故障目录与embedding的一致性仍检查。首次特征生成和较大电路的完整 ATPG 仍需要额外时间及内存。
 
 单独检查目录内所有网表能否被FAN读取/建图，不运行模型：
 

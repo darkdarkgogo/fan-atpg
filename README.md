@@ -8,7 +8,7 @@
 
 - 训练集：`configs/fan_train_full.json`，`datasets/verilog/full_train/` 内1024张组合子电路。ISCAS85 255张、ISCAS89 408张、ITC99 b17/b18/b19 子电路361张；由原 BENCH 离线转换到 `fan_primitives.mdt` 原语，不是 Nangate 综合训练集。
 - 小规模训练检查：`configs/fan_train.json`，一张 c432 子电路。
-- 测试目录：`FAN_ATPG/netlist/test/`。目前放入 b12、b14、b15、b17、b18、b19、b20、b21、b22 的 Nangate45 全扫描捕获网表。来源及规模见 [数据说明](datasets/itc99_nangate45/README.md)。
+- 默认测试目录为 `FAN_ATPG/netlist/iscas_test/`，采用 SmartATPG（DAC 2024）图 4 和表 1 中报告结果的 16 张电路（ISCAS85 9 张、ISCAS89 全扫描 7 张）。源 BENCH 文件名和 SHA-256 记录在网表中，FAN 建图和故障数见 [输入检查报告](validation/reports/test_inputs.json)。论文的 `s9234`、`s13207`、`s15850`、`s38584` 对应本地各自的 `.1` 扫描网表。[SmartATPG 论文](https://doi.org/10.1145/3649329.3656526)
 - 测试输入会在测试时重新扫描目录；名称和数量没有白名单。可加入任意符合当前结构化语法和 MDT 库的 `.v/.sv` 网表，或用 `--manifest` 指定各电路自己的库和特征路径。
 - `configs/fan_test.json` 是自动生成的目录快照，不是固定名单；增加文件后不需手工修改它。`configs/fan_test_smoke.json` 仅保留小规模接口检查示例。
 - 旧五张 `_C` 组合验证电路及其原语转换版本已经删除，旧验证 manifest 已移除。
@@ -47,11 +47,11 @@ PYTHON=python bash scripts/test_fan_linux.sh runs/fan_train_once/final.pt /data/
 
 ```bash
 python -m fault_order_rl test --checkpoint runs/fan_train_once/final.pt \
-  --test-dir FAN_ATPG/netlist/test --library FAN_ATPG/techlib/mod_nangate45.mdt \
+  --test-dir FAN_ATPG/netlist/iscas_test --library FAN_ATPG/techlib/mod_nangate45.mdt \
   --output runs/fan_test
 ```
 
-测试命令自动发现网表、准备或复用特征，然后在这些电路上比较原生 FAN 和最终模型。它只写测试报告、排序和向量，不更新模型，也不选择模型。`--manifest` 可替代目录发现。缓存按测试目录、库及源内容区分，允许不同目录的电路同名。新目录首次测试需要生成相应 DeepGate2 特征；b19 有约108万个功能故障，完整特征和 ATPG 测试的资源需求显著高于小电路。
+测试命令自动发现网表、准备或复用特征，然后在这些电路上比较原生 FAN 和最终模型。它只写测试报告、排序和向量，不更新模型，也不选择模型。`--manifest` 可替代目录发现。缓存按测试目录、库及源内容区分，允许不同目录的电路同名。首次测试需要生成相应 DeepGate2 特征。ISCAS89 网表沿用源数据已切开的全扫描单帧视图，扫描状态端口以普通输入和输出表示。转换把超过四输入的门拆为逻辑等价的小门，并为直通输入的输出端加缓冲。FAN 按转换后的网表统计故障。原 [ITC99 网表](datasets/itc99_nangate45/README.md) 可通过 `--test-dir FAN_ATPG/netlist/test` 单独测试。
 
 只检查输入格式和原生图/故障目录，不测试模型：
 

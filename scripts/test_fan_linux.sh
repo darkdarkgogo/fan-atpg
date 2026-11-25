@@ -4,7 +4,7 @@ repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$repo_root"
 python_bin="${PYTHON:-python3}"
 checkpoint="${1:?Usage: test_fan_linux.sh <final.pt> [test_dir] [output_dir] [library.mdt]}"
-test_dir="${2:-FAN_ATPG/netlist/test}"
+test_dir="${2:-FAN_ATPG/netlist/iscas_test}"
 output="${3:-runs/fan_test}"
 library="${4:-FAN_ATPG/techlib/mod_nangate45.mdt}"
 runtime_args=(--device "${DEVICE:-auto}" --inference-chunk-size "${INFERENCE_CHUNK_SIZE:-16384}")
